@@ -20,3 +20,18 @@ nugget_ingredients.each do |ing|
   ingredient = Ingredient.create(ing[0])
   RecipeIngredient.create(recipe_id: nuggets.id, ingredient_id: ingredient.id, amount: ing[1])
 end
+
+chicken_and_biscuits_ingredients = [
+  [{name: "Chicken Breast", value: 3.15}, 3],
+  [{name: "Broccoli", value: 1.95}, 2],
+  [{name: "Baby Carrots", value: 1.95}, 2],
+  [{name: "Cream of Chicken Soup", value: 3}, 1],
+  [{name: "Canned Biscuits", value: 1.30}, 1]
+]
+
+chicken_and_biscuits = Recipe.create(name: "Slow Cooker Chicken and Biscuits", instructions: "https://tasty.co/recipe/slow-cooker-chicken-biscuits", bulk: true)
+
+chicken_and_biscuits_ingredients.each do |ing|
+  ingredient = Ingredient.create(ing[0])
+  RecipeIngredient.create(recipe_id: chicken_and_biscuits.id, ingredient_id: ingredient.id, amount: ing[1])
+end
