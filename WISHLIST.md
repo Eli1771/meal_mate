@@ -1,1 +1,2 @@
 - add ingredient/recipe categories to avoid annoying repetition
+- work with Tasty API
