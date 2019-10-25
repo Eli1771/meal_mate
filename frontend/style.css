@@ -6,13 +6,16 @@
 
   height: 97vh;
   width: 97vw;
+  border: 2px solid #333;
   border-radius: 3vh;
+}
+
+#wrapper * {
+  font-family: sans-serif;
 }
 
 .function-pane {
   background: lightblue;
-  border: 3px solid #333;
-  border-radius: 3vh;
 }
 
 .function-pane div {
@@ -25,8 +28,8 @@
   grid-row-start: 1;
   grid-row-end: header-end;
 
-  background: white;
-  border: 3px solid #333;
+  background: #ffffff00;
+  border-right: 2px soid #333;
   border-radius: 3vh;
 }
 
@@ -35,6 +38,8 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: header-end;
+
+  border-bottom: 2px solid #333;
 }
 
 #bottom-left {
@@ -42,6 +47,8 @@
   grid-column-end: left-end;
   grid-row-start: body-start;
   grid-row-end: 3;
+
+  border-top: 2px solid #333;
 }
 
 #bottom-right {
@@ -49,4 +56,16 @@
   grid-column-end: 3;
   grid-row-start: body-start;
   grid-row-end: 3;
+
+  border-left: 2px solid #333;
+}
+
+table#meal-toggle-buttons {
+  width: 95%;
+  height: 93%;
+  border-collapse: collapse;
+}
+
+table#meal-toggle-buttons td {
+  border: 1px solid black;
 }
