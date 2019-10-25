@@ -4,6 +4,7 @@
   grid-template-rows: 22% [header-end body-start] auto;
   margin: auto;
 
+  background: lightblue;
   height: 97vh;
   width: 97vw;
   border: 2px solid #333;
@@ -14,8 +15,24 @@
   font-family: sans-serif;
 }
 
+h1 {
+  font-size: 3em;
+  position: relative;
+  top: 33%;
+  color: #333;
+  text-align: center;
+  background: #fff;
+  width: 83%;
+  margin: auto;
+  border-radius: 5vw;
+}
+
+.pane-title {
+  text-align: center;
+}
+
 .function-pane {
-  background: lightblue;
+  background: #ffffff00;
 }
 
 .function-pane div {
@@ -29,7 +46,6 @@
   grid-row-end: header-end;
 
   background: #ffffff00;
-  border-right: 2px soid #333;
   border-radius: 3vh;
 }
 
@@ -40,6 +56,7 @@
   grid-row-end: header-end;
 
   border-bottom: 2px solid #333;
+  border-left: 2px solid #333;
 }
 
 #bottom-left {
@@ -62,7 +79,7 @@
 
 table#meal-toggle-buttons {
   width: 95%;
-  height: 93%;
+  height: 60%;
   border-collapse: collapse;
 }
 
