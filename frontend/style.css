@@ -4,7 +4,7 @@
   grid-template-rows: 22% [header-end body-start] auto;
   margin: auto;
 
-  background: lightblue;
+  background: #c2dae2;
   height: 97vh;
   width: 97vw;
   border: 2px solid #333;
@@ -27,7 +27,7 @@ h1 {
   border-radius: 5vw;
 }
 
-.pane-title {
+.pane-title, .select-nav {
   text-align: center;
 }
 
@@ -85,4 +85,16 @@ table#meal-toggle-buttons {
 
 table#meal-toggle-buttons td {
   border: 1px solid black;
+}
+
+#oven {
+  height: 80%;
+}
+
+#oven button {
+  position: relative;
+  top: 35%;
+  height: 30%;
+  left: 25%;
+  width: 50%;
 }
