@@ -15,7 +15,11 @@ function generateMealButtons() {
 	let meal =  meals[i];
     buttons.innerHTML += `<div>${meal}</div>`;
     for (let j = 0; j < 7; j++) {
-        buttons.innerHTML += '<div><div>';
+      let customId = `checkbox-${i}-${j}`;
+      buttons.innerHTML += `<input type="checkbox" class="meal-button-checkbox" id="checkbox-${customId}">
+        <label for="checkbox-${customId}">
+        <div class="button-graphic"><div></div></div></label>`;
+        //above are 2 nested divs to be used to display a retro button with some depth
     }
   }
 }

@@ -5,12 +5,12 @@ body {
 #wrapper {
   display: grid;
   grid-template-columns: 65% [left-end right-start] auto;
-  grid-template-rows: 22% [header-end body-start] auto;
+  grid-template-rows: 11% [header-first-half-end header-second-half-start] 11% [header-second-half-end body-start] auto;
   margin: auto;
 
   background: #83B799;
   height: 92vh;
-  width: 82vw;
+  width: 80vw;
   border: 22px solid #272324;
   border-radius: 3vh;
 }
@@ -22,9 +22,9 @@ body {
 
 h1 {
   color: #E4D8B4;
-  font-size: 3em;
+  font-size: 6vh;
   position: relative;
-  top: 33%;
+  top: 16%;
   text-align: center;
   background: #272324;
   width: 83%;
@@ -40,15 +40,11 @@ h1 {
   background: #ffffff00;
 }
 
-.function-pane div {
-  border: 1px solid black;
-}
-
 #title {
   grid-column-start: 1;
   grid-column-end: left-end;
   grid-row-start: 1;
-  grid-row-end: header-end;
+  grid-row-end: header-first-half-end;
 
   background: #ffffff00;
   border-radius: 3vh;
@@ -58,17 +54,18 @@ h1 {
   grid-column-start: right-start;
   grid-column-end: 3;
   grid-row-start: 1;
-  grid-row-end: header-end;
+  grid-row-end: body-start;
 
-  border-bottom: 2px solid #333;
-  border-left: 2px solid #333;
+  background: #E86F68;
+  margin: 3%;
+  border-radius: 1vw;
 }
 
 #bottom-left {
   grid-column-start: 1;
   grid-column-end: left-end;
-  grid-row-start: body-start;
-  grid-row-end: 3;
+  grid-row-start: header-second-half-start;
+  grid-row-end: 4;
 
   border-top: 2px solid #333;
 }
@@ -92,6 +89,26 @@ h1 {
   margin: auto;
 }
 
+input.meal-button-checkbox {
+  display: none;
+}
+
+/* -webkit-box-shadow: inset 18px -19px 0px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 18px -19px 0px 0px rgba(0,0,0,0.75);
+box-shadow: inset 18px -18px 0px 0px rgba(0,0,0,0.75); */
+
+
+input.meal-button-checkbox + label {
+  margin: 5%;
+  background: #FFD628;
+  box-shadow: inset 5px -5px 0 0 #826903;
+}
+
+input.meal-button-checkbox:checked + label {
+  margin: 5%;
+  background: #87C232;
+}
+
 #oven {
   height: 80%;
 }
@@ -102,6 +119,7 @@ h1 {
   height: 30%;
   left: 25%;
   width: 50%;
+  background: #272324
 }
 
 #meal-title {
