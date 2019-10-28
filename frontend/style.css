@@ -105,16 +105,64 @@ input.meal-button-checkbox:checked + label {
 }
 
 #oven {
-  height: 80%;
+  height: 36vw;
+  width: 27vw;
+  margin: auto;
+  background: #333;
+  border-top-left-radius: 4vh;
+  border-top-right-radius: 4vh;
+}
+
+#oven div#oven-dials {
+  height: 14%;
+  margin: 3% 0;
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  top: 3%;
+}
+
+#oven-dials .oven-dial {
+  height: 3vw;
+  width: 3vw;
+  background: white;
+  border-radius: 100%;
+}
+
+#oven-door {
+  height: 56%;
+  margin: 5% 3%;
+  border-radius: 3%;
+  border: 1px solid white;
+}
+
+#oven-handle {
+  background: #272324;
+  height: 11%;
+  margin: 4% 7%;
+  border-radius: 100%;
 }
 
 #oven button {
+  font-size: 1em;
   position: relative;
-  top: 35%;
-  height: 30%;
-  left: 25%;
-  width: 50%;
-  background: #272324
+  margin-top: 9%;
+  height: 37%;
+  left: 17%;
+  width: 68%;
+  background: #272324;
+}
+
+#oven button:hover {
+  background: #fcd633;
+  color: #333;
+}
+
+#oven-drawer {
+  border: 1px solid white;
+  height: 19%;
+  margin: 3%;
+  border-radius: 3%;
 }
 
 #meal-title {
