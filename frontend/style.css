@@ -57,6 +57,7 @@ h1 {
   grid-row-end: body-start;
 
   background: #E86F68;
+  box-shadow: inset 8px -8px 0px 0px #bb5a54;
   margin: 3%;
   border-radius: 1vw;
 }
