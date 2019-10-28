@@ -109,6 +109,7 @@ input.meal-button-checkbox:checked + label {
   width: 27vw;
   margin: auto;
   background: #333;
+  box-shadow: inset 7px -7px 0 0 #000000;
   border-top-left-radius: 4vh;
   border-top-right-radius: 4vh;
 }
@@ -125,8 +126,9 @@ input.meal-button-checkbox:checked + label {
 #oven-dials .oven-dial {
   height: 3vw;
   width: 3vw;
-  background: white;
+  background: #bdbdbd;
   border-radius: 100%;
+  box-shadow: inset 3px -4px 0 0 #7b7b7b;
 }
 
 #oven-door {
@@ -134,6 +136,7 @@ input.meal-button-checkbox:checked + label {
   margin: 5% 3%;
   border-radius: 3%;
   border: 1px solid white;
+  box-shadow: inset 5px -5px 0 0 #6d6d6d;
 }
 
 #oven-handle {
@@ -141,6 +144,7 @@ input.meal-button-checkbox:checked + label {
   height: 11%;
   margin: 4% 7%;
   border-radius: 100%;
+  box-shadow: -5px 7px 9px 0 #1d1d1d;
 }
 
 #oven button {
@@ -163,6 +167,7 @@ input.meal-button-checkbox:checked + label {
   height: 18%;
   margin: 3%;
   border-radius: 3%;
+  box-shadow: inset 5px -5px 0 0 #6d6d6d;
 }
 
 #meal-title {
