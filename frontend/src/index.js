@@ -23,8 +23,8 @@ function generateMealButtons() {
     for (let j = 0; j < 7; j++) {
       let customId = `checkbox-${i}-${j}`;
       buttons.innerHTML +=
-        `<input type="checkbox" class="meal-button-checkbox" id="checkbox-${customId}">
-        <label for="checkbox-${customId}"></label>`;
+        `<input type="checkbox" class="meal-button-checkbox" id="${customId}">
+        <label for="${customId}"></label>`;
         //above are 2 nested divs to be used to display a retro button with some depth
     }
   }
@@ -40,6 +40,37 @@ function loadEventListeners() {
   generatePlanButton.addEventListener('click', generatePlan);
 }
 
+
+
+//                        -------ALL OTHER PROCESSES---------
+
+
+
+
 function generatePlan() {
   console.log('I\'m generating!');
+  //first grab buttons from array of days
+  let requiredMeals = getMealDays();
+}
+
+function getMealDays() {
+  //results array represents the seven days of 3 meals
+  let r = [[],[],[],[],[],[],[]];
+
+
+  let buttonMap = document.querySelectorAll('#meal-buttons-map input');
+  console.log(buttonMap);
+
+  //for each of the 7 days
+  for (let day = 0; day < 7; day++) {
+    //for each of the 3 meals
+    for (let meal = 0; meal < 3; meal++) {
+      let position = day + (meal * 7);
+      console.log(position);
+      r[day].push(buttonMap[position].checked);
+    }
+  }
+
+  console.log(r);
+  return r;
 }
