@@ -5,7 +5,7 @@ body {
 #wrapper {
   display: grid;
   grid-template-columns: 65% [left-end right-start] auto;
-  grid-template-rows: 11% [header-first-half-end header-second-half-start] 11% [header-second-half-end body-start] auto;
+  grid-template-rows: 11% [header-first-half-end header-second-half-start] 19% [header-second-half-end body-start] auto;
   margin: auto;
 
   background: #83B799;
@@ -93,20 +93,15 @@ input.meal-button-checkbox {
   display: none;
 }
 
-/* -webkit-box-shadow: inset 18px -19px 0px 0px rgba(0,0,0,0.75);
--moz-box-shadow: inset 18px -19px 0px 0px rgba(0,0,0,0.75);
-box-shadow: inset 18px -18px 0px 0px rgba(0,0,0,0.75); */
-
-
 input.meal-button-checkbox + label {
   margin: 5%;
   background: #FFD628;
-  box-shadow: inset 5px -5px 0 0 #826903;
+  box-shadow: inset 7px -7px 0 0 #826903;
 }
 
 input.meal-button-checkbox:checked + label {
-  margin: 5%;
   background: #87C232;
+  box-shadow: inset 4px -4px 0 0 #826903;
 }
 
 #oven {
