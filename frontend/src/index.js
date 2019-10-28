@@ -51,26 +51,22 @@ function generatePlan() {
   console.log('I\'m generating!');
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
+  //need some way to convert boolean values into required Date objects for each meal
 }
 
 function getMealDays() {
-  //results array represents the seven days of 3 meals
+  //results array represents seven days of 3 meals
   let r = [[],[],[],[],[],[],[]];
 
-
   let buttonMap = document.querySelectorAll('#meal-buttons-map input');
-  console.log(buttonMap);
-
   //for each of the 7 days
   for (let day = 0; day < 7; day++) {
     //for each of the 3 meals
     for (let meal = 0; meal < 3; meal++) {
       let position = day + (meal * 7);
-      console.log(position);
       r[day].push(buttonMap[position].checked);
     }
   }
 
-  console.log(r);
   return r;
 }
