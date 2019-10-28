@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_135537) do
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.string "instructions"
+    t.integer "meal"
     t.boolean "bulk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

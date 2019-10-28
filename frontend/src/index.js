@@ -52,6 +52,7 @@ function generatePlan() {
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
   //need some way to convert boolean values into required Date objects for each meal
+  getRecipe();
 }
 
 function getMealDays() {
@@ -69,4 +70,8 @@ function getMealDays() {
   }
 
   return r;
+}
+
+function getRecipe(meal) {
+  fetch(RECIPES_URL).then(resp => resp.json()).then(json => console.log(json));
 }

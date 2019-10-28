@@ -23,7 +23,7 @@ nugget_ingredients = [
   [{name: "Paprika", value: 0.09}, 1],
 ]
 
-nuggets = Recipe.create(name: "Chiptle Popcorn Chicken", instructions: "https://tasty.co/recipe/chipotle-popcorn-chicken", bulk: false)
+nuggets = Recipe.create(name: "Chiptle Popcorn Chicken", instructions: "https://tasty.co/recipe/chipotle-popcorn-chicken", bulk: false, meal: 1)
 add_ingredients_to_recipe(nugget_ingredients, nuggets)
 
 
@@ -37,7 +37,7 @@ cnb_ingredients = [
   [{name: "Canned Biscuits", value: 1.30}, 1]
 ]
 
-cnb = Recipe.create(name: "Slow Cooker Chicken and Biscuits", instructions: "https://tasty.co/recipe/slow-cooker-chicken-biscuits", bulk: true)
+cnb = Recipe.create(name: "Slow Cooker Chicken and Biscuits", instructions: "https://tasty.co/recipe/slow-cooker-chicken-biscuits", bulk: true, meal: 2)
 add_ingredients_to_recipe(cnb_ingredients, cnb)
 
 
@@ -49,7 +49,7 @@ scampi_ingredients = [
   [{name: "Spaghetti", value: 1}, 1],
 ]
 
-scampi = Recipe.create(name: "Garlic Shrimp Scampi", instructions: "https://tasty.co/recipe/garlic-shrimp-scampi", bulk: false)
+scampi = Recipe.create(name: "Garlic Shrimp Scampi", instructions: "https://tasty.co/recipe/garlic-shrimp-scampi", bulk: false, meal: 2)
 add_ingredients_to_recipe(scampi_ingredients, scampi)
 
 
