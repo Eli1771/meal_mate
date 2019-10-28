@@ -105,7 +105,7 @@ input.meal-button-checkbox:checked + label {
 }
 
 #oven {
-  height: 36vw;
+  height: 32vw;
   width: 27vw;
   margin: auto;
   background: #333;
@@ -160,7 +160,7 @@ input.meal-button-checkbox:checked + label {
 
 #oven-drawer {
   border: 1px solid white;
-  height: 19%;
+  height: 18%;
   margin: 3%;
   border-radius: 3%;
 }
