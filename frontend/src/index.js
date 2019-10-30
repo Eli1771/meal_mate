@@ -44,6 +44,11 @@ function loadEventListeners() {
 
   let selectAllMealsButton = document.querySelector('#select-all-meals');
   selectAllMealsButton.addEventListener('click', selectAllMeals);
+
+  let selectAllOfOneMealButtons = document.querySelectorAll('.select-all');
+  for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
+    selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
+  }
 }
 
 
@@ -94,8 +99,16 @@ const getCount = async () => {
 function selectAllMeals() {
   let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
   let status = this.checked;
-  console.log(status);
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].checked = status;
+  }
+}
+
+function selectAllOfOneMeal() {
+  let status = this.checked;
+  let start = this.parentElement.previousElementSibling.previousElementSibling;
+  for (let i = 0; i < 7; i++) {
+    start.checked = status;
+    start = start.previousElementSibling.previousElementSibling;
   }
 }
