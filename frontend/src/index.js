@@ -52,8 +52,10 @@ function generatePlan() {
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
   //need some way to convert boolean values into required Date objects for each meal
-
-  let recipe = getRecipe(1);
+  //currently no async to determine count of recipes or categories of recipes:
+  //the 'which' var is calculated based on the dev knowing how much is available
+  let which = Math.ceil(Math.random() * 3);
+  let recipe = getRecipe(which);
 }
 
 function getMealDays() {
@@ -77,4 +79,8 @@ function getRecipe(id) {
   let url = `${RECIPES_URL}/${id}`;
   fetch(url).then(resp => resp.json()).then(json => console.log(json));
 
+}
+
+const getCount = async () => {
+  return await fetch(RECIPES_URL).then(resp => resp.json()).then(json => json.count);
 }
