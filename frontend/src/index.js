@@ -27,6 +27,10 @@ function generateMealButtons() {
         <label for="${customId}"></label>`;
         //above are 2 nested divs to be used to display a retro button with some depth
     }
+    buttons.innerHTML += `<div>
+      <input type="checkbox" class="select-all" id="select-all-${meal}">
+      <label for="select-all-${meal}">All</label>
+      </div>`;
   }
 }
 
