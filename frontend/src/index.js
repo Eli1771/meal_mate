@@ -28,8 +28,8 @@ function generateMealButtons() {
         //above are 2 nested divs to be used to display a retro button with some depth
     }
     buttons.innerHTML += `<div>
-      <input type="checkbox" class="select-all" id="select-all-${meal}">
       <label for="select-all-${meal}">All</label>
+      <input type="checkbox" class="select-all" id="select-all-${meal}">
       </div>`;
   }
 }
@@ -39,9 +39,11 @@ function generateMealButtons() {
 
 
 function loadEventListeners() {
-  console.log('hello world');
   let generatePlanButton = document.querySelector('#oven button');
   generatePlanButton.addEventListener('click', generatePlan);
+
+  let selectAllMealsButton = document.querySelector('#select-all-meals');
+  selectAllMealsButton.addEventListener('click', selectAllMeals);
 }
 
 
@@ -66,7 +68,7 @@ function getMealDays() {
   //results array represents seven days of 3 meals
   let r = [[],[],[],[],[],[],[]];
 
-  let buttonMap = document.querySelectorAll('#meal-buttons-map input');
+  let buttonMap = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
   //for each of the 7 days
   for (let day = 0; day < 7; day++) {
     //for each of the 3 meals
@@ -87,4 +89,13 @@ function getRecipe(id) {
 
 const getCount = async () => {
   return await fetch(RECIPES_URL).then(resp => resp.json()).then(json => json.count);
+}
+
+function selectAllMeals() {
+  let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
+  let status = this.checked;
+  console.log(status);
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].checked = status;
+  }
 }
