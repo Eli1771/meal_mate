@@ -1,6 +1,0 @@
---- !ruby/object:ActiveRecord::ConnectionAdapters::SchemaCache
-columns: {}
-columns_hash: {}
-primary_keys: {}
-data_sources: {}
-version: 0
