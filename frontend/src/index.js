@@ -98,9 +98,16 @@ const getCount = async () => {
 
 function selectAllMeals() {
   let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
+  let selectAllCheckboxes = document.querySelectorAll('.select-all');
+  console.log(selectAllCheckboxes);
   let status = this.checked;
+  console.log('all are: ' + status);
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].checked = status;
+  }
+  console.log('still running...');
+  for (let j = 0; j < selectAllCheckboxes.length; j++) {
+    selectAllCheckboxes[j].checked = status;
   }
 }
 
