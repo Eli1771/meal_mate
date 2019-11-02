@@ -2,7 +2,7 @@ const BASE_URL = "http://localhost:3000";
 const RECIPES_URL = `${BASE_URL}/recipes`;
 
 $(document).ready(function() {
-  generateMealButtons();
+  generatePageElements();
   //fetchCurrentPlan(); <-grabs, if any, the current meal plan and displays todays plan
   loadEventListeners();
 });
@@ -12,6 +12,26 @@ $(document).ready(function() {
 //                        --------LOAD PAGE ELEMENTS-------
 
 
+
+function generatePageElements() {
+  generateMealButtons();
+  loadCurrentMealPlan();
+}
+
+function loadCurrentMealPlan() {
+  //Loads dates for current week
+  let d = new Date;
+  let currentWeekday = d.getDay();
+  let pastSunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
+  let comingSaturday = moment().add((7 - currentWeekday), 'days').format('MMM Do');
+
+  let week = document.querySelector('#week-label');
+  week.innerHTML = `${pastSunday} - ${comingSaturday}`;
+  //first load the date
+  let date = document.querySelector('#meal-title');
+  date.innerHTML = `${moment().format('dddd')}, ${moment().format("MMMM Do")}`;
+
+}
 
 function generateMealButtons() {
   let meals = ['Br', 'Lu', 'Di'];
@@ -99,13 +119,10 @@ const getCount = async () => {
 function selectAllMeals() {
   let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
   let selectAllCheckboxes = document.querySelectorAll('.select-all');
-  console.log(selectAllCheckboxes);
   let status = this.checked;
-  console.log('all are: ' + status);
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].checked = status;
   }
-  console.log('still running...');
   for (let j = 0; j < selectAllCheckboxes.length; j++) {
     selectAllCheckboxes[j].checked = status;
   }
@@ -113,6 +130,7 @@ function selectAllMeals() {
 
 function selectAllOfOneMeal() {
   let status = this.checked;
+  //I HATE THESE SELECTORS <- Fix later?
   let start = this.parentElement.previousElementSibling.previousElementSibling;
   for (let i = 0; i < 7; i++) {
     start.checked = status;
