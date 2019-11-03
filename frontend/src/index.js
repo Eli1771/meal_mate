@@ -59,8 +59,11 @@ function generateMealButtons() {
 
 
 function loadEventListeners() {
-  let generatePlanButton = document.querySelector('#oven button');
+  let generatePlanButton = document.querySelector('#oven button#generate-plan');
   generatePlanButton.addEventListener('click', generatePlan);
+
+  let startOverButton = document.querySelector('#oven button#oven-door-opened');
+  startOverButton.addEventListener('click', closeOven);
 
   let selectAllMealsButton = document.querySelector('#select-all-meals');
   selectAllMealsButton.addEventListener('click', selectAllMeals);
@@ -90,7 +93,24 @@ function generatePlan() {
 }
 
 function openOven() {
-  
+  //hide 'closed' elements
+  document.querySelector('#oven-handle').classList.add('hidden');
+  document.querySelector('#generate-plan').classList.add('hidden');
+  //reveal 'opened' elements
+  document.querySelector('#oven-door-opened').classList.remove('hidden');
+  document.querySelector('#oven-handle-opened').classList.remove('hidden');
+  document.querySelector('#oven-door').classList.add('opened');
+}
+
+function closeOven() {
+  alert('Discard your current plan?');
+  //hide 'opened' elements
+  document.querySelector('#oven-door-opened').classList.add('hidden');
+  document.querySelector('#oven-handle-opened').classList.add('hidden');
+  document.querySelector('#oven-door').classList.remove('opened');
+  //reveal 'closed' elements
+  document.querySelector('#oven-handle').classList.remove('hidden');
+  document.querySelector('#generate-plan').classList.remove('hidden');
 }
 
 function getMealDays() {
