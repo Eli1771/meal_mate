@@ -139,6 +139,14 @@ ul.ingredients-list {
   border-radius: .5vh;
 }
 
+.stars input {
+  display: none;
+}
+
+.stars input:checked + label img {
+  opacity: 1;
+}
+
 .star {
   height: 26px;
   width: 26px;

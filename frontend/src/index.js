@@ -75,6 +75,7 @@ function loadEventListeners() {
 
   let stars = document.querySelectorAll('img.star');
   for (let j = 0; j < stars.length; j++) {
+    stars[j].addEventListener('click', checkStars);
     stars[j].addEventListener('mouseover', animateRatings);
     stars[j].addEventListener('mouseout', defaultStyleRatings);
   }
@@ -86,6 +87,27 @@ function loadEventListeners() {
 
 
 
+
+
+function checkStars() {
+  console.log('detected click');
+  //first clear all checked stars
+  let container = this.parentElement
+  let stars = container.children;
+  for (let i = 0; i < container.length; i++) {
+    console.log(stars[i]);
+    stars[i].checked = false;
+  }
+  //then check all stars leading up to clicked object
+  this.checked = true;
+  let previous = this.previousElementSibling;
+  for (let j = 0; j < 5; j++) {
+    if (previous != null) {
+      previous.checked = true;
+      previous = previous.previousElementSibling;
+    }
+  }
+}
 
 function animateRatings() {
   let current = this;
