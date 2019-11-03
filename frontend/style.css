@@ -32,6 +32,11 @@ h1 {
   border-radius: 5vw;
 }
 
+#meal-title {
+  font-size: 5vh;
+  margin: 3vh 0;
+}
+
 label, input, button {
   cursor: pointer;
 }
@@ -77,6 +82,16 @@ label, input, button {
   grid-row-end: 4;
 
   border-top: 2px solid #333;
+}
+
+div#all-meals {
+  background: #577b67;
+  height: 55vh;
+  border: 1px solid grey;
+  border-radius: 2vh;
+  margin: 1.5vh;
+  padding: 1.5vh;
+  overflow: scroll;
 }
 
 #bottom-right {
@@ -184,10 +199,6 @@ input.meal-button-checkbox:checked + label {
   box-shadow: inset 5px -5px 0 0 #6d6d6d;
 }
 
-#meal-title {
-  font-size: 3em;
-}
-
 button#oven-door-opened {
   width: 109%;
   margin-top: 60%;
@@ -196,7 +207,7 @@ button#oven-door-opened {
   position: relative;
   background: #6d6d6d;
   border-radius: 6%;
-  box-shadow: inset 16px -4px black;
+  box-shadow: inset 16px -2px black;
 }
 
 div#oven-handle-opened {
