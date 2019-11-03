@@ -76,6 +76,7 @@ function loadEventListeners() {
   let stars = document.querySelectorAll('img.star');
   for (let j = 0; j < stars.length; j++) {
     stars[j].addEventListener('mouseover', animateRatings);
+    stars[j].addEventListener('mouseout', defaultStyleRatings);
   }
 }
 
@@ -87,7 +88,23 @@ function loadEventListeners() {
 
 
 function animateRatings() {
+  let current = this;
+  this.classList.add('hovering');
+  for (let i = 0; i < 5; i++) {
+    let previous = current.previousElementSibling;
+    if (previous != null) {
+      previous.classList.add('hovering');
+      current = previous;
+    }
+  }
+}
 
+function defaultStyleRatings() {
+  let container = this.parentElement;
+  let stars = container.children;
+  for (let i = 0; i < stars.length; i++) {
+    stars[i].classList.remove('hovering');
+  }
 }
 
 function generatePlan() {
