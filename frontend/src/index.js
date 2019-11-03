@@ -16,6 +16,7 @@ $(document).ready(function() {
 function generatePageElements() {
   generateMealButtons();
   loadCurrentMealPlan();
+  generateStars();
 }
 
 function loadCurrentMealPlan() {
@@ -51,6 +52,27 @@ function generateMealButtons() {
       <label for="select-all-${meal}">All</label>
       <input type="checkbox" class="select-all" id="select-all-${meal}">
       </div>`;
+  }
+}
+
+//             =======HOLDER METHOD TO TEXT RATING ANIMATIONS=======
+
+function generateStars() {
+  let ratingContainers = document.querySelectorAll('.stars');
+  let ratingHeaders = document.querySelectorAll('.ratings-container p');
+  // HTML elements
+  let img = '<img src="./images/star-symbol.png" class="star">';
+  let closingLabel = '</label>'
+
+  for (let i = 0; i < ratingContainers.length; i++) {
+    let container = ratingContainers[i];
+    let id = ratingHeaders[i].innerHTML;
+    for (let j = 0; j < 5; j++) {
+      id += `-${j}`;
+      let input = `<input type="checkbox" id=${id}>`;
+      let openingLabel = `<label for=${id}>`;
+      container.innerHTML += (input + openingLabel + img + closingLabel); 
+    }
   }
 }
 
