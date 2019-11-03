@@ -72,6 +72,11 @@ function loadEventListeners() {
   for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
     selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
   }
+
+  let stars = document.querySelectorAll('img.star');
+  for (let j = 0; j < stars.length; j++) {
+    stars[j].addEventListener('mouseover', animateRatings);
+  }
 }
 
 
@@ -80,6 +85,10 @@ function loadEventListeners() {
 
 
 
+
+function animateRatings() {
+
+}
 
 function generatePlan() {
   openOven();

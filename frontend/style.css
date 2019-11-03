@@ -1,5 +1,7 @@
 body {
   background: #E4D8B4;
+  font-family: sans-serif;
+  color: white;
 }
 
 #wrapper {
@@ -13,11 +15,6 @@ body {
   width: 80vw;
   border: 22px solid #272324;
   border-radius: 3vh;
-}
-
-#wrapper * {
-  font-family: sans-serif;
-  color: white;
 }
 
 h1 {
@@ -98,6 +95,23 @@ div#all-meals {
   border-bottom: 2px solid #333;
 }
 
+.single-meal h4 {
+  font-size: 1.4em;
+  text-decoration: none;
+}
+
+.single-meal a {
+  text-decoration: none;
+}
+
+.single-meal a:link, .single-meal a:visited {
+  color: white;
+}
+
+.single-meal a:hover {
+  color: #bdbdbd;
+}
+
 ul.ingredients-list {
   column-count: 2;
 }
@@ -105,6 +119,34 @@ ul.ingredients-list {
 .ratings-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.rating {
+  padding: 1vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rating p {
+  margin: 11px 0 0 0;
+}
+
+.stars {
+  padding: .5vh;
+  background: #2b4c39;
+  width: fit-content;
+  height: 50%;
+  border-radius: .5vh;
+}
+
+.star {
+  height: 26px;
+  width: 26px;
+  opacity: .3;
+}
+
+img.star.hovering {
+  opacity: .7;
 }
 
 #bottom-right {
