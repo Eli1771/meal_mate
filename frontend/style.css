@@ -21,7 +21,6 @@ body {
 }
 
 h1 {
-  color: #E4D8B4;
   font-size: 6vh;
   position: relative;
   top: 16%;
@@ -92,6 +91,20 @@ div#all-meals {
   margin: 1.5vh;
   padding: 1.5vh;
   overflow: scroll;
+}
+
+.single-meal {
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+}
+
+ul.ingredients-list {
+  column-count: 2;
+}
+
+.ratings-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 #bottom-right {
