@@ -108,7 +108,7 @@ function loadEventListeners() {
 
 
 
-//                        -------ALL OTHER PROCESSES---------
+//                        -------ALL FRONTEND PROCESSES---------
 
 
 
@@ -152,17 +152,6 @@ function defaultStyleRatings() {
   }
 }
 
-function generatePlan() {
-  openOven();
-  //first grab buttons from array of days
-  let requiredMeals = getMealDays();
-  //need some way to convert boolean values into required Date objects for each meal
-  //currently no async to determine count of recipes or categories of recipes:
-  //the 'which' var is calculated based on the dev knowing how much is available
-  let which = Math.ceil(Math.random() * 3);
-  let recipe = getRecipe(which);
-}
-
 function openOven() {
   //hide 'closed' elements
   document.querySelector('#oven-handle').classList.add('hidden');
@@ -184,6 +173,27 @@ function closeOven() {
   document.querySelector('#generate-plan').classList.remove('hidden');
 }
 
+
+
+
+
+//                  ---------ALL BACKEND PROCESSES------
+
+
+
+
+
+function generatePlan() {
+  openOven();
+  //first grab buttons from array of days
+  let requiredMeals = getMealDays();
+  //need some way to convert boolean values into required Date objects for each meal
+  //currently no async to determine count of recipes or categories of recipes:
+  //the 'which' var is calculated based on the dev knowing how much is available
+  let which = Math.ceil(Math.random() * 3);
+  let recipe = getRecipe(which);
+}
+
 function getMealDays() {
   //results array represents seven days of 3 meals
   let r = [[],[],[],[],[],[],[]];
@@ -197,18 +207,17 @@ function getMealDays() {
       r[day].push(buttonMap[position].checked);
     }
   }
-
   return r;
 }
 
 function getRecipe(id) {
   let url = `${RECIPES_URL}/${id}`;
-  fetch(url).then(resp => resp.json()).then(json => console.log(json));
+  fetch(url).then(resp => resp.json()).then(json => parseRecipeIntoNewPlan(json));
 
 }
 
-const getCount = async () => {
-  return await fetch(RECIPES_URL).then(resp => resp.json()).then(json => json.count);
+function parseRecipeIntoNewPlan(json) {
+  console.log(json);
 }
 
 function selectAllMeals() {

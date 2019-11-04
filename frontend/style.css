@@ -37,6 +37,10 @@ label, input, button {
   cursor: pointer;
 }
 
+input {
+  display: none;
+}
+
 .hidden {
   display: none;
 }
@@ -90,6 +94,13 @@ div#all-meals {
   overflow: scroll;
 }
 
+div#all-meals h5.meal-name {
+  color: #2b4c39;
+  font-weight: bold;
+  font-size: inherit;
+  margin: .4em;
+}
+
 .single-meal {
   border-top: 2px solid #333;
   border-bottom: 2px solid #333;
@@ -123,6 +134,7 @@ ul.ingredients-list {
 
 .rating {
   padding: 1vh;
+  padding-right: 4vw;
   display: flex;
   justify-content: space-between;
 }
@@ -137,10 +149,6 @@ ul.ingredients-list {
   width: fit-content;
   height: 50%;
   border-radius: .5vh;
-}
-
-.stars input {
-  display: none;
 }
 
 .stars input:checked + label {
@@ -267,6 +275,8 @@ input.meal-button-checkbox:checked + label {
 }
 
 button#oven-door-opened {
+  color: white;
+  font-size: inherit;
   width: 109%;
   margin-top: 60%;
   left: -2%;
