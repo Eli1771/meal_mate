@@ -70,8 +70,9 @@ function generateStars() {
     for (let j = 0; j < 5; j++) {
       id += `-${j}`;
       let input = `<input type="checkbox" id=${id}>`;
-      let openingLabel = `<label for=${id}>`;
-      container.innerHTML += (input + openingLabel + img + closingLabel); 
+      let openingLabel = `<label for=${id} class="star">`;
+      container.innerHTML += (input + openingLabel + img + closingLabel);
+      id = ratingHeaders[i].innerHTML;
     }
   }
 }
@@ -95,7 +96,9 @@ function loadEventListeners() {
     selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
   }
 
-  let stars = document.querySelectorAll('img.star');
+  let stars = document.querySelectorAll('label.star');
+  //THERE WILL NEED TO BE A WAY TO INITIALIZE THESE LISTENERS FOR EVERY
+  //TIME A MEAL CARD IS LOADED
   for (let j = 0; j < stars.length; j++) {
     stars[j].addEventListener('click', checkStars);
     stars[j].addEventListener('mouseover', animateRatings);
@@ -111,22 +114,20 @@ function loadEventListeners() {
 
 
 
-function checkStars() {
-  console.log('detected click');
+function checkStars(e) {
   //first clear all checked stars
-  let container = this.parentElement
-  let stars = container.children;
-  for (let i = 0; i < container.length; i++) {
-    console.log(stars[i]);
+  let container = this.parentElement;
+  let stars = container.querySelectorAll('input');
+  for (let i = 0; i < stars.length; i++) {
     stars[i].checked = false;
   }
   //then check all stars leading up to clicked object
-  this.checked = true;
-  let previous = this.previousElementSibling;
+  let first = this.previousElementSibling
+  let previous = first.previousElementSibling.previousElementSibling;
   for (let j = 0; j < 5; j++) {
     if (previous != null) {
       previous.checked = true;
-      previous = previous.previousElementSibling;
+      previous = previous.previousElementSibling.previousElementSibling;
     }
   }
 }
@@ -135,7 +136,7 @@ function animateRatings() {
   let current = this;
   this.classList.add('hovering');
   for (let i = 0; i < 5; i++) {
-    let previous = current.previousElementSibling;
+    let previous = current.previousElementSibling.previousElementSibling;
     if (previous != null) {
       previous.classList.add('hovering');
       current = previous;

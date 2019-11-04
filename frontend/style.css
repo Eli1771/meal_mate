@@ -143,17 +143,20 @@ ul.ingredients-list {
   display: none;
 }
 
-.stars input:checked + label img {
+.stars input:checked + label {
   opacity: 1;
 }
 
-.star {
+img.star {
   height: 26px;
   width: 26px;
+}
+
+label.star {
   opacity: .3;
 }
 
-img.star.hovering {
+label.star.hovering {
   opacity: .7;
 }
 
@@ -239,6 +242,7 @@ input.meal-button-checkbox:checked + label {
 }
 
 #oven button#generate-plan {
+  color: white;
   font-size: 1em;
   position: relative;
   margin-top: 9%;
