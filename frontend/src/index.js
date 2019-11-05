@@ -218,6 +218,11 @@ function getRecipe(id) {
 
 function parseRecipeIntoNewPlan(json) {
   console.log(json);
+  let oven = document.querySelector('#oven-door');
+  let name = document.createElement('h3');
+  let door = document.querySelector('#oven-door-opened');
+  name.innerHTML = json.name;
+  oven.insertBefore(name, door);
 }
 
 function selectAllMeals() {
