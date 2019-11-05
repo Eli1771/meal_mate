@@ -204,8 +204,14 @@ function generatePlan() {
   //need some way to convert boolean values into required Date objects for each meal
   //currently no async to determine count of recipes or categories of recipes:
   //the 'which' var is calculated based on the dev knowing how much is available
-  let which = Math.ceil(Math.random() * 3);
-  let recipe = getRecipe(which);
+
+  //plan 1 day, 3 meals
+  for (let i = 0; i < 3; i++) {
+    let which = Math.ceil(Math.random() * 3);
+    console.log('index: ' + which);
+    getRecipe(which);
+  }
+
 }
 
 function getMealDays() {
@@ -226,6 +232,7 @@ function getMealDays() {
 
 function getRecipe(id) {
   let url = `${RECIPES_URL}/${id}`;
+  console.log(url);
   fetch(url).then(resp => resp.json()).then(json => parseRecipeIntoNewPlan(json));
 
 }
@@ -234,9 +241,8 @@ function parseRecipeIntoNewPlan(json) {
   console.log(json);
   let oven = document.querySelector('#oven-door');
   let name = document.createElement('h3');
-  let door = document.querySelector('#oven-door-opened');
-  name.innerHTML = json.name;
-  oven.insertBefore(name, door);
+  let door = document.querySelector('#oven-meals-content-pane');
+  door.innerHTML += json.name + '<br>';
 }
 
 function selectAllMeals() {

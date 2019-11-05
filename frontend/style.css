@@ -317,19 +317,9 @@ div.open-oven-door-content {
 }
 
 #oven-door input:checked + div label {
-  color: white;
+  font-weight: bolder;
 }
 
 #oven-door input:checked + div div.open-oven-door-content {
   display: block;
 }
-
-/* Just for styling */
-#oven-meals-content-pane {
-  background: red;
-}
-
-#oven-shopping-list-content-pane {
-  background: blue;
-}
-/* Just for styling */
