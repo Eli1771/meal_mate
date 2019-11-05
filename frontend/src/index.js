@@ -164,6 +164,8 @@ function openOven() {
     opened[j].classList.remove('hidden');
   }
   document.querySelector('#oven-door').classList.add('opened');
+
+  document.querySelector('#oven-meals').checked = true;
 }
 
 function closeOven() {
@@ -179,6 +181,10 @@ function closeOven() {
   for (let i = 0; i < closed.length; i++) {
     closed[i].classList.remove('hidden');
   }
+
+  document.querySelector('#oven-meals').checked = false;
+  document.querySelector('#oven-shopping-list').checked = false;
+
 }
 
 

@@ -316,11 +316,11 @@ div.open-oven-door-content {
   top: 2em;
 }
 
-#oven-door input:checked + label {
+#oven-door input:checked + div label {
   color: white;
 }
 
-#oven-door input:checked ~ div.open-oven-door-content:first-of-type {
+#oven-door input:checked + div div.open-oven-door-content {
   display: block;
 }
 
