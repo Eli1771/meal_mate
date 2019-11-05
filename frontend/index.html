@@ -82,24 +82,24 @@
 	        </div>
           <div id="oven-door">
             <!-- CLOSED OVEN -->
-            <div id="oven-handle"></div>
-            <button id="generate-plan">Create Your Plan!</button>
+            <div id="oven-handle" class="closed-oven"></div>
+            <button id="generate-plan" class="closed-oven">Create Your Plan!</button>
             <!-- OPEN OVEN -->
             <!-- First Tab -->
             <input type="radio" id="oven-meals">
-            <label for="oven-meals" class="hidden">Meals</label>
-            <div class="open-oven-door-content hidden" id="oven-meals-content-pane">
+            <label for="oven-meals" class="open-oven hidden">Meals</label>
+            <div class="open-oven-door-content open-oven hidden" id="oven-meals-content-pane">
 
             </div>
             <!-- Second Tab -->
             <input type="radio" id="oven-shopping-list">
-            <label for="oven-shopping-list" class="hidden">Shopping List</label>
-            <div class="open-oven-door-content hidden" id="oven-shopping-list-content-pane">
+            <label for="oven-shopping-list" class="open-oven hidden">Shopping List</label>
+            <div class="open-oven-door-content open-oven hidden" id="oven-shopping-list-content-pane">
 
             </div>
             <!-- Rest of content (oven door) -->
-            <button id="oven-door-opened" class="hidden">Start Over!</button>
-            <div id="oven-handle-opened" class="hidden"></div>
+            <button id="oven-door-opened" class="open-oven hidden">Start Over?</button>
+            <div id="oven-handle-opened" class="open-oven hidden"></div>
           </div>
           <div id="oven-drawer">
           </div>
