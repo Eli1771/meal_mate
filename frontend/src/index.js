@@ -204,8 +204,11 @@ function generatePlan() {
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
 
+  let d = new Date;
+  let currentWeekday = d.getDay();
+  let offset = 7 - currentWeekday;
   for (let day = 0; day < requiredMeals.length; day++) {
-    let date = moment().add(day, 'days').format('MMM Do');
+    let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     generateDayPlan(requiredMeals[day], date);
   }
@@ -251,16 +254,6 @@ function generateDayPlan(whichMeals, date) {
     }
   }
 
-  // if (whichMeals[0]) {
-  //   objData.breakfast = rand3();
-  // }
-  // if (whichMeals[1]) {
-  //   objData.lunch = rand3();
-  // }
-  // if (whichMeals[2]) {
-  //   objData.dinner = rand3();
-  // }
-
   objData.date = date;
 
   let configObj = {
@@ -272,7 +265,9 @@ function generateDayPlan(whichMeals, date) {
     body: JSON.stringify(objData)
   };
 
-  fetch(`http://localhost:3000/day_plans`, configObj).then(resp => resp.json()).then(json => console.log(json));
+  fetch(`http://localhost:3000/day_plans`, configObj)
+    .then(resp => resp.json())
+    .then(json => console.log(json));
 }
 
 function getRecipe(id) {
