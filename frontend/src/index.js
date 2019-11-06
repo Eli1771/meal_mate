@@ -195,7 +195,9 @@ function closeOven() {
 
 
 
-
+function randomInRange(n) {
+  return Math.ceil(Math.random() * n);
+}
 
 function generatePlan() {
   openOven();
@@ -238,19 +240,29 @@ function getMealDays() {
 
 function generateDayPlan(whichMeals, date) {
   let objData = {};
+  let meals = ['breakfast', 'lunch', 'dinner'];
+  let rand3 = function() {
+    return randomInRange(3);
+  }
 
-  if (whichMeals[0]) {
-    objData.breakfast = Math.ceil(Math.random() * 3);
+  for (let meal = 0; meal < 3; meal++) {
+    if (whichMeals[meal]) {
+      objData[meals[meal]] = rand3();
+    }
   }
-  if (whichMeals[1]) {
-    objData.lunch = Math.ceil(Math.random() * 3);
-  }
-  if (whichMeals[2]) {
-    objData.dinner = Math.ceil(Math.random() * 3);
-  }
+
+  // if (whichMeals[0]) {
+  //   objData.breakfast = rand3();
+  // }
+  // if (whichMeals[1]) {
+  //   objData.lunch = rand3();
+  // }
+  // if (whichMeals[2]) {
+  //   objData.dinner = rand3();
+  // }
+
   objData.date = date;
-  console.log('obj data: ');
-  console.log(objData);
+
   let configObj = {
     method: "POST",
     headers: {
