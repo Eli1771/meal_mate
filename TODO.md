@@ -8,4 +8,7 @@ Pick percentage of NEW meals (20%?) from total, place randomly in plan
 Through scoping, organize meal database bases on ratings for chosen category
 Select from top tier (star count) until it's gone, then move down
 
-^^Where to insert bulk meal logic? 
+^^Where to insert bulk meal logic?
+
+Make load animation on oven due to long ajax calls?
+Replace database.yml timeout cheat with some implimentation of $.when() ajax?
