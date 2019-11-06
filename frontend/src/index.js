@@ -201,16 +201,22 @@ function generatePlan() {
   openOven();
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
+
+  for (let day = 0; day < requiredMeals.length; day++) {
+    let date = moment().add(day, 'days').format('MMM Do');
+    console.log('date of plan: ' + date);
+    generateDayPlan(requiredMeals[day], date);
+  }
+
   //need some way to convert boolean values into required Date objects for each meal
   //currently no async to determine count of recipes or categories of recipes:
   //the 'which' var is calculated based on the dev knowing how much is available
 
   //plan 1 day, 3 meals
-  for (let i = 0; i < 3; i++) {
-    let which = Math.ceil(Math.random() * 3);
-    console.log('index: ' + which);
-    getRecipe(which);
-  }
+  // for (let i = 0; i < 3; i++) {
+  //   let which = Math.ceil(Math.random() * 3);
+  //   getRecipe(which);
+  // }
 
 }
 
@@ -230,17 +236,42 @@ function getMealDays() {
   return r;
 }
 
+function generateDayPlan(whichMeals, date) {
+  let objData = {};
+
+  if (whichMeals[0]) {
+    objData.breakfast = Math.ceil(Math.random() * 3);
+  }
+  if (whichMeals[1]) {
+    objData.lunch = Math.ceil(Math.random() * 3);
+  }
+  if (whichMeals[2]) {
+    objData.dinner = Math.ceil(Math.random() * 3);
+  }
+  objData.date = date;
+  console.log('obj data: ');
+  console.log(objData);
+  let configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(objData)
+  };
+
+  fetch(`http://localhost:3000/day_plans`, configObj).then(resp => resp.json()).then(json => console.log(json));
+}
+
 function getRecipe(id) {
   let url = `${RECIPES_URL}/${id}`;
   console.log(url);
-  fetch(url).then(resp => resp.json()).then(json => parseRecipeIntoNewPlan(json));
+  fetch(url).then(resp => resp.json()).then(json => displayPlanInOven(json));
 
 }
 
-function parseRecipeIntoNewPlan(json) {
+function displayPlanInOven(json) {
   console.log(json);
-  let oven = document.querySelector('#oven-door');
-  let name = document.createElement('h3');
   let door = document.querySelector('#oven-meals-content-pane');
   door.innerHTML += json.name + '<br>';
 }
