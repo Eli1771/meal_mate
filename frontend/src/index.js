@@ -258,9 +258,7 @@ function generateDayPlan(whichMeals, date) {
     body: JSON.stringify(objData)
   };
 
-  fetch(`http://localhost:3000/day_plans`, configObj)
-    .then(resp => resp.json())
-    .then(json => console.log(json));
+  fetch(`http://localhost:3000/day_plans`, configObj);
 }
 
 function getRecipe(id) {
