@@ -113,7 +113,6 @@ function loadEventListeners() {
 
 
 
-
 function checkStars(e) {
   //first clear all checked stars
   let container = this.parentElement;
@@ -189,15 +188,9 @@ function closeOven() {
 
 
 
-
-
 //                  ---------ALL BACKEND PROCESSES------
 
 
-
-function randomInRange(n) {
-  return Math.ceil(Math.random() * n);
-}
 
 function generatePlan() {
   openOven();
@@ -303,4 +296,14 @@ function selectAllOfOneMeal() {
     start.checked = status;
     start = start.previousElementSibling.previousElementSibling;
   }
+}
+
+
+
+//                      -----------HELPERS-----------
+
+
+
+function randomInRange(n) {
+  return Math.ceil(Math.random() * n);
 }
