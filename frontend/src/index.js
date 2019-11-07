@@ -202,7 +202,6 @@ async function generatePlan() {
   let offset = 7 - currentWeekday;
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
-    console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date);
     console.log(dayPlan);
     //make meal plan
@@ -248,7 +247,7 @@ async function generateDayPlan(whichMeals, date) {
   //make the configuration object w/ object data
   objData.date = date;
   let configObj = makeConfigObj(objData);
-  console.log(configObj);
+
   //actual fetch posts to populate db
   const resp = await fetch(`http://localhost:3000/day_plans`, configObj)
   const json = resp.json();
@@ -257,7 +256,13 @@ async function generateDayPlan(whichMeals, date) {
 
 function daysIntoWeek(dayIds) {
   let objData = {};
-  
+  let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  //load keys into objData
+  for (let day = 0; day < days.length; day++) {
+    objData[days[day]] = dayIds[day];
+  }
+  console.log(objData);
+
 }
 
 function getRecipe(id) {
