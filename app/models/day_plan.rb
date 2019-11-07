@@ -1,4 +1,5 @@
 class DayPlan < ApplicationRecord
+  belongs_to :week_plan
 
 
   def self.clearAll
