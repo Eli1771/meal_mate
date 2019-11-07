@@ -192,7 +192,7 @@ function closeOven() {
 
 
 
-function generatePlan() {
+async function generatePlan() {
   openOven();
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
@@ -203,19 +203,13 @@ function generatePlan() {
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
-    generateDayPlan(requiredMeals[day], date);
+    await generateDayPlan(requiredMeals[day], date);
+    continue;
   }
 
   //need some way to convert boolean values into required Date objects for each meal
   //currently no async to determine count of recipes or categories of recipes:
   //the 'which' var is calculated based on the dev knowing how much is available
-
-  //plan 1 day, 3 meals
-  // for (let i = 0; i < 3; i++) {
-  //   let which = Math.ceil(Math.random() * 3);
-  //   getRecipe(which);
-  // }
-
 }
 
 function getMealDays() {
@@ -234,7 +228,7 @@ function getMealDays() {
   return r;
 }
 
-function generateDayPlan(whichMeals, date) {
+async function generateDayPlan(whichMeals, date) {
   let objData = {};
   let meals = ['breakfast', 'lunch', 'dinner'];
   let rand3 = function() {
@@ -258,7 +252,9 @@ function generateDayPlan(whichMeals, date) {
     body: JSON.stringify(objData)
   };
 
-  fetch(`http://localhost:3000/day_plans`, configObj);
+  const resp = await fetch(`http://localhost:3000/day_plans`, configObj)
+  const json = resp.json();
+  console.log(json);
 }
 
 function getRecipe(id) {
