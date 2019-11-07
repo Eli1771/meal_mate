@@ -8,19 +8,19 @@
 
 def add_ingredients_to_recipe(ingredients, recipe)
   ingredients.each do |ing|
-    ingredient = Ingredient.create_with(value: ing[0][:value]).find_or_create_by(name: ing[0][:name])
-    RecipeIngredient.create(recipe_id: recipe.id, ingredient_id: ingredient.id, amount: ing[1])
+    ingredient = Ingredient.find_or_create_by(name: ing[:name])
+    RecipeIngredient.create(recipe_id: recipe.id, ingredient_id: ingredient.id, unit: ing[:unit], amount: ing[:amount])
   end
 end
 
 #Chipotle Popcorn Chicken
 nugget_ingredients = [
-  [{name: "Chicken Breast", value: 3.15}, 2],
-  [{name: "Buttermilk", value: 2.0}, 2],
-  [{name: "Chiles in Adobo Sauce", value: 4.60}, 1],
-  [{name: "Panko Bread Crumbs", value: 0.88}, 2],
-  [{name: "Chili Powder", value: 0.14}, 1],
-  [{name: "Paprika", value: 0.09}, 1],
+  {name: "Chicken Breast", unit: nil, amount: 2},
+  {name: "Buttermilk", unit: 'cup(s)', amount: 2},
+  {name: "Chiles in Adobo Sauce", unit: 'oz', amount: 1},
+  {name: "Panko Bread Crumbs", unit: 'cups', amount: 2},
+  {name: "Chili Powder", unit: 'tsp', amount: 1},
+  {name: "Paprika", unit: 'tsp', amount: 1}
 ]
 
 nuggets = Recipe.create(name: "Chiptle Popcorn Chicken", instructions: "https://tasty.co/recipe/chipotle-popcorn-chicken", bulk: false, meal: 1)
@@ -30,11 +30,11 @@ add_ingredients_to_recipe(nugget_ingredients, nuggets)
 
 #Slow Cooker Chicken and Biscuits
 cnb_ingredients = [
-  [{name: "Chicken Breast", value: 3.15}, 3],
-  [{name: "Broccoli", value: 1.95}, 2],
-  [{name: "Baby Carrots", value: 1.95}, 2],
-  [{name: "Cream of Chicken Soup", value: 3}, 1],
-  [{name: "Canned Biscuits", value: 1.30}, 1]
+  {name: "Chicken Breast", unit: nil, amount: 3},
+  {name: "Broccoli", unit: 'cup(s)', amount: 2},
+  {name: "Baby Carrots", unit: 'cup(s)', amount: 2},
+  {name: "Cream of Chicken Soup", unit: 'can(s)', amount: 1},
+  {name: "Canned Biscuits", unit: 'can(s)', amount: 1}
 ]
 
 cnb = Recipe.create(name: "Slow Cooker Chicken and Biscuits", instructions: "https://tasty.co/recipe/slow-cooker-chicken-biscuits", bulk: true, meal: 2)
@@ -43,10 +43,10 @@ add_ingredients_to_recipe(cnb_ingredients, cnb)
 
 #Garlic Shrimp Scampi
 scampi_ingredients = [
-  [{name: "Garlic", value: 0.8}, 3],
-  [{name: "Shrimp", value: 6.50}, 1],
-  [{name: "Lemon", value: 0.9}, 1],
-  [{name: "Spaghetti", value: 1}, 1],
+  {name: "Garlic", unit: 'cloves', amount: 3},
+  {name: "Shrimp", unit: nil, amount: 1},
+  {name: "Lemon", unit: nil, amount: 1},
+  {name: "Spaghetti", unit: 'cup(s)', amount: 1}
 ]
 
 scampi = Recipe.create(name: "Garlic Shrimp Scampi", instructions: "https://tasty.co/recipe/garlic-shrimp-scampi", bulk: false, meal: 2)
