@@ -183,7 +183,6 @@ function closeOven() {
 
   document.querySelector('#oven-meals').checked = false;
   document.querySelector('#oven-shopping-list').checked = false;
-
 }
 
 
@@ -196,6 +195,7 @@ async function generatePlan() {
   openOven();
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
+  let dayIds = [];
 
   let d = new Date;
   let currentWeekday = d.getDay();
@@ -203,9 +203,14 @@ async function generatePlan() {
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
-    await generateDayPlan(requiredMeals[day], date);
+    let dayPlan = await generateDayPlan(requiredMeals[day], date);
+    console.log(dayPlan);
+    //make meal plan
+    dayIds.push(dayPlan.id);
     continue;
   }
+  console.log(dayIds);
+  daysIntoWeek(dayIds);
 
   //need some way to convert boolean values into required Date objects for each meal
   //currently no async to determine count of recipes or categories of recipes:
@@ -234,27 +239,25 @@ async function generateDayPlan(whichMeals, date) {
   let rand3 = function() {
     return randomInRange(3);
   }
-
+  //randomly select meals
   for (let meal = 0; meal < 3; meal++) {
     if (whichMeals[meal]) {
       objData[meals[meal]] = rand3();
     }
   }
-
+  //make the configuration object w/ object data
   objData.date = date;
-
-  let configObj = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(objData)
-  };
-
+  let configObj = makeConfigObj(objData);
+  console.log(configObj);
+  //actual fetch posts to populate db
   const resp = await fetch(`http://localhost:3000/day_plans`, configObj)
   const json = resp.json();
-  console.log(json);
+  return json;
+}
+
+function daysIntoWeek(dayIds) {
+  let objData = {};
+  
 }
 
 function getRecipe(id) {
@@ -300,4 +303,15 @@ function selectAllOfOneMeal() {
 
 function randomInRange(n) {
   return Math.ceil(Math.random() * n);
+}
+
+function makeConfigObj(objData) {
+  return {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(objData)
+  };
 }
