@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 2019_11_07_033139) do
     t.integer "tuesday"
     t.integer "wednesday"
     t.integer "thursday"
+    t.integer "friday"
+    t.integer "saturday"
     t.boolean "current"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

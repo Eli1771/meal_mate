@@ -6,6 +6,8 @@ class CreateWeekPlans < ActiveRecord::Migration[5.2]
       t.integer :tuesday
       t.integer :wednesday
       t.integer :thursday
+      t.integer :friday
+      t.integer :saturday
       t.boolean :current
 
       t.timestamps
