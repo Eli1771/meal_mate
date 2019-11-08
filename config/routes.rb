@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :week_plans
   resources :day_plans
   resources :recipe_ingredients
   resources :ingredients
