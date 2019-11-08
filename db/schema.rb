@@ -47,15 +47,4 @@ ActiveRecord::Schema.define(version: 2019_11_05_154126) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "week_plans", force: :cascade do |t|
-    t.integer "sunday"
-    t.integer "monday"
-    t.integer "tuesday"
-    t.integer "wednesday"
-    t.integer "thursday"
-    t.boolean "current"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end
