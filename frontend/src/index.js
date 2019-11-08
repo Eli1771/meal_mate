@@ -204,12 +204,10 @@ async function generatePlan() {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date);
-    console.log(dayPlan);
     //make meal plan
     dayIds.push(dayPlan.id);
     continue;
   }
-  console.log(dayIds);
   daysIntoWeek(dayIds);
 
   //need some way to convert boolean values into required Date objects for each meal
@@ -248,16 +246,26 @@ async function generateDayPlan(whichMeals, date) {
   //make the configuration object w/ object data
   objData.date = date;
   let configObj = makeConfigObj(objData);
-  console.log(configObj);
   //actual fetch posts to populate db
-  const resp = await fetch(`http://localhost:3000/day_plans`, configObj)
+  const resp = await fetch('http://localhost:3000/day_plans', configObj)
   const json = resp.json();
+  console.log(json);
   return json;
 }
 
 function daysIntoWeek(dayIds) {
   let objData = {};
-  
+  console.log(dayIds);
+  let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  for (let day = 0; day < 7; day++) {
+    objData[days[day]] = dayIds[day];
+  }
+  objData.current = false;
+  let configObj = makeConfigObj(objData);
+  console.log('configuration object:');
+  console.log(configObj);
+  //fetch('http://localhost:3000/week_plans', configObj)
+  //  .then(resp => resp.json()).then(json => console.log(json));
 }
 
 function getRecipe(id) {
