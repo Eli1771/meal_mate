@@ -262,10 +262,8 @@ function daysIntoWeek(dayIds) {
   }
   objData.current = false;
   let configObj = makeConfigObj(objData);
-  console.log('configuration object:');
-  console.log(configObj);
-  //fetch('http://localhost:3000/week_plans', configObj)
-  //  .then(resp => resp.json()).then(json => console.log(json));
+  fetch('http://localhost:3000/week_plans', configObj)
+    .then(resp => resp.json()).then(json => console.log(json));
 }
 
 function getRecipe(id) {
