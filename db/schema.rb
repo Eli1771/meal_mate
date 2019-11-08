@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_180329) do
     t.integer "monday"
     t.integer "tuesday"
     t.integer "wednesday"
-    t.integer "thurdsay"
+    t.integer "thursday"
     t.integer "friday"
     t.integer "saturday"
     t.boolean "current"

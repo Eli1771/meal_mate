@@ -5,7 +5,7 @@ class CreateWeekPlans < ActiveRecord::Migration[5.2]
       t.integer :monday
       t.integer :tuesday
       t.integer :wednesday
-      t.integer :thurdsay
+      t.integer :thursday
       t.integer :friday
       t.integer :saturday
       t.boolean :current
