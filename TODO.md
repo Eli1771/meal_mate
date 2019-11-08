@@ -12,3 +12,5 @@ Select from top tier (star count) until it's gone, then move down
 
 Make load animation on oven due to long ajax calls?
 Replace database.yml timeout cheat with some implimentation of $.when() ajax?
+Make const variables in global scope of static page elements to dry up SELECTORS
+Narrow routes to eliminate unnecessary code
