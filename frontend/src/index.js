@@ -206,11 +206,11 @@ async function generatePlan() {
     let dayPlan = await generateDayPlan(requiredMeals[day], date);
     console.log(dayPlan);
     //make meal plan
-    await dayIds.push(dayPlan.id);
+    dayIds.push(dayPlan.id);
     continue;
   }
   console.log(dayIds);
-  //daysIntoWeek(dayIds);
+  daysIntoWeek(dayIds);
 
   //need some way to convert boolean values into required Date objects for each meal
   //currently no async to determine count of recipes or categories of recipes:
@@ -251,8 +251,7 @@ async function generateDayPlan(whichMeals, date) {
   console.log(configObj);
   //actual fetch posts to populate db
   const resp = await fetch(`http://localhost:3000/day_plans`, configObj)
-  const json = await resp.json();
-  console.log(json);
+  const json = resp.json();
   return json;
 }
 
