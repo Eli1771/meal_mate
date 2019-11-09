@@ -17,9 +17,100 @@ class WeekPlanSerializer
             :include => {:ingredients => {:only => :name}},
             :only => :name},
         },
-        :only => :date
+        :only => :date,
+        :except => :id
       },
-    }, :except => [:created_at, :updated_at])
+      :monday_plan => {
+        :include => {
+          :breakfast_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :lunch_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :dinner_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+        },
+        :only => :date,
+        :except => :id
+      },
+      :tuesday_plan => {
+        :include => {
+          :breakfast_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :lunch_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :dinner_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+        },
+        :only => :date,
+        :except => :id
+      },
+      :wednesday_plan => {
+        :include => {
+          :breakfast_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :lunch_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :dinner_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+        },
+        :only => :date,
+        :except => :id
+      },
+      :thursday_plan => {
+        :include => {
+          :breakfast_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :lunch_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :dinner_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+        },
+        :only => :date,
+        :except => :id
+      },
+      :friday_plan => {
+        :include => {
+          :breakfast_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :lunch_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :dinner_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+        },
+        :only => :date,
+        :except => :id
+      },
+      :saturday_plan => {
+        :include => {
+          :breakfast_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :lunch_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+          :dinner_recipe => {
+            :include => {:ingredients => {:only => :name}},
+            :only => :name},
+        },
+        :only => :date,
+        :except => :id
+      }
+    }, :except => [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :created_at, :updated_at])
   end
 end
 
