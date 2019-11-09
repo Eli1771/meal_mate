@@ -11,10 +11,10 @@ class DayPlansController < ApplicationController
 
   def create
     # binding.pry
-    day = DayPlan.create(day_plan_params)
-    render json: day.to_json(:include => {
-      :breakfast_recipe => {:only => [:name, :instructions]}
-    }, :except => [:created_at, :updated_at])
+    day = DayPlan.new(day_plan_params)
+    day.save
+    json = DayPlanSerializer.new(day)
+    render json: json.to_serialized_json
   end
 
   private
@@ -23,11 +23,3 @@ class DayPlansController < ApplicationController
     params.require(:day_plan).permit(:date, :breakfast, :lunch, :dinner)
   end
 end
-
-# def show
-#   sighting = Sighting.find_by(id: params[:id])
-#   render json: sighting.to_json(:include => {
-#     :bird => {:only => [:name, :species]},
-#     :location => {:only => [:latitude, :longitude]}
-#   }, :except => [:updated_at])
-# end

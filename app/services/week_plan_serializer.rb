@@ -4,6 +4,6 @@ class WeekPlanSerializer
   end
 
   def to_serialized_json
-
-  end 
+    
+  end
 end

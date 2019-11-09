@@ -15,3 +15,4 @@ Replace database.yml timeout cheat with some implimentation of $.when() ajax?
 Make const variables in global scope of static page elements to dry up SELECTORS
 Narrow routes to eliminate unnecessary code
 There's gotta be some way to DRY up getters/model relationships
+Need start date for week plans so there's not a ton of overlapping nonsense
