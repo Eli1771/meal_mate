@@ -11,10 +11,8 @@ class DayPlansController < ApplicationController
 
   def create
     # binding.pry
-    day = DayPlan.new(day_plan_params)
-    day.save
-    json = DayPlanSerializer.new(day)
-    render json: json.to_serialized_json
+    day = DayPlan.create(day_plan_params)
+    render json: DayPlanSerializer.new(day).to_serialized_json
   end
 
   private

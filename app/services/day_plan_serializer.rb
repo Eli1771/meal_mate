@@ -14,7 +14,7 @@ class DayPlanSerializer
       :dinner_recipe => {
         :include => {:ingredients => {:only => :name}},
         :only => :name},
-    }, :except => [:created_at, :updated_at]);
+    }, :except => [:created_at, :updated_at])
   end
 end
 
