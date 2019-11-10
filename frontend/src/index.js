@@ -96,15 +96,6 @@ function loadEventListeners() {
   for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
     selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
   }
-
-  let stars = document.querySelectorAll('label.star');
-  //THERE WILL NEED TO BE A WAY TO INITIALIZE THESE LISTENERS FOR EVERY
-  //TIME A MEAL CARD IS LOADED
-  for (let j = 0; j < stars.length; j++) {
-    stars[j].addEventListener('click', checkStars);
-    stars[j].addEventListener('mouseover', animateRatings);
-    stars[j].addEventListener('mouseout', defaultStyleRatings);
-  }
 }
 
 
