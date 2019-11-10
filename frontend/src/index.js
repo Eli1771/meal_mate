@@ -67,7 +67,7 @@ function generateStars() {
   for (let i = 0; i < ratingContainers.length; i++) {
     let container = ratingContainers[i];
     let id = ratingHeaders[i].innerHTML;
-    for (let j = 0; j < 5; j++) {
+    for (let j = 4; j >= 0; j--) {
       id += `-${j}`;
       let input = `<input type="checkbox" id=${id}>`;
       let openingLabel = `<label for=${id} class="star">`;
@@ -113,43 +113,43 @@ function loadEventListeners() {
 
 
 
-function checkStars(e) {
-  //first clear all checked stars
-  let container = this.parentElement;
-  let stars = container.querySelectorAll('input');
-  for (let i = 0; i < stars.length; i++) {
-    stars[i].checked = false;
-  }
-  //then check all stars leading up to clicked object
-  let first = this.previousElementSibling
-  let previous = first.previousElementSibling.previousElementSibling;
-  for (let j = 0; j < 5; j++) {
-    if (previous != null) {
-      previous.checked = true;
-      previous = previous.previousElementSibling.previousElementSibling;
-    }
-  }
-}
-
-function animateRatings() {
-  let current = this;
-  this.classList.add('hovering');
-  for (let i = 0; i < 5; i++) {
-    let previous = current.previousElementSibling.previousElementSibling;
-    if (previous != null) {
-      previous.classList.add('hovering');
-      current = previous;
-    }
-  }
-}
-
-function defaultStyleRatings() {
-  let container = this.parentElement;
-  let stars = container.children;
-  for (let i = 0; i < stars.length; i++) {
-    stars[i].classList.remove('hovering');
-  }
-}
+// function checkStars(e) {
+//   //first clear all checked stars
+//   let container = this.parentElement;
+//   let stars = container.querySelectorAll('input');
+//   for (let i = 0; i < stars.length; i++) {
+//     stars[i].checked = false;
+//   }
+//   //then check all stars leading up to clicked object
+//   let first = this.previousElementSibling
+//   let previous = first.previousElementSibling.previousElementSibling;
+//   for (let j = 0; j < 5; j++) {
+//     if (previous != null) {
+//       previous.checked = true;
+//       previous = previous.previousElementSibling.previousElementSibling;
+//     }
+//   }
+// }
+//
+// function animateRatings() {
+//   let current = this;
+//   this.classList.add('hovering');
+//   for (let i = 0; i < 5; i++) {
+//     let previous = current.previousElementSibling.previousElementSibling;
+//     if (previous != null) {
+//       previous.classList.add('hovering');
+//       current = previous;
+//     }
+//   }
+// }
+//
+// function defaultStyleRatings() {
+//   let container = this.parentElement;
+//   let stars = container.children;
+//   for (let i = 0; i < stars.length; i++) {
+//     stars[i].classList.remove('hovering');
+//   }
+// }
 
 function openOven() {
   //hide 'closed' elements
@@ -286,7 +286,12 @@ function daysIntoWeek(dayIds) {
   objData.current = false;
   let configObj = makeConfigObj(objData);
   fetch('http://localhost:3000/week_plans', configObj)
-    .then(resp => resp.json()).then(json => console.log(json));
+    .then(resp => resp.json()).then(json => renderFuturePlan(json));
+}
+
+function renderFuturePlan(plan) {
+  const frame = document.querySelector('#oven-meals-content-pane');
+  frame.innerHTML = '<h1>hello yall</h1>';
 }
 
 // BOTH USELESS?? vvvvv

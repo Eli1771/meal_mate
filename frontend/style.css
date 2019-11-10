@@ -145,6 +145,8 @@ ul.ingredients-list {
 
 .stars {
   padding: .5vh;
+  display: flex;
+  flex-direction: row-reverse;
   background: #2b4c39;
   width: fit-content;
   height: 50%;
