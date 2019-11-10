@@ -114,44 +114,6 @@ function loadEventListeners() {
 
 
 
-// function checkStars(e) {
-//   //first clear all checked stars
-//   let container = this.parentElement;
-//   let stars = container.querySelectorAll('input');
-//   for (let i = 0; i < stars.length; i++) {
-//     stars[i].checked = false;
-//   }
-//   //then check all stars leading up to clicked object
-//   let first = this.previousElementSibling
-//   let previous = first.previousElementSibling.previousElementSibling;
-//   for (let j = 0; j < 5; j++) {
-//     if (previous != null) {
-//       previous.checked = true;
-//       previous = previous.previousElementSibling.previousElementSibling;
-//     }
-//   }
-// }
-//
-// function animateRatings() {
-//   let current = this;
-//   this.classList.add('hovering');
-//   for (let i = 0; i < 5; i++) {
-//     let previous = current.previousElementSibling.previousElementSibling;
-//     if (previous != null) {
-//       previous.classList.add('hovering');
-//       current = previous;
-//     }
-//   }
-// }
-//
-// function defaultStyleRatings() {
-//   let container = this.parentElement;
-//   let stars = container.children;
-//   for (let i = 0; i < stars.length; i++) {
-//     stars[i].classList.remove('hovering');
-//   }
-// }
-
 function openOven() {
   //hide 'closed' elements
   let closed = document.querySelectorAll('.closed-oven');
