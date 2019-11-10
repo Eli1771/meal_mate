@@ -153,7 +153,8 @@ ul.ingredients-list {
   border-radius: .5vh;
 }
 
-.stars input:checked + label {
+.stars input:checked + label,
+.stars input:checked + label ~ .star {
   opacity: 1;
 }
 
@@ -166,7 +167,8 @@ label.star {
   opacity: .3;
 }
 
-label.star.hovering {
+label.star:hover,
+label.star:hover ~ .star {
   opacity: .7;
 }
 

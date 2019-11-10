@@ -55,7 +55,7 @@ function generateMealButtons() {
   }
 }
 
-//             =======HOLDER METHOD TO TEXT RATING ANIMATIONS=======
+//             =======HOLDER METHOD TO TEST RATING ANIMATIONS=======
 
 function generateStars() {
   let ratingContainers = document.querySelectorAll('.stars');
@@ -67,9 +67,10 @@ function generateStars() {
   for (let i = 0; i < ratingContainers.length; i++) {
     let container = ratingContainers[i];
     let id = ratingHeaders[i].innerHTML;
+    let name = `${id}-container`;
     for (let j = 4; j >= 0; j--) {
       id += `-${j}`;
-      let input = `<input type="checkbox" id=${id}>`;
+      let input = `<input type="radio" id=${id} name=${name}>`;
       let openingLabel = `<label for=${id} class="star">`;
       container.innerHTML += (input + openingLabel + img + closingLabel);
       id = ratingHeaders[i].innerHTML;
