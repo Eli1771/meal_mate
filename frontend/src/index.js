@@ -185,6 +185,29 @@ function closeOven() {
   document.querySelector('#oven-shopping-list').checked = false;
 }
 
+function selectAllMeals() {
+  let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
+  let selectAllCheckboxes = document.querySelectorAll('.select-all');
+  let status = this.checked;
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].checked = status;
+  }
+  for (let j = 0; j < selectAllCheckboxes.length; j++) {
+    selectAllCheckboxes[j].checked = status;
+  }
+}
+
+function selectAllOfOneMeal() {
+  let status = this.checked;
+  //I HATE THESE SELECTORS <- Fix later?
+  let start = this.parentElement.previousElementSibling.previousElementSibling;
+  for (let i = 0; i < 7; i++) {
+    start.checked = status;
+    start = start.previousElementSibling.previousElementSibling;
+  }
+}
+
+
 
 
 //                  ---------ALL BACKEND PROCESSES------
@@ -266,41 +289,22 @@ function daysIntoWeek(dayIds) {
     .then(resp => resp.json()).then(json => console.log(json));
 }
 
-function getRecipe(id) {
-  let url = `${RECIPES_URL}/${id}`;
-  console.log(url);
-  fetch(url).then(resp => resp.json()).then(json => displayPlanInOven(json));
+// BOTH USELESS?? vvvvv
 
-}
+// function getRecipe(id) {
+//   let url = `${RECIPES_URL}/${id}`;
+//   console.log(url);
+//   fetch(url).then(resp => resp.json()).then(json => displayPlanInOven(json));
+//
+// }
+//
+// function displayPlanInOven(json) {
+//   console.log(json);
+//   let door = document.querySelector('#oven-meals-content-pane');
+//   door.innerHTML += json.name + '<br>';
+// }
 
-function displayPlanInOven(json) {
-  console.log(json);
-  let door = document.querySelector('#oven-meals-content-pane');
-  door.innerHTML += json.name + '<br>';
-}
-
-function selectAllMeals() {
-  let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
-  let selectAllCheckboxes = document.querySelectorAll('.select-all');
-  let status = this.checked;
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].checked = status;
-  }
-  for (let j = 0; j < selectAllCheckboxes.length; j++) {
-    selectAllCheckboxes[j].checked = status;
-  }
-}
-
-function selectAllOfOneMeal() {
-  let status = this.checked;
-  //I HATE THESE SELECTORS <- Fix later?
-  let start = this.parentElement.previousElementSibling.previousElementSibling;
-  for (let i = 0; i < 7; i++) {
-    start.checked = status;
-    start = start.previousElementSibling.previousElementSibling;
-  }
-}
-
+// BOTH USELESS?? ^^^^^^
 
 
 //                      -----------HELPERS-----------
