@@ -1,14 +1,7 @@
 class CreateWeekPlans < ActiveRecord::Migration[5.2]
   def change
     create_table :week_plans do |t|
-      t.integer :sunday
-      t.integer :monday
-      t.integer :tuesday
-      t.integer :wednesday
-      t.integer :thursday
-      t.integer :friday
-      t.integer :saturday
-      t.boolean :current
+      t.string :start_date
 
       t.timestamps
     end
