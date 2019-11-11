@@ -13,12 +13,14 @@
 ActiveRecord::Schema.define(version: 2019_11_10_192350) do
 
   create_table "day_plans", force: :cascade do |t|
+    t.integer "day_id"
     t.string "date"
     t.integer "breakfast"
     t.integer "lunch"
     t.integer "dinner"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["day_id"], name: "index_day_plans_on_day_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -53,21 +55,15 @@ ActiveRecord::Schema.define(version: 2019_11_10_192350) do
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.string "instructions"
-    t.integer "meal"
+    t.integer "meal_id"
     t.boolean "bulk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_recipes_on_meal_id"
   end
 
   create_table "week_plans", force: :cascade do |t|
-    t.integer "sunday"
-    t.integer "monday"
-    t.integer "tuesday"
-    t.integer "wednesday"
-    t.integer "thursday"
-    t.integer "friday"
-    t.integer "saturday"
-    t.boolean "current"
+    t.string "start_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
