@@ -6,6 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+meals = ['Breakfast', 'Lunch', 'Dinner']
+
+days.each do |day|
+  Day.create(name: day)
+end
+
+meals.each do |meal|
+  Meal.create(name: meal)
+end
+
 def add_ingredients_to_recipe(ingredients, recipe)
   ingredients.each do |ing|
     ingredient = Ingredient.find_or_create_by(name: ing[:name])
