@@ -1,4 +1,6 @@
 class WeekPlan < ApplicationRecord
+  has_many :day_plans
+  has_many :recipes, through: :day_plans
 
   def sunday_plan
     DayPlan.find(self.sunday)

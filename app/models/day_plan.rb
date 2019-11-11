@@ -1,5 +1,6 @@
 class DayPlan < ApplicationRecord
   #custom setter/getter methods
+  belongs_to :day
 
   def breakfast_recipe
     Recipe.find(self.breakfast)
