@@ -181,6 +181,7 @@ async function generatePlan() {
   //only to plug into the week_plan create method <- needs an async/await?
   let firstDate = moment().add((day + offset), 'days').format('MMM Do');
   let weekPlanId = establishWeekPlan(firstDate);
+  console.log('week_plan id: ' + weekPlanId);
   //Now loop through to make day plans and feed into week plan
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
