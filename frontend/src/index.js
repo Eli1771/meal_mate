@@ -179,14 +179,18 @@ async function generatePlan() {
   let currentWeekday = d.getDay();
   let offset = 7 - currentWeekday;
   //only to plug into the week_plan create method <- needs an async/await?
-  let firstDate = moment().add((day + offset), 'days').format('MMM Do');
-  let weekPlanId = establishWeekPlan(firstDate);
-  console.log('week_plan id: ' + weekPlanId);
+  let firstDate = moment().add(offset, 'days').format('MMM Do');
+  generateWeekPlan(firstDate);
+  //trying new approach: will loop day plans INSIDE of weekplan creation fx
+
+
+  console.log('week_plan id: ');
+  console.log(weekPlanId);
   //Now loop through to make day plans and feed into week plan
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
-    let dayPlan = await generateDayPlan(requiredMeals[day], date, day);
+    let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
     //make meal plan
     dayIds.push(dayPlan.id);
     continue;
@@ -214,7 +218,7 @@ function getMealDays() {
   return r;
 }
 
-async function establishWeekPlan(startDate) {
+async function generateWeekPlan(startDate) {
   let objData = {
     start_date: startDate
   }
@@ -222,7 +226,8 @@ async function establishWeekPlan(startDate) {
   let resp = await fetch('http://localhost:3000/week_plans', configObj);
   let json = await resp.json();
   let weekPlanId = await json.id;
-  return weekPlanId;
+  console.log(weekPlanId);
+
 }
 
 
@@ -260,7 +265,6 @@ async function generateDayPlan(whichMeals, date, day) {
     }
   }
   //make the configuration object w/ object data
-  objData.date = date;
   let configObj = makeConfigObj(objData);
   //actual fetch posts to populate db
   const resp = await fetch('http://localhost:3000/day_plans', configObj)

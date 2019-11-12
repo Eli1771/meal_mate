@@ -6,7 +6,8 @@ class WeekPlansController < ApplicationController
 
   def create
     week_plan = WeekPlan.create(week_plan_params)
-    render json: WeekPlanSerializer.new(week_plan).to_serialized_json
+    render json: week_plan
+    # render json: WeekPlanSerializer.new(week_plan).to_serialized_json
   end
 
   private
