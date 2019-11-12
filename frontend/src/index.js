@@ -174,9 +174,14 @@ async function generatePlan() {
   let requiredMeals = getMealDays();
   let dayIds = [];
 
+  //moment methods to get dates for week
   let d = new Date;
   let currentWeekday = d.getDay();
   let offset = 7 - currentWeekday;
+  //only to plug into the week_plan create method <- needs an async/await?
+  let firstDate = moment().add((day + offset), 'days').format('MMM Do');
+  let weekPlanId = establishWeekPlan(firstDate);
+  //Now loop through to make day plans and feed into week plan
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
@@ -208,6 +213,37 @@ function getMealDays() {
   return r;
 }
 
+async function establishWeekPlan(startDate) {
+  let objData = {
+    start_date: startDate
+  }
+  let configObj = makeConfigObj(objData);
+  let resp = await fetch('http://localhost:3000/week_plans', configObj);
+  let json = await resp.json();
+  let weekPlanId = await json.id;
+  return weekPlanId;
+}
+
+
+
+//                          MIGHT DELETE vvvvv
+function daysIntoWeek(dayIds) {
+  let objData = {};
+  console.log(dayIds);
+  let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  for (let day = 0; day < 7; day++) {
+    objData[days[day]] = dayIds[day];
+  }
+  objData.current = false;
+  let configObj = makeConfigObj(objData);
+  fetch('http://localhost:3000/week_plans', configObj)
+    .then(resp => resp.json()).then(json => renderFuturePlan(json));
+}
+
+
+
+
+
 async function generateDayPlan(whichMeals, date, day) {
   let objData = {
     day_id: day,
@@ -230,19 +266,6 @@ async function generateDayPlan(whichMeals, date, day) {
   const json = resp.json();
   console.log(json);
   return json;
-}
-
-function daysIntoWeek(dayIds) {
-  let objData = {};
-  console.log(dayIds);
-  let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  for (let day = 0; day < 7; day++) {
-    objData[days[day]] = dayIds[day];
-  }
-  objData.current = false;
-  let configObj = makeConfigObj(objData);
-  fetch('http://localhost:3000/week_plans', configObj)
-    .then(resp => resp.json()).then(json => renderFuturePlan(json));
 }
 
 function renderFuturePlan(plan) {
