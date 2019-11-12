@@ -180,7 +180,7 @@ async function generatePlan() {
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
-    let dayPlan = await generateDayPlan(requiredMeals[day], date);
+    let dayPlan = await generateDayPlan(requiredMeals[day], date, day);
     //make meal plan
     dayIds.push(dayPlan.id);
     continue;
@@ -208,9 +208,11 @@ function getMealDays() {
   return r;
 }
 
-async function generateDayPlan(whichMeals, date) {
-  let objData = {};
-  let meals = ['breakfast', 'lunch', 'dinner'];
+async function generateDayPlan(whichMeals, date, day) {
+  let objData = {
+    day_id: day,
+    date: date
+  };
   let rand3 = function() {
     return randomInRange(3);
   }
