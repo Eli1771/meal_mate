@@ -1,7 +1,8 @@
 class DayPlan < ApplicationRecord
   #custom setter/getter methods
   belongs_to :day
-  has_many :recipe_plans 
+  belongs_to :week_plan
+  has_many :recipe_plans
   has_many :recipes, through: :recipe_plans
 
   def self.clearAll
