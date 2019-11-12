@@ -172,7 +172,7 @@ async function generatePlan() {
   openOven();
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
-  let dayIds = [];
+  //let dayIds = [];
 
   //moment methods to get dates for week
   let d = new Date;
@@ -180,22 +180,36 @@ async function generatePlan() {
   let offset = 7 - currentWeekday;
   //only to plug into the week_plan create method <- needs an async/await?
   let firstDate = moment().add(offset, 'days').format('MMM Do');
-  generateWeekPlan(firstDate);
+
+  let objData = {
+    start_date: startDate
+  }
+  let configObj = makeConfigObj(objData);
+  let resp = await fetch('http://localhost:3000/week_plans', configObj);
+  let json = await resp.json();
+  let weekPlanId = await json.id;
+
+
+
+
+
+  //generateWeekPlan(firstDate);
   //trying new approach: will loop day plans INSIDE of weekplan creation fx
 
 
-  console.log('week_plan id: ');
-  console.log(weekPlanId);
-  //Now loop through to make day plans and feed into week plan
-  for (let day = 0; day < requiredMeals.length; day++) {
+
+  // console.log('week_plan id: ');
+  // console.log(weekPlanId);
+  // //Now loop through to make day plans and feed into week plan
+  // for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
     //make meal plan
-    dayIds.push(dayPlan.id);
+    //dayIds.push(dayPlan.id);
     continue;
   }
-  daysIntoWeek(dayIds);
+  // daysIntoWeek(dayIds);
 
   //need some way to convert boolean values into required Date objects for each meal
   //currently no async to determine count of recipes or categories of recipes:
@@ -250,10 +264,11 @@ function daysIntoWeek(dayIds) {
 
 
 
-async function generateDayPlan(whichMeals, date, day) {
+async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   let objData = {
     day_id: day,
-    date: date
+    date: date,
+    week_plan_id: weekPlanId
   };
   let rand3 = function() {
     return randomInRange(3);
@@ -261,7 +276,7 @@ async function generateDayPlan(whichMeals, date, day) {
   //randomly select meals
   for (let meal = 0; meal < 3; meal++) {
     if (whichMeals[meal]) {
-      objData[meals[meal]] = rand3();
+      associateRecipe(rand3());
     }
   }
   //make the configuration object w/ object data
