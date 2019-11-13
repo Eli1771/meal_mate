@@ -13,6 +13,6 @@ class WeekPlansController < ApplicationController
   private
 
   def week_plan_params
-    params.require(:week_plan).permit(:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :current)
+    params.require(:week_plan).permit(:start_date)
   end
 end
