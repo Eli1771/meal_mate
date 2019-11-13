@@ -172,7 +172,6 @@ async function generatePlan() {
   openOven();
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
-  //let dayIds = [];
 
   //moment methods to get dates for week
   let d = new Date;
@@ -180,7 +179,6 @@ async function generatePlan() {
   let offset = 7 - currentWeekday;
   //only to plug into the week_plan create method <- needs an async/await?
   let startDate = moment().add(offset, 'days').format('MMM Do');
-
   let objData = {
     start_date: startDate
   }
@@ -190,31 +188,13 @@ async function generatePlan() {
   let weekPlanId = await json.id;
   console.log('week plan id in week generator: ' + weekPlanId);
 
-
-
-
-
-  //generateWeekPlan(firstDate);
-  //trying new approach: will loop day plans INSIDE of weekplan creation fx
-
-
-
-  // console.log('week_plan id: ');
-  // console.log(weekPlanId);
   // //Now loop through to make day plans and feed into week plan
   for (let day = 0; day < 1/*requiredMeals.length*/; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
-    //make meal plan
-    //dayIds.push(dayPlan.id);
     continue;
   }
-  // daysIntoWeek(dayIds);
-
-  //need some way to convert boolean values into required Date objects for each meal
-  //currently no async to determine count of recipes or categories of recipes:
-  //the 'which' var is calculated based on the dev knowing how much is available
 }
 
 function getMealDays() {
@@ -233,46 +213,12 @@ function getMealDays() {
   return r;
 }
 
-async function generateWeekPlan(startDate) {
-  let objData = {
-    start_date: startDate
-  }
-  let configObj = makeConfigObj(objData);
-  let resp = await fetch('http://localhost:3000/week_plans', configObj);
-  let json = await resp.json();
-  let weekPlanId = await json.id;
-  console.log(weekPlanId);
-
-}
-
-
-
-//                          MIGHT DELETE vvvvv
-function daysIntoWeek(dayIds) {
-  let objData = {};
-  console.log(dayIds);
-  let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  for (let day = 0; day < 7; day++) {
-    objData[days[day]] = dayIds[day];
-  }
-  objData.current = false;
-  let configObj = makeConfigObj(objData);
-  fetch('http://localhost:3000/week_plans', configObj)
-    .then(resp => resp.json()).then(json => renderFuturePlan(json));
-}
-
-
-
-
-
 async function generateDayPlan(whichMeals, date, day, weekPlanId) {
-  // console.log('week plan id in day plan generator: ' + weekPlanId);
   let objData = {
     day_id: day,
     date: date,
     week_plan_id: weekPlanId
   };
-  // console.log(objData)
   let rand3 = function() {
     return randomInRange(3);
   }
@@ -312,22 +258,6 @@ function renderFuturePlan(plan) {
   frame.innerHTML = '<h1>hello yall</h1>';
 }
 
-// BOTH USELESS?? vvvvv
-
-// function getRecipe(id) {
-//   let url = `${RECIPES_URL}/${id}`;
-//   console.log(url);
-//   fetch(url).then(resp => resp.json()).then(json => displayPlanInOven(json));
-//
-// }
-//
-// function displayPlanInOven(json) {
-//   console.log(json);
-//   let door = document.querySelector('#oven-meals-content-pane');
-//   door.innerHTML += json.name + '<br>';
-// }
-
-// BOTH USELESS?? ^^^^^^
 
 
 //                      -----------HELPERS-----------
