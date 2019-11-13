@@ -189,7 +189,7 @@ async function generatePlan() {
   console.log('week plan id in week generator: ' + weekPlanId);
 
   // //Now loop through to make day plans and feed into week plan
-  for (let day = 0; day < 1/*requiredMeals.length*/; day++) {
+  for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
@@ -219,6 +219,8 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
     date: date,
     week_plan_id: weekPlanId
   };
+  console.log('day plan object data');
+  console.log(objData);
   let rand3 = function() {
     return randomInRange(3);
   }
@@ -229,7 +231,8 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   const json = await resp.json();
   console.log('day plan json:');
   console.log(json);
-  let dayPlanId = await json.id;
+  const dayPlanId = await json.id;
+  console.log('day plan id');
   console.log(dayPlanId);
 
   //randomly select meals
