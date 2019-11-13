@@ -316,7 +316,6 @@ div.open-oven-door-content {
   display: none;
   position: absolute;
   width: 100%;
-  min-height: 80%;
   top: 2em;
 }
 
@@ -326,4 +325,6 @@ div.open-oven-door-content {
 
 #oven-door input:checked + div div.open-oven-door-content {
   display: block;
+  overflow: scroll;
+  height: 70%;
 }

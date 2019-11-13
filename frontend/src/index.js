@@ -191,8 +191,7 @@ async function generatePlan() {
   for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
-    let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
-    continue;
+    await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
   }
 
   fetchFuturePlan(weekPlanId);
@@ -236,10 +235,8 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   for (let meal = 0; meal < 3; meal++) {
     if (whichMeals[meal]) {
       await associateRecipe(rand3(), dayPlanId);
-      continue;
     }
   }
-  return json;
 }
 
 async function associateRecipe(recipeId, dayPlanId) {
@@ -260,7 +257,17 @@ function fetchFuturePlan(planId) {
 function renderFuturePlan(planData) {
   console.log(planData);
   const frame = document.querySelector('#oven-meals-content-pane');
-  frame.innerHTML = `<h3>${planData.start_date}</h3>`;
+  const dayPlans = planData.day_plans;
+  //now populate frame
+  frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
+  for (let i = 0; i < dayPlans.length; i++) {
+    const dayPlan = dayPlans[i];
+    const recipes = dayPlan.recipes;
+    frame.innerHTML += `<h3>${dayPlan.day.name}</h3>`;
+    for (let j = 0; j < recipes.length; j++) {
+    
+    }
+  }
 }
 
 
