@@ -169,7 +169,6 @@ function selectAllOfOneMeal() {
 
 
 async function generatePlan() {
-  openOven();
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
 
@@ -193,7 +192,6 @@ async function generatePlan() {
     console.log('date of plan: ' + date);
     await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
   }
-
   fetchFuturePlan(weekPlanId);
 }
 
@@ -255,17 +253,18 @@ function fetchFuturePlan(planId) {
 }
 
 function renderFuturePlan(planData) {
+  openOven();
   console.log(planData);
   const frame = document.querySelector('#oven-meals-content-pane');
   const dayPlans = planData.day_plans;
   //now populate frame
   frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
   for (let i = 0; i < dayPlans.length; i++) {
-    const dayPlan = dayPlans[i];
-    const recipes = dayPlan.recipes;
-    frame.innerHTML += `<h3>${dayPlan.day.name}</h3>`;
+    frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
+    const recipes = dayPlans[i].recipes;
     for (let j = 0; j < recipes.length; j++) {
-    
+      frame.innerHTML += `<h4>${recipes[j].meal.name}</h4>`;
+      frame.innerHTML += `<p>${recipes[j].name}</p>`;
     }
   }
 }
