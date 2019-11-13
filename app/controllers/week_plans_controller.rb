@@ -1,5 +1,5 @@
 class WeekPlansController < ApplicationController
-  def index
+  def show
     week_plan = WeekPlan.find(params[:id])
     render json: week_plan
   end
@@ -7,7 +7,6 @@ class WeekPlansController < ApplicationController
   def create
     week_plan = WeekPlan.create(week_plan_params)
     render json: week_plan
-    # render json: WeekPlanSerializer.new(week_plan).to_serialized_json
   end
 
   private

@@ -194,6 +194,8 @@ async function generatePlan() {
     let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
     continue;
   }
+
+  fetchFuturePlan(weekPlanId);
 }
 
 function getMealDays() {
@@ -248,12 +250,17 @@ async function associateRecipe(recipeId, dayPlanId) {
   let configObj = makeConfigObj(objData);
   let resp = await fetch('http://localhost:3000/recipe_plans', configObj);
   let json = await resp.json();
-  console.log(json);
 }
 
-function renderFuturePlan(plan) {
+function fetchFuturePlan(planId) {
+  fetch(`http://localhost:3000/week_plans/${planId}`)
+    .then(resp => resp.json()).then(json => renderFuturePlan(json));
+}
+
+function renderFuturePlan(planData) {
+  console.log(planData);
   const frame = document.querySelector('#oven-meals-content-pane');
-  frame.innerHTML = '<h1>hello yall</h1>';
+  frame.innerHTML = `<h3>${planData.start_date}</h3>`;
 }
 
 
