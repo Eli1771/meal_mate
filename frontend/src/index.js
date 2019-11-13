@@ -202,7 +202,7 @@ async function generatePlan() {
   // console.log('week_plan id: ');
   // console.log(weekPlanId);
   // //Now loop through to make day plans and feed into week plan
-  for (let day = 0; day < requiredMeals.length; day++) {
+  for (let day = 0; day < 1/*requiredMeals.length*/; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
@@ -280,26 +280,31 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   let configObj = makeConfigObj(objData);
   //actual fetch posts to populate db
   const resp = await fetch('http://localhost:3000/day_plans', configObj);
-  const json = resp.json();
+  const json = await resp.json();
+  console.log('day plan json:');
   console.log(json);
-  let dayPlanId = json.id;
+  let dayPlanId = await json.id;
+  console.log(dayPlanId);
 
   //randomly select meals
   for (let meal = 0; meal < 3; meal++) {
     if (whichMeals[meal]) {
-      associateRecipe(rand3(), dayPlanId);
+      await associateRecipe(rand3(), dayPlanId);
+      continue;
     }
   }
   return json;
 }
 
-function associateRecipe(recipeId, dayPlanId) {
+async function associateRecipe(recipeId, dayPlanId) {
   let objData = {
     recipe_id: recipeId,
     day_plan_id: dayPlanId
   }
   let configObj = makeConfigObj(objData);
-  fetch('http://localhost:3000/recipe_plans', configObj);
+  let resp = await fetch('http://localhost:3000/recipe_plans', configObj);
+  let json = await resp.json();
+  console.log(json);
 }
 
 function renderFuturePlan(plan) {
