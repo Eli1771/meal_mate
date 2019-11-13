@@ -179,7 +179,7 @@ async function generatePlan() {
   let currentWeekday = d.getDay();
   let offset = 7 - currentWeekday;
   //only to plug into the week_plan create method <- needs an async/await?
-  let firstDate = moment().add(offset, 'days').format('MMM Do');
+  let startDate = moment().add(offset, 'days').format('MMM Do');
 
   let objData = {
     start_date: startDate
@@ -201,7 +201,7 @@ async function generatePlan() {
   // console.log('week_plan id: ');
   // console.log(weekPlanId);
   // //Now loop through to make day plans and feed into week plan
-  // for (let day = 0; day < requiredMeals.length; day++) {
+  for (let day = 0; day < requiredMeals.length; day++) {
     let date = moment().add((day + offset), 'days').format('MMM Do');
     console.log('date of plan: ' + date);
     let dayPlan = await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
@@ -273,19 +273,30 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   let rand3 = function() {
     return randomInRange(3);
   }
-  //randomly select meals
-  for (let meal = 0; meal < 3; meal++) {
-    if (whichMeals[meal]) {
-      associateRecipe(rand3());
-    }
-  }
   //make the configuration object w/ object data
   let configObj = makeConfigObj(objData);
   //actual fetch posts to populate db
-  const resp = await fetch('http://localhost:3000/day_plans', configObj)
+  const resp = await fetch('http://localhost:3000/day_plans', configObj);
   const json = resp.json();
   console.log(json);
+  let dayPlanId = json.id;
+
+  //randomly select meals
+  for (let meal = 0; meal < 3; meal++) {
+    if (whichMeals[meal]) {
+      associateRecipe(rand3(), dayPlanId);
+    }
+  }
   return json;
+}
+
+function associateRecipe(recipeId, dayPlanId) {
+  let objData = {
+    recipe_id: recipeId,
+    day_plan_id: dayPlanId
+  }
+  let configObj = makeConfigObj(objData);
+  fetch('http://localhost:3000/recipe_plans', configObj);
 }
 
 function renderFuturePlan(plan) {
