@@ -18,6 +18,6 @@ class DayPlansController < ApplicationController
   private
 
   def day_plan_params
-    params.require(:day_plan).permit(:date, :day_id)
+    params.require(:day_plan).permit(:date, :day_id, :week_plan_id)
   end
 end

@@ -188,6 +188,7 @@ async function generatePlan() {
   let resp = await fetch('http://localhost:3000/week_plans', configObj);
   let json = await resp.json();
   let weekPlanId = await json.id;
+  console.log('week plan id in week generator: ' + weekPlanId);
 
 
 
@@ -265,11 +266,13 @@ function daysIntoWeek(dayIds) {
 
 
 async function generateDayPlan(whichMeals, date, day, weekPlanId) {
+  // console.log('week plan id in day plan generator: ' + weekPlanId);
   let objData = {
     day_id: day,
     date: date,
     week_plan_id: weekPlanId
   };
+  // console.log(objData)
   let rand3 = function() {
     return randomInRange(3);
   }
