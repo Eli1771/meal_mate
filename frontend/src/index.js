@@ -169,6 +169,7 @@ function selectAllOfOneMeal() {
 
 
 async function generatePlan() {
+  this.innerText = 'Loading...';
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
 
@@ -255,6 +256,15 @@ function fetchFuturePlan(planId) {
 function renderFuturePlan(planData) {
   openOven();
   console.log(planData);
+  renderRecipes(planData);
+  //to return a flat array of recipe_ingredients for the plan
+  let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
+  let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
+  console.log(ingredients);
+  renderShoppingList(ingredients);
+}
+
+function renderRecipes(planData) {
   const frame = document.querySelector('#oven-meals-content-pane');
   const dayPlans = planData.day_plans;
   //now populate frame
@@ -263,11 +273,31 @@ function renderFuturePlan(planData) {
     frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
     const recipes = dayPlans[i].recipes;
     for (let j = 0; j < recipes.length; j++) {
-      frame.innerHTML += `<h4>${recipes[j].meal.name}</h4>`;
-      frame.innerHTML += `<p>${recipes[j].name}</p>`;
+      frame.innerHTML += `<p>${recipes[j].meal.name} - ${recipes[j].name}</p>`;
     }
   }
 }
+
+function renderShoppingList(ingredients) {
+  let collapsed = []
+  for (let i = 0; i < ingredients.length; i++) {
+    let ingredient = ingredients[i];
+    let listed = collapsed.find(n => {
+      n[0] === ingredient[0]
+    });
+    if (listed) {
+      listed[1] += ingredient[1]
+    } else {
+      collapsed.push(ingredient);
+    }
+  }
+}
+
+// Array.prototype.unique = function() {
+//   return this.filter(function (value, index, self) {
+//     return self.indexOf(value) === index;
+//   });
+// }
 
 
 
