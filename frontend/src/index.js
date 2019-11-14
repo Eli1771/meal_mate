@@ -282,15 +282,25 @@ function renderShoppingList(ingredients) {
   let collapsed = []
   for (let i = 0; i < ingredients.length; i++) {
     let ingredient = ingredients[i];
+    console.log('full ingredient object: ' + ingredient);
     let listed = collapsed.find(n => {
+      console.log('first half of object in COLLAPSED: ' + n[0]);
+      console.log('first half of INGREDIENT object: ' + ingredient[0]);
+      console.log('matching? ' + (n[0] === ingredient[0]));
       n[0] === ingredient[0]
     });
+    console.log('did it create an object? ' + listed);
     if (listed) {
+      console.log('it took! second half of COLLAPSED object: ' + listed[1]);
       listed[1] += ingredient[1]
+      console.log('second half of INGREDIENT object: ' + ingredient[1]);
+      console.log('new amount result: ' + listed[1]);
     } else {
+      console.log('it didnt take. adding INGREDIENT object to COLLAPSED');
       collapsed.push(ingredient);
     }
   }
+  console.log('collapsed array so far: ' + collapsed);
 }
 
 // Array.prototype.unique = function() {
