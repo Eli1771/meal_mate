@@ -279,6 +279,20 @@ function renderRecipes(planData) {
 }
 
 function renderShoppingList(ingredients) {
+  const frame = document.querySelector('#oven-shopping-list-content-pane');
+  let listItems = compileShoppingList(ingredients);
+  for (let i = 0; i < listItems.length; i++) {
+    const listItem = listItems[i];
+    const name = listItem[0][0];
+    const unit = listItem[0][1];
+    const amount = listItem[1];
+    unit ?
+      frame.innerHTML += `<li>${amount} ${unit} ${name}</li>` :
+      frame.innerHTML += `<li>${amount} ${name}</li>`
+  }
+}
+
+function compileShoppingList(ingredients) {
   let collapsed = []
   for (let i = 0; i < ingredients.length; i++) {
     let ingredient = ingredients[i];
