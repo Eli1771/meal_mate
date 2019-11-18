@@ -178,6 +178,47 @@ function makeTemporaryMeal() {
     .then(resp => resp.json()).then(json => mameTemporaryDp(json));
 }
 
+function mameTemporaryDp(wpData) {
+  let wpId = wpData.id
+  console.log('temp plan id: ');
+  console.log(wpId);
+
+  const d = new Date();
+  const day = d.getDay();
+  const date = moment().format('MMM DD');
+
+  let objData = {
+    day_id: day,
+    date: date,
+    week_plan_id: wpId
+  };
+  //make the configuration object w/ object data
+  let configObj = makeConfigObj(objData);
+  //actual fetch posts to populate db
+  fetch('http://localhost:3000/day_plans', configObj)
+    .then(resp => resp.json()).then(json => associateTempMeal(json));
+}
+
+function associateTempMeal(dpData) {
+  let rand3 = function() {
+    return randomInRange(3);
+  }
+  let objData = {
+    recipe_id: rand3(),
+    day_plan_id: dpData.id
+  }
+  let configObj = makeConfigObj(objData);
+  fetch('http://localhost:3000/recipe_plans', configObj)
+    .then(resp => resp.json()).then(json => console.log(json));
+}
+
+
+
+
+
+
+
+
 
 //                    ================================
 
