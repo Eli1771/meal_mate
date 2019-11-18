@@ -284,7 +284,7 @@ button#oven-door-opened {
   color: white;
   font-size: inherit;
   width: 109%;
-  margin-top: 60%;
+  margin-top: 62%;
   left: -2%;
   height: 18%;
   position: relative;
@@ -326,5 +326,5 @@ div.open-oven-door-content {
 #oven-door input:checked + div div.open-oven-door-content {
   display: block;
   overflow: scroll;
-  height: 70%;
+  height: 65%;
 }

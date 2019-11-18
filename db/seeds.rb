@@ -62,7 +62,3 @@ scampi_ingredients = [
 
 scampi = Recipe.create(name: "Garlic Shrimp Scampi", instructions: "https://tasty.co/recipe/garlic-shrimp-scampi", bulk: false, meal_id: 2)
 add_ingredients_to_recipe(scampi_ingredients, scampi)
-
-
-
-#[{name: , value: }, ],

@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:3000";
 const RECIPES_URL = `${BASE_URL}/recipes`;
 
 $(document).ready(function() {
+  makeTemporaryMeal();
   generatePageElements();
   //fetchCurrentPlan(); <-grabs, if any, the current meal plan and displays todays plan
   loadEventListeners();
@@ -166,6 +167,20 @@ function selectAllOfOneMeal() {
 
 //                  ---------ALL BACKEND PROCESSES------
 
+//     ========TEMPORARY METHOD TO TEST DAY PLAN RENDERING==============
+
+function makeTemporaryMeal() {
+  let objData = {
+    start_date: 'Fake Date'
+  }
+  let configObj = makeConfigObj(objData);
+  fetch('http://localhost:3000/week_plans', configObj)
+    .then(resp => resp.json()).then(json => mameTemporaryDp(json));
+}
+
+
+//                    ================================
+
 
 
 async function generatePlan() {
@@ -178,7 +193,7 @@ async function generatePlan() {
   let currentWeekday = d.getDay();
   let offset = 7 - currentWeekday;
   //only to plug into the week_plan create method <- needs an async/await?
-  let startDate = moment().add(offset, 'days').format('MMM Do');
+  let startDate = moment().add(offset, 'days').format('MMM DD');
   let objData = {
     start_date: startDate
   }
@@ -189,7 +204,7 @@ async function generatePlan() {
 
   // //Now loop through to make day plans and feed into week plan
   for (let day = 0; day < requiredMeals.length; day++) {
-    let date = moment().add((day + offset), 'days').format('MMM Do');
+    let date = moment().add((day + offset), 'days').format('MMM DD');
     console.log('date of plan: ' + date);
     await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
   }
@@ -255,12 +270,10 @@ function fetchFuturePlan(planId) {
 
 function renderFuturePlan(planData) {
   openOven();
-  console.log(planData);
   renderRecipes(planData);
   //to return a flat array of recipe_ingredients for the plan
   let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
   let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
-  console.log(ingredients);
   renderShoppingList(ingredients);
 }
 
