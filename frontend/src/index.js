@@ -221,7 +221,9 @@ function associateTempMeal(dpData) {
 
 
 //                    ================================
+function findDayPlan() {
 
+}
 
 
 async function generatePlan() {
@@ -385,4 +387,8 @@ function makeConfigObj(objData) {
     },
     body: JSON.stringify(objData)
   };
+}
+
+function slugDate(s) {
+  return s.split(' ').join('_');
 }
