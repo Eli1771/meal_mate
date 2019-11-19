@@ -5,14 +5,22 @@ class DayPlan < ApplicationRecord
   has_many :recipe_plans
   has_many :recipes, through: :recipe_plans
 
+  before_save :date_slug
+
   def self.clearAll
     self.all.each do |dp|
       dp.delete
     end
   end
 
-  def to_param
-    slug
+  private
+
+  def date_slug
+    self.slug = self.date.gsub(' ', '_')
   end
+
+  # def to_param
+  #   slug
+  # end
 
 end

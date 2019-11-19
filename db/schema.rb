@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_211249) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["day_id"], name: "index_day_plans_on_day_id"
-    t.index ["slug"], name: "index_day_plans_on_slug", unique: true
+    t.index ["slug"], name: "index_day_plans_on_slug"
     t.index ["week_plan_id"], name: "index_day_plans_on_week_plan_id"
   end
 
