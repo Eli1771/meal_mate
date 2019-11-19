@@ -16,11 +16,11 @@ class DayPlan < ApplicationRecord
   private
 
   def date_slug
-    self.slug = self.date.gsub(' ', '_')
+    self.slug = self.date.gsub(' ', '_').downcase
   end
 
-  # def to_param
-  #   slug
-  # end
+  def to_param
+    slug
+  end
 
 end
