@@ -11,12 +11,8 @@ class DayPlan < ApplicationRecord
     end
   end
 
-  def date_slug
-    self.date.gsub(' ', '_')
-  end
-
-  def self.find_by_slug(slug)
-    slef.all.find {|dp| dp.date_slug == slug}
+  def to_param
+    slug
   end
 
 end

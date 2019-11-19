@@ -2,7 +2,8 @@ require 'pry'
 
 class DayPlansController < ApplicationController
   def show
-    day = DayPlan.find(params[:id])
+    # binding.pry
+    day = DayPlan.find_by(slug: params[:slug])
     render json: day
   end
 
@@ -19,6 +20,6 @@ class DayPlansController < ApplicationController
   private
 
   def day_plan_params
-    params.require(:day_plan).permit(:date, :day_id, :week_plan_id)
+    params.require(:day_plan).permit(:date, :day_id, :week_plan_id, :slug)
   end
 end

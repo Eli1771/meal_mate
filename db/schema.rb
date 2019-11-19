@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_000645) do
+ActiveRecord::Schema.define(version: 2019_11_18_211249) do
 
   create_table "day_plans", force: :cascade do |t|
     t.integer "day_id"
@@ -18,7 +18,9 @@ ActiveRecord::Schema.define(version: 2019_11_12_000645) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["day_id"], name: "index_day_plans_on_day_id"
+    t.index ["slug"], name: "index_day_plans_on_slug", unique: true
     t.index ["week_plan_id"], name: "index_day_plans_on_week_plan_id"
   end
 
