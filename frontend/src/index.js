@@ -216,7 +216,11 @@ function fetchDayPlan() {
   const today = slugDate(moment().format('MMM DD')).toLowerCase();
   const url = `http://localhost:3000/day_plans/${today}`;
   console.log(url);
-  fetch(url).then(resp => resp.json()).then(json => console.log(json));
+  fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
+}
+
+function renderDayPlan(dp) {
+
 }
 
 
