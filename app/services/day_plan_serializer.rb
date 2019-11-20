@@ -5,13 +5,11 @@ class DayPlanSerializer
 
   def to_serialized_json
     @day_plan.to_json(:include => {
-      :recipes => {
-        :include => {:ingredients => {:only => :name},
-          :recipe_ingredients => {:only => [:unit, :amount]},
-          :meal => {:only => :name}
-      },
-        :only => :name}
-    }, :except => [:created_at, :updated_at])
+      :recipes => {:include => {
+        :meal => {:only => [:name]}},
+        :only => [:name, :instructions]
+      }
+    }, :except => [:id, :day_id, :date, :week_plan_id, :created_at, :updated_at])
   end
 end
 

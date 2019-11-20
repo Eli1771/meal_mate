@@ -220,7 +220,7 @@ function fetchDayPlan() {
 }
 
 function renderDayPlan(dp) {
-
+  console.log(dp);
 }
 
 
