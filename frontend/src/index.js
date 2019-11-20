@@ -2,10 +2,9 @@ const BASE_URL = "http://localhost:3000";
 const RECIPES_URL = `${BASE_URL}/recipes`;
 
 $(document).ready(function() {
-  makeTemporaryMeal();
-  generatePageElements();
-  //fetchCurrentPlan(); <-grabs, if any, the current meal plan and displays todays plan
+  // makeTemporaryMeal();
   loadEventListeners();
+  generatePageElements();
 });
 
 
@@ -18,6 +17,7 @@ function generatePageElements() {
   generateMealButtons();
   loadCurrentMealPlan();
   generateStars();
+  fetchDayPlan();
 }
 
 function loadCurrentMealPlan() {
@@ -212,17 +212,6 @@ function associateTempMeal(dpData) {
     .then(resp => resp.json()).then(json => console.log(json));
 }
 
-function fetchDayPlan() {
-  const today = slugDate(moment().format('MMM DD')).toLowerCase();
-  const url = `http://localhost:3000/day_plans/${today}`;
-  console.log(url);
-  fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
-}
-
-function renderDayPlan(dp) {
-  console.log(dp);
-}
-
 
 
 
@@ -233,10 +222,29 @@ function renderDayPlan(dp) {
 
 //                    ================================
 
-function findDayPlan() {
 
+function fetchDayPlan() {
+  const today = slugDate(moment().format('MMM DD')).toLowerCase();
+  const url = `http://localhost:3000/day_plans/${today}`;
+  fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
 }
 
+function renderDayPlan(dp) {
+  const container = document.querySelector('div#all-meals');
+  const recipes = dp.recipes;
+  for (let i = 0; i < recipes.length; i++) {
+    let recipe = recipes[i];
+    container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
+    let mealContainer = document.createElement('div');
+    //move this to the end
+    container.appendChild(mealContainer);
+    mealContainer.classList.add('single-meal');
+    let name = recipe.name;
+    let link = `<a href=${recipe.instructions}>View Full Recipe</a>`;
+    let recipeHeader = `<h4>${name} - ${link}</h4>`;
+    mealContainer.innerHTML += recipeHeader;
+  }
+}
 
 async function generatePlan() {
   this.innerText = 'Loading...';
