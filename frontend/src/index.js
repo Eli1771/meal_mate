@@ -15,7 +15,7 @@ $(document).ready(function() {
 function generatePageElements() {
   generateMealButtons();
   loadCurrentMealPlan();
-  generateStars();
+  //generateStars();
   fetchDayPlan();
 }
 
@@ -68,6 +68,7 @@ function renderDayPlan(dp) {
   for (let i = 0; i < recipes.length; i++) {
     let recipe = recipes[i];
     let ingredients = recipe.recipe_ingredients;
+    let ratingTitles = ['Cost', 'Complexity', 'Nutrition', 'Taste'];
     //1. create a header (outside of container) with meal name
     container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
     //2. make the container for all recipe elements
@@ -93,6 +94,24 @@ function renderDayPlan(dp) {
       ingredientsList.appendChild(li);
     }
     mealContainer.appendChild(ingredientsList);
+    //5. create ratings container
+    let ratingsContainer = document.createElement('div');
+    ratingsContainer.classList.add('ratings-container');
+    mealContainer.appendChild(ratingsContainer);
+    //6. create ratings zones (no stars)
+    for (let k = 0; k < ratingTitles.length; k++) {
+      let ratingZone = document.createElement('div');
+      ratingZone.classList.add('rating');
+      ratingsContainer.appendChild(ratingZone);
+      let ratingHeader = document.createElement('p');
+      ratingHeader.innerText = ratingTitles[k];
+      ratingZone.appendChild(ratingHeader);
+      let stars = document.createElement('div');
+      stars.classList.add('stars');
+      ratingZone.appendChild(stars);
+    }
+    //7. generate stars
+    generateStars();
   }
 }
 
