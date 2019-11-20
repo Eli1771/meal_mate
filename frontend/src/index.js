@@ -55,6 +55,47 @@ function generateMealButtons() {
   }
 }
 
+function fetchDayPlan() {
+  const today = slugDate(moment().format('MMM DD')).toLowerCase();
+  const url = `${BASE_URL}/day_plans/${today}`;
+  fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
+}
+
+function renderDayPlan(dp) {
+  const container = document.querySelector('div#all-meals');
+  const recipes = dp.recipes;
+  //for each recipe, create all elements
+  for (let i = 0; i < recipes.length; i++) {
+    let recipe = recipes[i];
+    let ingredients = recipe.recipe_ingredients;
+    //1. create a header (outside of container) with meal name
+    container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
+    //2. make the container for all recipe elements
+    let mealContainer = document.createElement('div');
+    //move this to the end
+    container.appendChild(mealContainer);
+    //3. all the header with title and link to instructions
+    mealContainer.classList.add('single-meal');
+    let name = recipe.name;
+    let link = `<a href=${recipe.instructions}>View Full Recipe</a>`;
+    let recipeHeader = `<h4>${name} - ${link}</h4>`;
+    mealContainer.innerHTML += recipeHeader;
+    //4. create and populate ingredients list
+    mealContainer.innerHTML += '<h5>Ingredients: </h5>';
+    let ingredientsList = document.createElement('ul');
+    ingredientsList.classList.add('ingredients-list');
+    for (let j = 0; j < ingredients.length; j++) {
+      let ing = ingredients[j];
+      let li = document.createElement('li');
+      ing.unit ?
+        li.innerText = `${ing.amount} ${ing.unit} ${ing.ingredient.name}` :
+        li.innerText = `${ing.amount} ${ing.ingredient.name}`;
+      ingredientsList.appendChild(li);
+    }
+    mealContainer.appendChild(ingredientsList);
+  }
+}
+
 //             =======HOLDER METHOD TO TEST RATING ANIMATIONS=======
 
 function generateStars() {
@@ -221,47 +262,6 @@ function associateTempMeal(dpData) {
 
 //                    ================================
 
-
-function fetchDayPlan() {
-  const today = slugDate(moment().format('MMM DD')).toLowerCase();
-  const url = `${BASE_URL}/day_plans/${today}`;
-  fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
-}
-
-function renderDayPlan(dp) {
-  const container = document.querySelector('div#all-meals');
-  const recipes = dp.recipes;
-  //for each recipe, create all elements
-  for (let i = 0; i < recipes.length; i++) {
-    let recipe = recipes[i];
-    let ingredients = recipe.recipe_ingredients;
-    //1. create a header (outside of container) with meal name
-    container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
-    //2. make the container for all recipe elements
-    let mealContainer = document.createElement('div');
-    //move this to the end
-    container.appendChild(mealContainer);
-    //3. all the header with title and link to instructions
-    mealContainer.classList.add('single-meal');
-    let name = recipe.name;
-    let link = `<a href=${recipe.instructions}>View Full Recipe</a>`;
-    let recipeHeader = `<h4>${name} - ${link}</h4>`;
-    mealContainer.innerHTML += recipeHeader;
-    //4. create and populate ingredients list
-    mealContainer.innerHTML += '<h5>Ingredients: </h5>';
-    let ingredientsList = document.createElement('ul');
-    ingredientsList.classList.add('ingredients-list');
-    for (let j = 0; j < ingredients.length; j++) {
-      let ing = ingredients[j];
-      let li = document.createElement('li');
-      ing.unit ?
-        li.innerText = `${ing.amount} ${ing.unit} ${ing.ingredient.name}` :
-        li.innerText = `${ing.amount} ${ing.ingredient.name}`;
-      ingredientsList.appendChild(li);
-    }
-    mealContainer.appendChild(ingredientsList);
-  }
-}
 
 async function generatePlan() {
   this.innerText = 'Loading...';
