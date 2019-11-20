@@ -129,19 +129,50 @@ function generateStars() {
     console.log('all rating containers:');
     console.log(ratingContainers);
     let id = mealName;
+
     for (let j = 0; j < ratingContainers.length; j++) {
       let container = ratingContainers[j];
       id += `-${ratingTitles[j]}`;
       let name = `${id}-container`;
+
       for (let k = 4; k >= 0; k--) {
         id += `-${k}`;
-        let input = `<input type="radio" id=${id} name=${name}>`;
-        let openingLabel = `<label for=${id} class="star">`;
+        let input = `<input type="radio" id="${id}" name="${name}">`;
+        let openingLabel = `<label for="${id}" class="star">`;
         container.innerHTML += (input + openingLabel + img + closingLabel);
-        id = `${mealName} - ${ratingTitles[j]}`;
+        id = `${mealName}-${ratingTitles[j]}`;
       }
+      id = mealName;
     }
   }
+
+
+
+
+
+
+
+
+  // let ratingContainers = document.querySelectorAll('.stars');
+  // console.log('ALL CONTAINERS');
+  // console.log(ratingContainers);
+  // let ratingHeaders = document.querySelectorAll('.ratings-container p');
+  // // HTML elements
+  // let img = '<img src="./images/star-symbol.png" class="star">';
+  // let closingLabel = '</label>'
+  //
+  // for (let i = 0; i < ratingContainers.length; i++) {
+  //   let container = ratingContainers[i];
+  //   let id = ratingHeaders[i].innerHTML;
+  //   let name = `${id}-container`;
+  //   for (let j = 4; j >= 0; j--) {
+  //     id += `-${j}`;
+  //     let input = `<input type="radio" id=${id} name=${name}>`;
+  //     let openingLabel = `<label for=${id} class="star">`;
+  //     container.innerHTML += (input + openingLabel + img + closingLabel);
+  //     id = ratingHeaders[i].innerHTML;
+  //   }
+  // }
 }
 
 //                        -------LOAD EVENT LISTENERS-------
