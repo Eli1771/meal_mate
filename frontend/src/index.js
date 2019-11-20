@@ -72,8 +72,6 @@ function renderDayPlan(dp) {
     container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
     //2. make the container for all recipe elements
     let mealContainer = document.createElement('div');
-    //move this to the end
-    container.appendChild(mealContainer);
     //3. all the header with title and link to instructions
     mealContainer.classList.add('single-meal');
     let name = recipe.name;
@@ -109,28 +107,39 @@ function renderDayPlan(dp) {
       stars.classList.add('stars');
       ratingZone.appendChild(stars);
     }
-    //7. generate stars
-    generateStars();
+    //7. add fully populated meal container to day plan container
+    container.appendChild(mealContainer);
   }
+  //generate all stars at once
+  generateStars();
 }
 
 function generateStars() {
-  let ratingContainers = document.querySelectorAll('.stars');
-  let ratingHeaders = document.querySelectorAll('.ratings-container p');
-  // HTML elements
+  console.log('generating stars...');
+  let meals = document.querySelectorAll('.single-meal');
+  let mealNames = document.querySelectorAll('#all-meals h5.meal-name');
+  let ratingTitles = ['cost', 'complexity', 'nutrition', 'taste'];
   let img = '<img src="./images/star-symbol.png" class="star">';
   let closingLabel = '</label>'
 
-  for (let i = 0; i < ratingContainers.length; i++) {
-    let container = ratingContainers[i];
-    let id = ratingHeaders[i].innerHTML;
-    let name = `${id}-container`;
-    for (let j = 4; j >= 0; j--) {
-      id += `-${j}`;
-      let input = `<input type="radio" id=${id} name=${name}>`;
-      let openingLabel = `<label for=${id} class="star">`;
-      container.innerHTML += (input + openingLabel + img + closingLabel);
-      id = ratingHeaders[i].innerHTML;
+  for (let i = 0; i < meals.length; i++) {
+    let meal = meals[i];
+    let mealName = mealNames[i].innerHTML.toLowerCase();
+    let ratingContainers = meal.querySelectorAll('.stars');
+    console.log('all rating containers:');
+    console.log(ratingContainers);
+    let id = mealName;
+    for (let j = 0; j < ratingContainers.length; j++) {
+      let container = ratingContainers[j];
+      id += `-${ratingTitles[j]}`;
+      let name = `${id}-container`;
+      for (let k = 4; k >= 0; k--) {
+        id += `-${k}`;
+        let input = `<input type="radio" id=${id} name=${name}>`;
+        let openingLabel = `<label for=${id} class="star">`;
+        container.innerHTML += (input + openingLabel + img + closingLabel);
+        id = `${mealName} - ${ratingTitles[j]}`;
+      }
     }
   }
 }
