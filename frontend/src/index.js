@@ -15,7 +15,6 @@ $(document).ready(function() {
 function generatePageElements() {
   generateMealButtons();
   loadCurrentMealPlan();
-  //generateStars();
   fetchDayPlan();
 }
 
@@ -114,8 +113,6 @@ function renderDayPlan(dp) {
     generateStars();
   }
 }
-
-//             =======HOLDER METHOD TO TEST RATING ANIMATIONS=======
 
 function generateStars() {
   let ratingContainers = document.querySelectorAll('.stars');
