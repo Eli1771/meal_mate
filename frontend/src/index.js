@@ -1,5 +1,4 @@
 const BASE_URL = "http://localhost:3000";
-const RECIPES_URL = `${BASE_URL}/recipes`;
 
 $(document).ready(function() {
   // makeTemporaryMeal();
@@ -174,7 +173,7 @@ function makeTemporaryMeal() {
     start_date: 'Fake Date'
   }
   let configObj = makeConfigObj(objData);
-  fetch('http://localhost:3000/week_plans', configObj)
+  fetch(`${BASE_URL}/week_plans`, configObj)
     .then(resp => resp.json()).then(json => mameTemporaryDp(json));
 }
 
@@ -195,7 +194,7 @@ function mameTemporaryDp(wpData) {
   //make the configuration object w/ object data
   let configObj = makeConfigObj(objData);
   //actual fetch posts to populate db
-  fetch('http://localhost:3000/day_plans', configObj)
+  fetch(`${BASE_URL}/day_plans`, configObj)
     .then(resp => resp.json()).then(json => associateTempMeal(json));
 }
 
@@ -208,7 +207,7 @@ function associateTempMeal(dpData) {
     day_plan_id: dpData.id
   }
   let configObj = makeConfigObj(objData);
-  fetch('http://localhost:3000/recipe_plans', configObj)
+  fetch(`${BASE_URL}/recipe_plans`, configObj)
     .then(resp => resp.json()).then(json => console.log(json));
 }
 
@@ -225,7 +224,7 @@ function associateTempMeal(dpData) {
 
 function fetchDayPlan() {
   const today = slugDate(moment().format('MMM DD')).toLowerCase();
-  const url = `http://localhost:3000/day_plans/${today}`;
+  const url = `${BASE_URL}/day_plans/${today}`;
   fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
 }
 
@@ -279,7 +278,7 @@ async function generatePlan() {
     start_date: startDate
   }
   let configObj = makeConfigObj(objData);
-  let resp = await fetch('http://localhost:3000/week_plans', configObj);
+  let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
   let json = await resp.json();
   let weekPlanId = await json.id;
 
@@ -320,7 +319,7 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   //make the configuration object w/ object data
   let configObj = makeConfigObj(objData);
   //actual fetch posts to populate db
-  const resp = await fetch('http://localhost:3000/day_plans', configObj);
+  const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
   const json = await resp.json();
   console.log('day plan json:');
   console.log(json);
@@ -340,12 +339,12 @@ async function associateRecipe(recipeId, dayPlanId) {
     day_plan_id: dayPlanId
   }
   let configObj = makeConfigObj(objData);
-  let resp = await fetch('http://localhost:3000/recipe_plans', configObj);
+  let resp = await fetch(`${BASE_URL}/recipe_plans`, configObj);
   let json = await resp.json();
 }
 
 function fetchFuturePlan(planId) {
-  fetch(`http://localhost:3000/week_plans/${planId}`)
+  fetch(`${BASE_URL}/week_plans/${planId}`)
     .then(resp => resp.json()).then(json => renderFuturePlan(json));
 }
 
