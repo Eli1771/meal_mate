@@ -163,6 +163,11 @@ function loadEventListeners() {
   for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
     selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
   }
+
+  let ovenDialButtons = document.querySelectorAll('#oven-dials label');
+  for (let j = 0; j < ovenDialButtons.length; j++) {
+    ovenDialButtons[j].addEventListener('click', displayPlanType);
+  }
 }
 
 

@@ -258,6 +258,11 @@ input.meal-button-checkbox:checked + label {
   box-shadow: inset 3px -4px 0 0 #7b7b7b;
 }
 
+#oven-dials input:checked + label {
+  background: #51a01a;
+  box-shadow: inset 3px -4px 0 0 #157713;
+}
+
 #oven-dials img {
   height: 65%;
   margin: 12%;
