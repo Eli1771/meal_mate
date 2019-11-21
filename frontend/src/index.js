@@ -145,34 +145,6 @@ function generateStars() {
       id = mealName;
     }
   }
-
-
-
-
-
-
-
-
-  // let ratingContainers = document.querySelectorAll('.stars');
-  // console.log('ALL CONTAINERS');
-  // console.log(ratingContainers);
-  // let ratingHeaders = document.querySelectorAll('.ratings-container p');
-  // // HTML elements
-  // let img = '<img src="./images/star-symbol.png" class="star">';
-  // let closingLabel = '</label>'
-  //
-  // for (let i = 0; i < ratingContainers.length; i++) {
-  //   let container = ratingContainers[i];
-  //   let id = ratingHeaders[i].innerHTML;
-  //   let name = `${id}-container`;
-  //   for (let j = 4; j >= 0; j--) {
-  //     id += `-${j}`;
-  //     let input = `<input type="radio" id=${id} name=${name}>`;
-  //     let openingLabel = `<label for=${id} class="star">`;
-  //     container.innerHTML += (input + openingLabel + img + closingLabel);
-  //     id = ratingHeaders[i].innerHTML;
-  //   }
-  // }
 }
 
 //                        -------LOAD EVENT LISTENERS-------
