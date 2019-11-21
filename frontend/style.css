@@ -181,14 +181,37 @@ label.star:hover ~ .star {
   border-left: 2px solid #333;
 }
 
+#top-right h5 {
+  display: block;
+  text-align: center;
+  margin: auto;
+}
+
+#top-right p.pane-title {
+  font-size: 1em;
+  margin: .5em;
+}
+
 #meal-buttons-map {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
 
   height: 62%;
   width: 89%;
   margin: auto;
+}
+
+button.select-all {
+  background: #E86F68;
+  color: white;
+  font-weight: bolder;
+  border: none;
+}
+
+button.select-all:hover,
+#top-right h5:hover label {
+  background: #bb5a54;
 }
 
 input.meal-button-checkbox {

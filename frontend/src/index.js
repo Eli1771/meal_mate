@@ -2,8 +2,8 @@ const BASE_URL = "http://localhost:3000";
 
 $(document).ready(function() {
   // makeTemporaryMeal();
-  loadEventListeners();
   generatePageElements();
+  loadEventListeners();
 });
 
 
@@ -35,22 +35,20 @@ function loadCurrentMealPlan() {
 
 function generateMealButtons() {
   let meals = ['Br', 'Lu', 'Di'];
+  let days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   let buttons = document.querySelector('#meal-buttons-map');
 
   for (let i = 0; i < meals.length; i++) {
-	let meal =  meals[i];
-    buttons.innerHTML += `<div>${meal}</div>`;
-    for (let j = 0; j < 7; j++) {
+	  let meal =  meals[i];
+    buttons.innerHTML += `<button class="select-all">${meal}</button>`;
+    for (let j = 0; j < days.length; j++) {
+      let day = days[j];
       let customId = `checkbox-${i}-${j}`;
       buttons.innerHTML +=
-        `<input type="checkbox" class="meal-button-checkbox" id="${customId}">
+        `<input type="checkbox" class="meal-button-checkbox ${meal} ${day}" id="${customId}">
         <label for="${customId}"></label>`;
         //above are 2 nested divs to be used to display a retro button with some depth
     }
-    buttons.innerHTML += `<div>
-      <label for="select-all-${meal}">All</label>
-      <input type="checkbox" class="select-all" id="select-all-${meal}">
-      </div>`;
   }
 }
 
@@ -221,12 +219,19 @@ function selectAllMeals() {
 }
 
 function selectAllOfOneMeal() {
-  let status = this.checked;
-  //I HATE THESE SELECTORS <- Fix later?
-  let start = this.parentElement.previousElementSibling.previousElementSibling;
-  for (let i = 0; i < 7; i++) {
-    start.checked = status;
-    start = start.previousElementSibling.previousElementSibling;
+  let className = this.innerText;
+  let status = false;
+  let buttons = document.querySelectorAll(`div#meal-buttons-map .${className}`);
+  //will check all buttons unless all are already checked
+  for (let i = 0; i < buttons.length; i++) {
+    if (!buttons[i].checked) {
+      status = true;
+      break;
+    }
+  }
+  //change all buttons to the included status
+  for (let j = 0; j < buttons.length; j++) {
+    buttons[j].checked = status;
   }
 }
 
