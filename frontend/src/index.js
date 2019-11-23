@@ -83,6 +83,7 @@ function renderDayPlan(dp) {
     for (let j = 0; j < ingredients.length; j++) {
       let ing = ingredients[j];
       let li = document.createElement('li');
+      //li.innerText = makeIngredientString({amount: ing.amount, unit: ing.unit, name: ing.ingredient.name});
       ing.unit ?
         li.innerText = `${ing.amount} ${ing.unit} ${ing.ingredient.name}` :
         li.innerText = `${ing.amount} ${ing.ingredient.name}`;
@@ -209,6 +210,19 @@ function closeOven() {
 
   document.querySelector('#oven-meals').checked = false;
   document.querySelector('#oven-shopping-list').checked = false;
+}
+
+function displayPlanType() {
+  let key = this.htmlFor;
+  let header = document.querySelector('#bottom-right h4');
+  let planNames = {
+    random: 'Surprise Me',
+    cost: 'Wallet-Friendly',
+    complexity: 'Feeling Ambitious',
+    nutrition: 'Healthy Choice',
+    taste: 'All The Hits'
+  }
+  header.innerHTML = `Plan Type: ${planNames[key]}`;
 }
 
 function selectAllMeals() {
@@ -466,4 +480,19 @@ function makeConfigObj(objData) {
 
 function slugDate(s) {
   return s.split(' ').join('_');
+}
+
+function makeIngredientString(ingObj) {
+  const keysInOrder = ['amount', 'unit', 'name'];
+  let r = '';
+  if (ingObj.unit.toLowerCase() === 'to taste') {
+    r = `${ingObj.name} - ${ingObj.amount}`;
+  } else {
+    for (let i = 0; i < Object.keys(ingObj).length; i++) {
+      if (ingObj[keysInOrder[i]]) {
+        r += `${ingObj[keysInOrder[i]]} `;
+      }
+    }
+  }
+  return r;
 }
