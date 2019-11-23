@@ -15,6 +15,7 @@ $(document).ready(function() {
 function generatePageElements() {
   generateMealButtons();
   loadCurrentMealPlan();
+  loadNextWeekBanner();
   fetchDayPlan();
 }
 
@@ -23,14 +24,13 @@ function loadCurrentMealPlan() {
   let d = new Date;
   let currentWeekday = d.getDay();
   let pastSunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
-  let comingSaturday = moment().add((7 - currentWeekday), 'days').format('MMM Do');
+  let comingSaturday = moment().add((6 - currentWeekday), 'days').format('MMM Do');
 
   let week = document.querySelector('#week-label');
   week.innerHTML = `${pastSunday} - ${comingSaturday}`;
   //first load the date
   let date = document.querySelector('#meal-title');
   date.innerHTML = `${moment().format('dddd')}, ${moment().format("MMMM Do")}`;
-
 }
 
 function generateMealButtons() {
@@ -91,60 +91,60 @@ function renderDayPlan(dp) {
     }
     mealContainer.appendChild(ingredientsList);
     //5. create ratings container
-    let ratingsContainer = document.createElement('div');
-    ratingsContainer.classList.add('ratings-container');
-    mealContainer.appendChild(ratingsContainer);
+    // let ratingsContainer = document.createElement('div');
+    // ratingsContainer.classList.add('ratings-container');
+    // mealContainer.appendChild(ratingsContainer);
     //6. create ratings zones (no stars)
-    for (let k = 0; k < ratingTitles.length; k++) {
-      let ratingZone = document.createElement('div');
-      ratingZone.classList.add('rating');
-      ratingsContainer.appendChild(ratingZone);
-      let ratingHeader = document.createElement('p');
-      ratingHeader.innerText = ratingTitles[k];
-      ratingZone.appendChild(ratingHeader);
-      let stars = document.createElement('div');
-      stars.classList.add('stars');
-      ratingZone.appendChild(stars);
-    }
+    // for (let k = 0; k < ratingTitles.length; k++) {
+      // let ratingZone = document.createElement('div');
+      // ratingZone.classList.add('rating');
+      // ratingsContainer.appendChild(ratingZone);
+      // let ratingHeader = document.createElement('p');
+      // ratingHeader.innerText = ratingTitles[k];
+      // ratingZone.appendChild(ratingHeader);
+      // let stars = document.createElement('div');
+      // stars.classList.add('stars');
+      // ratingZone.appendChild(stars);
+    // }
     //7. add fully populated meal container to day plan container
     container.appendChild(mealContainer);
   }
   //generate all stars at once
-  generateStars();
+  // generateStars();
 }
 
-function generateStars() {
-  console.log('generating stars...');
-  let meals = document.querySelectorAll('.single-meal');
-  let mealNames = document.querySelectorAll('#all-meals h5.meal-name');
-  let ratingTitles = ['cost', 'complexity', 'nutrition', 'taste'];
-  let img = '<img src="./images/star-symbol.png" class="star">';
-  let closingLabel = '</label>'
-
-  for (let i = 0; i < meals.length; i++) {
-    let meal = meals[i];
-    let mealName = mealNames[i].innerHTML.toLowerCase();
-    let ratingContainers = meal.querySelectorAll('.stars');
-    console.log('all rating containers:');
-    console.log(ratingContainers);
-    let id = mealName;
-
-    for (let j = 0; j < ratingContainers.length; j++) {
-      let container = ratingContainers[j];
-      id += `-${ratingTitles[j]}`;
-      let name = `${id}-container`;
-
-      for (let k = 4; k >= 0; k--) {
-        id += `-${k}`;
-        let input = `<input type="radio" id="${id}" name="${name}">`;
-        let openingLabel = `<label for="${id}" class="star">`;
-        container.innerHTML += (input + openingLabel + img + closingLabel);
-        id = `${mealName}-${ratingTitles[j]}`;
-      }
-      id = mealName;
-    }
-  }
-}
+// function generateStars() {
+  // console.log('generating stars...');
+  // let meals = document.querySelectorAll('.single-meal');
+  // let mealNames = document.querySelectorAll('#all-meals h5.meal-name');
+  // let ratingTitles = ['cost', 'complexity', 'nutrition', 'taste'];
+  // let img = '<img src="./images/star-symbol.png" class="star">';
+  // let closingLabel = '</label>'
+//
+  // for (let i = 0; i < meals.length; i++) {
+    // let meal = meals[i];
+    // let mealName = mealNames[i].innerHTML.toLowerCase();
+    // let ratingContainers = meal.querySelectorAll('.stars');
+    // console.log('all rating containers:');
+    // console.log(ratingContainers);
+    // let id = mealName;
+//
+    // for (let j = 0; j < ratingContainers.length; j++) {
+      // let container = ratingContainers[j];
+      // id += `-${ratingTitles[j]}`;
+      // let name = `${id}-container`;
+//
+      // for (let k = 4; k >= 0; k--) {
+        // id += `-${k}`;
+        // let input = `<input type="radio" id="${id}" name="${name}">`;
+        // let openingLabel = `<label for="${id}" class="star">`;
+        // container.innerHTML += (input + openingLabel + img + closingLabel);
+        // id = `${mealName}-${ratingTitles[j]}`;
+      // }
+      // id = mealName;
+    // }
+  // }
+// }
 
 //                        -------LOAD EVENT LISTENERS-------
 
@@ -165,10 +165,10 @@ function loadEventListeners() {
     selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
   }
 
-  let ovenDialButtons = document.querySelectorAll('#oven-dials label');
-  for (let j = 0; j < ovenDialButtons.length; j++) {
-    ovenDialButtons[j].addEventListener('click', displayPlanType);
-  }
+  // let ovenDialButtons = document.querySelectorAll('#oven-dials label');
+  // for (let j = 0; j < ovenDialButtons.length; j++) {
+    // ovenDialButtons[j].addEventListener('click', displayPlanType);
+  // }
 }
 
 
@@ -212,18 +212,18 @@ function closeOven() {
   document.querySelector('#oven-shopping-list').checked = false;
 }
 
-function displayPlanType() {
-  let key = this.htmlFor;
-  let header = document.querySelector('#bottom-right h4');
-  let planNames = {
-    random: 'Surprise Me',
-    cost: 'Wallet-Friendly',
-    complexity: 'Feeling Ambitious',
-    nutrition: 'Healthy Choice',
-    taste: 'All The Hits'
-  }
-  header.innerHTML = `Plan Type: ${planNames[key]}`;
-}
+// function displayPlanType() {
+  // let key = this.htmlFor;
+  // let header = document.querySelector('#bottom-right h4');
+  // let planNames = {
+    // random: 'Surprise Me',
+    // cost: 'Wallet-Friendly',
+    // complexity: 'Feeling Ambitious',
+    // nutrition: 'Healthy Choice',
+    // taste: 'All The Hits'
+  // }
+  // header.innerHTML = `Plan Type: ${planNames[key]}`;
+// }
 
 function selectAllMeals() {
   let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
