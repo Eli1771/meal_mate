@@ -83,7 +83,7 @@ function renderDayPlan(dp) {
     //3. all the header with title and link to instructions
     mealContainer.classList.add('single-meal');
     let name = recipe.name;
-    let link = `<a href=${recipe.instructions}>View Full Recipe</a>`;
+    let link = `<a href=${recipe.instructions} target="_blank">View Full Recipe</a>`;
     let recipeHeader = `<h4>${name} - ${link}</h4>`;
     mealContainer.innerHTML += recipeHeader;
     //4. create and populate ingredients list
