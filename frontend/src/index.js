@@ -33,6 +33,16 @@ function loadCurrentMealPlan() {
   date.innerHTML = `${moment().format('dddd')}, ${moment().format("MMMM Do")}`;
 }
 
+function loadNextWeekBanner() {
+  let d = new Date;
+  let currentWeekday = d.getDay();
+  let comingSunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
+  let nextSaturday = moment().add((13 - currentWeekday), 'days').format('MMM Do');
+
+  let week = document.querySelector('#bottom-right .date-banner');
+  week.innerHTML = `${comingSunday} - ${nextSaturday}`;
+}
+
 function generateMealButtons() {
   let meals = ['Br', 'Lu', 'Di'];
   let days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
