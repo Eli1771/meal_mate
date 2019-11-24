@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_211249) do
+ActiveRecord::Schema.define(version: 2019_11_23_190450) do
 
   create_table "day_plans", force: :cascade do |t|
     t.integer "day_id"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 2019_11_18_211249) do
     t.integer "meal_id"
     t.string "name"
     t.string "instructions"
-    t.boolean "bulk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meal_id"], name: "index_recipes_on_meal_id"

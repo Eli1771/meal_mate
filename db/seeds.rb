@@ -26,39 +26,61 @@ end
 
 #Chipotle Popcorn Chicken
 nugget_ingredients = [
-  {name: "Chicken Breast", unit: nil, amount: 2},
-  {name: "Buttermilk", unit: 'cup(s)', amount: 2},
-  {name: "Chiles in Adobo Sauce", unit: 'oz', amount: 1},
-  {name: "Panko Bread Crumbs", unit: 'cups', amount: 2},
-  {name: "Chili Powder", unit: 'tsp', amount: 1},
-  {name: "Paprika", unit: 'tsp', amount: 1}
+  {name: 'Chicken Breast', unit: nil, amount: 2},
+  {name: 'Buttermilk', unit: 'cup(s)', amount: 2},
+  {name: 'Chiles in Adobo Sauce', unit: 'oz', amount: 1},
+  {name: 'Panko Bread Crumbs', unit: 'cups', amount: 2},
+  {name: 'Chili Powder', unit: 'tsp', amount: 1},
+  {name: 'Paprika', unit: 'tsp', amount: 1},
+  {name: 'Salt and Pepper', unit: 'tsp', amount: 0.5},
+  {name: 'Oil', unit: nil, amount: nil}
 ]
 
-nuggets = Recipe.create(name: "Chiptle Popcorn Chicken", instructions: "https://tasty.co/recipe/chipotle-popcorn-chicken", bulk: false, meal_id: 1)
+nuggets = Recipe.create(name: 'Chiptle Popcorn Chicken', instructions: 'https://tasty.co/recipe/chipotle-popcorn-chicken', meal_id: 2)
 add_ingredients_to_recipe(nugget_ingredients, nuggets)
 
 
 
 #Slow Cooker Chicken and Biscuits
 cnb_ingredients = [
-  {name: "Chicken Breast", unit: nil, amount: 3},
-  {name: "Broccoli", unit: 'cup(s)', amount: 2},
-  {name: "Baby Carrots", unit: 'cup(s)', amount: 2},
-  {name: "Cream of Chicken Soup", unit: 'can(s)', amount: 1},
-  {name: "Canned Biscuits", unit: 'can(s)', amount: 1}
+  {name: 'Chicken Breast', unit: nil, amount: 3},
+  {name: 'Broccoli', unit: 'cup(s)', amount: 2},
+  {name: 'Baby Carrots', unit: 'cup(s)', amount: 2},
+  {name: 'Cream of Chicken Soup', unit: 'can(s)', amount: 1},
+  {name: 'Canned Biscuits', unit: 'can(s)', amount: 1},
+  {name: 'Salt and Pepper', unit: 'To Taste', amount: nil}
 ]
 
-cnb = Recipe.create(name: "Slow Cooker Chicken and Biscuits", instructions: "https://tasty.co/recipe/slow-cooker-chicken-biscuits", bulk: true, meal_id: 2)
+cnb = Recipe.create(name: 'Slow Cooker Chicken and Biscuits', instructions: 'https://tasty.co/recipe/slow-cooker-chicken-biscuits', meal_id: 3)
 add_ingredients_to_recipe(cnb_ingredients, cnb)
 
 
 #Garlic Shrimp Scampi
 scampi_ingredients = [
-  {name: "Garlic", unit: 'cloves', amount: 3},
-  {name: "Shrimp", unit: nil, amount: 1},
-  {name: "Lemon", unit: nil, amount: 1},
-  {name: "Spaghetti", unit: 'cup(s)', amount: 1}
+  {name: 'Garlic', unit: 'cloves', amount: 3},
+  {name: 'Shrimp', unit: nil, amount: 1},
+  {name: 'Lemon', unit: nil, amount: 1},
+  {name: 'Spaghetti', unit: 'cup(s)', amount: 1},
+  {name: 'Butter', unit: 'tbsp', amount: 3},
+  {name: 'Salt and Pepper', unit: 'tsp', amount: 1},
+  {name: 'Red Chili Flake', unit: 'tsp', amount: 1},
+  {name: 'Parsley', unit: 'cup(s)', amount: 0.25}
 ]
 
-scampi = Recipe.create(name: "Garlic Shrimp Scampi", instructions: "https://tasty.co/recipe/garlic-shrimp-scampi", bulk: false, meal_id: 2)
+scampi = Recipe.create(name: 'Garlic Shrimp Scampi', instructions: 'https://tasty.co/recipe/garlic-shrimp-scampi', meal_id: 3)
 add_ingredients_to_recipe(scampi_ingredients, scampi)
+
+#Bacon and Sausage Inside-out Breakfast Burrito
+inside_out_bb_ingredients = [
+  {name: 'Eggs', unit: nil, amount: 2},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Shredded Parmesan', unit: 'tbsp', amount: 1},
+  {name: 'Butter', unit: 'tbsp', amount: 0.5},
+  {name: 'Shredded Cheddar', unit: 'cup(s)', amount: 0.25},
+  {name: 'Breakfast Potato', unit: 'cup(s)', amount: 0.25},
+  {name: 'Sausage', unit: 'cup(s)', amount: 0.25},
+  {name: 'Bacon', unit: 'slice(s)', amount: 1.5}
+]
+
+inside_out_bb = Recipe.create(name: 'Bacon and Sausage Inside-Out Breakfast Burrito', instructions: 'https://tasty.co/recipe/bacon-sausage-egg-wrapped-breakfast-burrito', meal_id: 1)
+add_ingredients_to_recipe(inside_out_bb_ingredients, inside_out_bb)
