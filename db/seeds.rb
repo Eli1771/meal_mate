@@ -142,9 +142,59 @@ berry_french_toast_ingredients = [
 berry_french_toast = Recipe.create(name: 'Mixed Berry French Toast', instructions: 'https://tasty.co/recipe/mixed-berry-french-toast-bake', meal_id: 1)
 add_ingredients_to_recipe(berry_french_toast_ingredients, berry_french_toast)
 
+#bell pepper egg rings
+pepper_egg_ingredients = [
+  {name: 'Eggs', unit: nil, amount: 2},
+  {name: 'Yellow Bell Pepper', unit: nil, amount: 1},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+]
 
+pepper_eggs = Recipe.create(name: 'Bell Pepper Egg Rings', instructions: 'https://tasty.co/recipe/bell-pepper-egg-rings', meal_id: 1)
+add_ingredients_to_recipe(pepper_egg_ingredients, pepper_eggs)
 
+#banana almond oatmeal
+banana_oatmeal_ingredients = {
+  {name: 'Instant Oatmeal', unit: 'cup(s)', amount: 0.5},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Cinnamon', unit: 'To Taste', amount: nil},
+  {name: 'Banana', unit: nil, amount: 1},
+  {name: 'Almonds', unit: 'cup(s)', amount: 0.25}
+}
 
+banana_oatmeal = Recipe.create(name: 'Banana Almond Oatmeal' instructions: 'https://tasty.co/recipe/banana-almond-oatmeal', meal_id: 1)
+add_ingredients_to_recipe(banana_oatmeal_ingredients, banana_oatmeal)
+
+#spinach sweet potato quiche
+sp_quiche_ingredients = [
+  {name: 'Sweet Potato', unit: nil, amount: 1},
+  {name: 'Olive Oil', unit: 'drizzle', amount: nil},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Eggs', unit: nil, amount: 4},
+  {name: 'Milk', unit: 'cup(s)', amount: 1.5},
+  {name: 'Garlic', unit: 'clove(s)', amount: 1},
+  {name: 'Sun-Dried Tomato', unit: 'oz', amount: 4},
+  {name: 'Baby Spinach', unit: 'oz', amount: 3},
+  {name: 'Goat Cheese', unit: 'oz', amount: 4}
+]
+
+sp_quiche = Recipe.create(name: 'Spinach and Sweet Potato Quiche', instructions: 'https://tasty.co/recipe/spinach-sun-dried-tomato-sweet-potato-crusted-quiche', meal_id: 1)
+add_ingredients_to_recipe(sp_quiche_ingredients, sp_quiche)
+
+#waffle breakfast sandwich
+waffle_sandwich_ingredients = [
+  {name: 'Sausage Patty', unit: nil, amount: 1},
+  {name: 'Eggs', unit: nil, amount: 1},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Milk', unit: 'tsp', amount: 1},
+  {name: 'Cheddar Cheese', unit: 'slice(s)', amount: 2},
+  {name: 'Frozen Waffles', unit: nil, amount: 2}
+]
+
+waffle_sandwich = Recipe.create(name: 'Waffle Breakfast Sandwich', instructions: 'https://tasty.co/recipe/waffle-breakfast-sandwich', meal_id: 1)
+add_ingredients_to_recipe(waffle_sandwich_ingredients, waffle_sandwich)
 
 
 
