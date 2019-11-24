@@ -84,3 +84,72 @@ inside_out_bb_ingredients = [
 
 inside_out_bb = Recipe.create(name: 'Bacon and Sausage Inside-Out Breakfast Burrito', instructions: 'https://tasty.co/recipe/bacon-sausage-egg-wrapped-breakfast-burrito', meal_id: 1)
 add_ingredients_to_recipe(inside_out_bb_ingredients, inside_out_bb)
+
+#cornbread pancakes
+cb_pancake_ingredients = [
+  {name: 'Bananas', unit: nil, amount: 3},
+  {name: 'Sugar', unit: 'cup(s)', amount: 0.3},
+  {name: 'Brown Sugar', unit: 'tbsp', amount: 1},
+  {name: 'Vanilla Extract', unit: 'tbsp', amount: 1},
+  {name: 'Milk', unit: 'cup(s)', amount: 1.5},
+  {name: 'Cornmeal', unit: 'cup(s)', amount: 2},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Baking Powder', unit: 'tsp', amount: 2},
+  {name: 'Cinnimon', unit: 'tsp', amount: 2},
+  {name: 'Butter', unit: 'tsp', amount: 1},
+  {name: 'Honey', unit: 'some', amount: nil}
+]
+
+cb_pancakes = Recipe.create(name: 'Banana Cornbread Pancakes', instructions: 'https://tasty.co/recipe/banana-cornbread-pancakes', meal_id: 1)
+add_ingredients_to_recipe(cb_pancake_ingredients, cb_pancakes)
+
+#fiesta tofu scramble
+tofu_scramble_ingredients = [
+  {name: 'Olive Oil', unit: 'tbsp', amount: 1},
+  {name: 'Red Bell Petter', unit: nil, amount: 1},
+  {name: 'Jalapeno', unit: nil, amount: 1},
+  {name: 'Red Onion', unit: nil, amount: 0.25},
+  {name: 'Kosher Salt', unit: 'To Taste', amount: nil},
+  {name: 'Extra Firm Tofu', unit: 'oz', amount: 14},
+  {name: 'Ground Tumeric', unit: 'tsp', amount: 0.5},
+  {name: 'Garlic Powder', unit: 'tsp', amount: 1},
+  {name: 'Onion Powder', unit: 'tsp', amount: 0.5},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Cilantro Leaves', unit: 'cups(s)', amount: 0.25},
+  {name: 'Avocado', unit: nil, amount: 0.5},
+  {name: 'Lime Wedge', unit: 'For Garnish', amount: nil}
+]
+
+tofu_scramble = Recipe.create(name: 'Vegan Fiesta Tofu Scrambe', instructions: 'https://tasty.co/recipe/fiesta-tofu-scramble', meal_id: 1)
+add_ingredients_to_recipe(tofu_scramble_ingredients, tofu_scramble)
+
+#mixed berry french toast
+berry_french_toast_ingredients = [
+  {name: 'Whole Weat Bread', unit: nil, amount: 1},
+  {name: 'Honey', unit: 'tbsp', amount: 3},
+  {name: 'Warm Water', unit: 'cup(s)', amount: 0.5},
+  {name: 'Milk', unit: 'cup(s)', amount: 2},
+  {name: 'Eggs', unit: nil, amount: 6},
+  {name: 'Vanilla Extract', unit: 'tsp', amount: 2},
+  {name: 'Cinnamon', unit: 'tsp', amount: 2},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Blueberry', unit: 'cup(s)', amount: 0.5},
+  {name: 'Raspberry', unit: 'cup(s)', amount: 0.5},
+  {name: 'Blackberry', unit: 'cup(s)', amount: 0.5},
+  {name: 'Maple Syrup', unit: 'To Top', amount: nil}
+]
+
+berry_french_toast = Recipe.create(name: 'Mixed Berry French Toast', instructions: 'https://tasty.co/recipe/mixed-berry-french-toast-bake', meal_id: 1)
+add_ingredients_to_recipe(berry_french_toast_ingredients, berry_french_toast)
+
+
+
+
+
+
+
+
+
+
+
+# {name: '', unit: '', amount: 1},
