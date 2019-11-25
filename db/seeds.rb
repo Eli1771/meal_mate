@@ -425,8 +425,101 @@ chicken_penne_ingredients = [
   {name: 'Chopped Parsley', unit: 'tbsp', amount: 3}
 ]
 
-chicken_penne = Recipe.create(name: 'Creamy Chicken Penne Pasta', instructions: 'https://tasty.co/recipe/creamy-chicken-penne-pasta', meal_id: 3)
+chicken_penne = Recipe.create(name: 'Creamy Chicken Penne Pasta', instructions: 'https://tasty.co/recipe/creamy-chicken-penne-pasta', meal_id: 2)
 add_ingredients_to_recipe(chicken_penne_ingredients, chicken_penne)
+
+#one-pot cheeseburger pasta
+cb_pasta_ingredients = [
+  {name: 'Ground Beef', unit: 'lb', amount: 1},
+  {name: 'Onion', unit: 'cup(s)', amount: 1},
+  {name: 'Garlic', unit: 'tbsp', amount: 1},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Pepper', unit: 'tsp', amount: 0.5},
+  {name: 'Worcestershire Sauce', unit: 'tbsp', amount: 2},
+  {name: 'Ketchup', unit: 'tbsp', amount: 2},
+  {name: 'Beef Broth', unit: 'cup(s)', amount: 4},
+  {name: 'Fusilli Pasta', unit: 'oz', amount: 16},
+  {name: 'Shredded Cheddar', unit: 'cup(s)', amount: 3},
+  {name: 'Milk', unit: 'cup(s)', amount: 0.5},
+  {name: 'Green Onion', unit: 'some', amount: nil}
+]
+
+cb_pasta = Recipe.create(name: 'One-Pot Cheeseburger Pasta', instructions: 'https://tasty.co/recipe/one-pot-cheeseburger-pasta', meal_id: 2)
+add_ingredients_to_recipe(cb_pasta_ingredients, cb_pasta)
+
+#chicken parm sliders
+cp_sliders_ingredients = [
+  {name: '12 Pack Dinner Rolls', unit: nil, amount: 1},
+  {name: 'Shredded Rotisserie Chicken', unit: 'cup(s)', amount: 3},
+  {name: 'Marinara Sauce', unit: 'cup(s)', amount: 0.5},
+  {name: 'Sliced Mozzarella', unit: 'oz', amount: 8},
+  {name: 'Basil', unit: 'cup(s)', amount: 0.25},
+  {name: 'Butter', unit: 'cup(s)', amount: 0.5},
+  {name: 'Garlic', unit: 'clove(s)', amount: 3},
+  {name: 'Parsley', unit: 'tbsp', amount: 2},
+  {name: 'Grated Parmesan', unit: 'tbsp', amount: 2}
+]
+
+cp_sliders = Recipe.create(name: 'Chicken Parmesan Sliders', instructions: 'https://tasty.co/recipe/chicken-parmesan-sliders', meal_id: 2)
+add_ingredients_to_recipe(cp_sliders_ingredients, cp_sliders)
+
+#creamy pesto pasta
+pesto_pasta_ingredients = [
+  {name: 'Basil', unit: 'cup(s)', amount: 4},
+  {name: 'Garlic', unit: 'clove(s)', amount: 2},
+  {name: 'Pine Nuts', unit: 'cup(s)', amount: 0.5},
+  {name: 'Grated Parmesan', unit: 'cup(s)', amount: 1.75},
+  {name: 'Olive Oil', unit: 'cup(s)', amount: 0.75},
+  {name: 'Cold Water', unit: 'cup(s)', amount: 0.25},
+  {name: 'Heavy Cream', unit: 'cup(s)', amount: 0.5},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Pepper', unit: 'tsp', amount: 0.5},
+  {name: 'Fusilli Pasta', unit: 'oz', amount: 12},
+  {name: 'Cherry Tomato', unit: 'cup(s)', amount: 1},
+  {name: 'Mozzarella Ball', unit: 'oz', amount: 8}
+]
+
+pesto_pasta = Recipe.create(name: 'Creamy Pesto Pasta', instructions: 'https://tasty.co/recipe/creamy-pesto-pasta-bake', meal_id: 2)
+add_ingredients_to_recipe(pesto_pasta_ingredients, pesto_pasta)
+
+#creamy mushroom toasts
+mushroom_toasts_ingredients = [
+  {name: 'Olive Oil', unit: 'tbsp', amount: 1},
+  {name: 'Garlic', unit: 'clove(s)', amount: 3},
+  {name: 'Paprika', unit: 'tsp', amount: 1},
+  {name: 'Mushroom', unit: 'oz', amount: 14},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Heavy Cream', unit: 'cup(s)', amount: 0.25},
+  {name: 'Scallions', unit: nil, amount: 3},
+  {name: 'Bread', unit: 'slice(s)', amount: 4},
+  {name: 'Eggs', unit: nil, amount: 4}
+]
+
+mushroom_toasts = Recipe.create(name: 'Creamy Mushroom Toasts', instructions: 'https://tasty.co/recipe/creamy-mushroom-toasts', meal_id: 2)
+add_ingredients_to_recipe(mushroom_toasts_ingredients, mushroom_toasts)
+
+#creamy cajun pasta
+cajun_pasta_ingredients = [
+  {name: 'Unsalted Butter', unit: 'tbsp', amount: 2},
+  {name: 'Spicy Italian Sausage', unit: 'lb', amount: 1},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Yellow Onion', unit: nil, amount: 1},
+  {name: 'Jalapeno', unit: nil, amount: 1},
+  {name: 'Garlic', unit: 'tbsp', amount: 1},
+  {name: 'Tomato Paste', unit: 'tbsp', amount: 1},
+  {name: 'Jazzy Spice Blend', unit: 'tbsp', amount: 2},
+  {name: 'Dried Penne', unit: 'lb', amount: 1},
+  {name: 'Red Bell Pepper', unit: nil, amount: 1},
+  {name: 'Green Bell Pepper', unit: nil, amount: 1},
+  {name: 'Mushroom', unit: 'oz', amount: 8},
+  {name: 'Fire-Roasted Tomato', unit: 'oz', amount: 14.5},
+  {name: 'Chicken Stock', unit: 'cup(s)', amount: 4},
+  {name: 'Cream Cheese', unit: 'oz', amount: 5},
+  {name: 'Scallions', unit: nil, amount: 2}
+]
+
+cajun_pasta = Recipe.create(name: 'Creamy Cajun Pasta', instructions: 'https://tasty.co/recipe/creamy-cajun-pasta', meal_id: 2)
+add_ingredients_to_recipe(cajun_pasta_ingredients, cajun_pasta)
 
 
 
