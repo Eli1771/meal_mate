@@ -521,6 +521,74 @@ cajun_pasta_ingredients = [
 cajun_pasta = Recipe.create(name: 'Creamy Cajun Pasta', instructions: 'https://tasty.co/recipe/creamy-cajun-pasta', meal_id: 2)
 add_ingredients_to_recipe(cajun_pasta_ingredients, cajun_pasta)
 
+#cream of mushroom soup
+mushroom_soup_ingredients = [
+  {name: 'Salted Butter', unit: 'tbsp', amount: 2},
+  {name: 'Yellow Onion', unit: 'cups(s)', amount: 1},
+  {name: 'Garlic', unit: 'clove(s)', amount: 2},
+  {name: 'White Button Mushroom', unit: 'cups(s)', amount: 1},
+  {name: 'Cremini Mushroom', unit: 'cups(s)', amount: 1},
+  {name: 'Shiitake Mushroom', unit: 'cups(s)', amount: 1},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Pepper', unit: 'tsp', amount: 1},
+  {name: 'Flour', unit: 'tbsp', amount: 2},
+  {name: 'White Wine', unit: 'cups(s)', amount: 0.25},
+  {name: 'Vegetable Stock', unit: 'cups(s)', amount: 4},
+  {name: 'Heavy Cream', unit: 'cups(s)', amount: 0.3},
+  {name: 'Parsley', unit: 'sprig', amount: 1}
+]
+
+mushroom_soup = Recipe.create(name: 'Cream of Mushroom Soup', instructions: 'https://tasty.co/recipe/the-only-cream-of-mushroom-soup-recipe-youll-ever-need', meal_id: 2)
+add_ingredients_to_recipe(mushroom_soup_ingredients, mushroom_soup)
+
+#zesty salmon burgers
+salmon_burgers_ingredients = [
+  {name: 'Yogurt', unit: 'cup(s)', amount: 0.25},
+  {name: 'Spicy Dijon', unit: 'tbsp', amount: 2},
+  {name: 'Dill', unit: 'tbsp', amount: 2},
+  {name: 'Chives', unit: 'tbsp', amount: 2},
+  {name: 'Honey', unit: 'tsp', amount: 2},
+  {name: 'Skinless Salmon', unit: 'oz', amount: 16},
+  {name: 'Red Onion', unit: nil, amount: 0.5},
+  {name: 'Horseradish', unit: 'tbsp', amount: 1},
+  {name: 'Salt', unit: 'tsp', amount: 1.5},
+  {name: 'Pepper', unit: 'tsp', amount: 0.5}
+]
+
+salmon_burgers = Recipe.create(name: 'Zesty Salmon Burgers', instructions: 'https://tasty.co/recipe/easy-zesty-salmon-burgers', meal_id: 2)
+add_ingredients_to_recipe(salmon_burgers_ingredients, salmon_burgers)
+
+#sumer picnic sandwich
+picnic_sandwich_ingredients = [
+  {name: 'Mayonnaise', unit: 'cup(s)', amount: 0.5},
+  {name: 'Basil', unit: 'cup(s)', amount: 0.3},
+  {name: 'Salt', unit: 'tsp', amount: 0.25},
+  {name: 'Garlic Powder', unit: 'tsp', amount: 0.5},
+  {name: 'Lemon, Zested', unit: nil, amount: 1},
+  {name: 'Sourdough Loaf Boule', unit: 'lb', amount: 1},
+  {name: 'Ham', unit: 'slice(s)', amount: 4},
+  {name: 'Mozzarella', unit: 'oz', amount: 6},
+  {name: 'Roasted Red Pepper', unit: 'cup(s)', amount: 0.5},
+  {name: 'Tomato', unit: 'oz', amount: 6},
+  {name: 'Red Onion', unit: 'cup(s)', amount: 0.25},
+  {name: 'Green Olives', unit: 'cup(s)', amount: 0.25}
+]
+
+picnic_sandwich = Recipe.create(name: 'Summer Picnec Sandwich', instructions: 'https://tasty.co/recipe/summer-picnic-sandwich', meal_id: 2)
+add_ingredients_to_recipe(picnic_sandwich_ingredients, picnic_sandwich)
+
+#bbq chicken bacon skewers
+bbq_skewers_ingredients = [
+  {name: 'Chicken Thighs', unit: 'lb', amount: 1},
+  {name: 'BBQ Sauce', unit: 'cup(s)', amount: 1},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Pepper', unit: 'tsp', amount: 1},
+  {name: 'Bacon', unit: 'strip(s)', amount: 4}
+]
+
+bbq_skewers = Recipe.create(name: 'BBQ Chicken Bacon Skewers', instructions: 'https://tasty.co/recipe/bbq-chicken-bacon-skewers', meal_id: 2)
+add_ingredients_to_recipe(bbq_skewers_ingredients, bbq_skewers)
+
 
 
 
