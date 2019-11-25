@@ -154,15 +154,15 @@ pepper_eggs = Recipe.create(name: 'Bell Pepper Egg Rings', instructions: 'https:
 add_ingredients_to_recipe(pepper_egg_ingredients, pepper_eggs)
 
 #banana almond oatmeal
-banana_oatmeal_ingredients = {
+banana_oatmeal_ingredients = [
   {name: 'Instant Oatmeal', unit: 'cup(s)', amount: 0.5},
   {name: 'Salt', unit: 'To Taste', amount: nil},
   {name: 'Cinnamon', unit: 'To Taste', amount: nil},
   {name: 'Banana', unit: nil, amount: 1},
   {name: 'Almonds', unit: 'cup(s)', amount: 0.25}
-}
+]
 
-banana_oatmeal = Recipe.create(name: 'Banana Almond Oatmeal' instructions: 'https://tasty.co/recipe/banana-almond-oatmeal', meal_id: 1)
+banana_oatmeal = Recipe.create(name: 'Banana Almond Oatmeal', instructions: 'https://tasty.co/recipe/banana-almond-oatmeal', meal_id: 1)
 add_ingredients_to_recipe(banana_oatmeal_ingredients, banana_oatmeal)
 
 #spinach sweet potato quiche
