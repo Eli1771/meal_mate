@@ -196,6 +196,84 @@ waffle_sandwich_ingredients = [
 waffle_sandwich = Recipe.create(name: 'Waffle Breakfast Sandwich', instructions: 'https://tasty.co/recipe/waffle-breakfast-sandwich', meal_id: 1)
 add_ingredients_to_recipe(waffle_sandwich_ingredients, waffle_sandwich)
 
+#breakfast potatoes
+breakfast_potatoes_ingredients = [
+  {name: 'Russet Potatoes', unit: nil, amount: 3},
+  {name: 'Red Bell Pepper', unit: nil, amount: 1},
+  {name: 'White Onion', unit: nil, amount: 1},
+  {name: 'Olive Oil', unit: 'To Taste', amount: nil},
+  {name: 'Dried Rosemary', unit: 'tbsp', amount: 1},
+  {name: 'Minced Garlic', unit: 'tbsp', amount: 1},
+  {name: 'Paprika', unit: 'tsp', amount: 1},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Pepper', unit: 'tsp', amount: 1}
+]
+
+breakfast_potatoes = Recipe.create(name: 'One-Pan Breakfast Potatoes', instructions: 'https://tasty.co/recipe/one-pan-breakfast-potatoes', meal_id: 1)
+add_ingredients_to_recipe(breakfast_potatoes_ingredients, breakfast_potatoes)
+
+#bacon egg cups
+bacon_egg_cups_ingredients = [
+  {name: 'Bacon', unit: 'slice(s)', amount: 6},
+  {name: 'Eggs', unit: nil, amount: 6},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Shredded Cheddar Cheese', unit: 'cup(s)', amount: 0.25},
+  {name: 'Chives', unit: 'To Taste', amount: nil}
+]
+
+bacon_egg_cups = Recipe.create(name: 'Bacon Egg Cups', instructions: 'https://tasty.co/recipe/bacon-egg-cups', meal_id: 1)
+add_ingredients_to_recipe(bacon_egg_cups_ingredients, bacon_egg_cups)
+
+#savoury white fish with simmered tomatoes
+white_fish_ingredients = [
+  {name: 'Olive Oil', unit: 'tbsp', amount: 2},
+  {name: 'Garlic', unit: 'clove(s)', amount: 3},
+  {name: 'Savory Spice Blend', unit: 'tsp', amount: 2},
+  {name: 'Canned Whole Tomatoes', unit: 'oz', amount: 14.5},
+  {name: 'White Wine', unit: 'cup(s)', amount: 0.25},
+  {name: 'Bay Leaves', unit: nil, amount: 3},
+  {name: 'Kosher Salt', unit: 'To Taste', amount: nil},
+  {name: 'Black Pepper', unit: 'To Taste', amount: nil},
+  {name: 'White Fish Fillet ', unit: 'oz', amount: 24},
+  {name: 'Fresh Basil', unit: 'cup(s)', amount: 0.25}
+]
+
+white_fish = Recipe.create(name: 'Savoury White Fish', instructions: 'https://tasty.co/recipe/savoury-white-fish-with-simmered-tomatoes', meal_id: 3)
+add_ingredients_to_recipe(white_fish_ingredients, white_fish)
+
+#slow cooker pot roast
+pot_roast_ingredients = [
+  {name: 'Chuck Roast', unit: 'lb', amount: 3},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Dried Onion Soup Mix', unit: 'oz', amount: 1},
+  {name: 'Onion', unit: nil, amount: 1},
+  {name: 'Gold Potatoes', unit: nil, amount: 3},
+  {name: 'Large Carrots', unit: nil, amount: 3},
+  {name: 'Water', unit: 'cup(s)', amount: 0.5}
+]
+
+pot_roast = Recipe.create(name: 'Slow Cooker Pot Roast', instructions: 'https://tasty.co/recipe/slow-cooker-pot-roast', meal_id: 3)
+add_ingredients_to_recipe(pot_roast_ingredients, pot_roast)
+
+#slow cooker stuffed peppers
+sc_stuffed_pepper_ingredients = [
+  {name: 'Bell Peppers', unit: nil, amount: 5},
+  {name: 'Cookes Rice', unit: 'cup(s)', amount: 2},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Corn', unit: 'can', amount: 1},
+  {name: 'Onion', unit: nil, amount: 0.5},
+  {name: 'Black Beans', unit: 'can', amount: 1},
+  {name: 'Tomato', unit: 'cup(s)', amount: 0.5},
+  {name: 'Salsa', unit: 'cup(s)', amount: 0.5},
+  {name: 'Shredded Cheddar Cheese', unit: 'cup(s)', amount: 2},
+  {name: 'Chicken Stock', unit: 'cup(s)', amount: 0.5}
+]
+
+sc_stuffed_peppers = recipe.create(name: 'Slow Cooker Stuffed Peppers', instructions: 'https://tasty.co/recipe/slow-cooker-stuffed-peppers', meal_id: 3)
+add_ingredients_to_recipe(sc_stuffed_pepper_ingredients, sc_stuffed_peppers)
 
 
 

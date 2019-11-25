@@ -19,7 +19,7 @@ Need start date for week plans so there's not a ton of overlapping nonsense
 
 FINAL TASKS
 
-Seed db. I'm thinking at least 10 of each w/ extra lu/di 
+Seed db. I'm thinking at least 10 of each w/ extra lu/di
 
 Tweak oven button to
   change text back to create your plan when discarding plan
@@ -29,6 +29,7 @@ Fix issue with generator
   consistently not making first day and
   offsetting each day by one
   **Only generate the days you need?? Might help**
+  need scopes to only grab the proper meals when compiling
 
 Delete unnecessary code, including
   controller actions
