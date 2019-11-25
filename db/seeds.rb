@@ -345,6 +345,90 @@ ratatouille_ingredients = [
 ratatouille = Recipe.create(name: 'Ratatouille', instructions: 'https://tasty.co/recipe/ratatouille', meal_id: 3)
 add_ingredients_to_recipe(ratatouille_ingredients, ratatouille)
 
+#3 ingredient chicken teriyaki
+simple_teriyaki_ingredients = [
+  {name: 'Chicken Thighs', unit: 'lb', amount: 2},
+  {name: 'Soy Sauce', unit: 'cup(s)', amount: 1},
+  {name: 'Brown Sugar', unit: 'cup(s)', amount: 0.5},
+]
+
+simple_teriyaki = Recipe.create(name: '3 Ingredient Teriyaki Chicken', instructions: 'https://tasty.co/recipe/3-ingredient-teriyaki-chicken', meal_id: 3)
+add_ingredients_to_recipe(simple_teriyaki_ingredients, simple_teriyaki)
+
+#veggie cauliflower fried rice
+cauliflower_rice_ingredients = [
+  {name: 'Cauliflower', unit: 'head(s)', amount: 1},
+  {name: 'Onion', unit: nil, amount: 0.5},
+  {name: 'Red Bell Pepper', unit: nil, amount: 1},
+  {name: 'Green Bell Pepper', unit: nil, amount: 1},
+  {name: 'Yellow Bell Pepper', unit: nil, amount: 1},
+  {name: 'Mushroom', unit: 'cup(s)', amount: 2},
+  {name: 'Salt', unit: 'tsp', amount: 2},
+  {name: 'Pepper', unit: 'tsp', amount: 1},
+  {name: 'Eggs', unit: nil, amount: 3}
+]
+
+cauliflower_rice = Recipe.create(name: 'Veggie Cauliflower Fried Rice', instructions: 'https://tasty.co/recipe/veggie-cauliflower-fried-rice', meal_id: 3)
+add_ingredients_to_recipe(cauliflower_rice_ingredients, cauliflower_rice)
+
+#slow cooker ribs
+sc_ribs_ingredients = [
+  {name: 'BBQ Sauce', unit: 'cup(s)', amount: 2},
+  {name: 'Brown Suger', unit: 'cup(s)', amount: 0.25},
+  {name: 'Apple Cider Vinegar', unit: 'tbsp', amount: 4},
+  {name: 'Dried Oregano', unit: 'tsp', amount: 3},
+  {name: 'Worcestershire Sauce', unit: 'tsp', amount: 1},
+  {name: 'Cayenne Pepper', unit: 'tbsp', amount: 1},
+  {name: 'Chili Powder', unit: 'tbsp', amount: 1},
+  {name: 'Baby Back Pork Rib', unit: 'lb', amount: 3},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil}
+]
+
+sc_ribs = Recipe.create(name: 'Slow Cooker BBQ Ribs', instructions: 'https://tasty.co/recipe/slow-cooker-ribs', meal_id: 3)
+add_ingredients_to_recipe(sc_ribs_ingredients, sc_ribs)
+
+#sheet pan jambalaya
+jambalaya_ingredients = [
+  {name: 'Yellow Onion', unit: nil, amount: 1},
+  {name: 'Red Bell Pepper', unit: nil, amount: 1},
+  {name: 'Green Bell Pepper', unit: nil, amount: 1},
+  {name: 'Yellow Bell Pepper', unit: nil, amount: 1},
+  {name: 'Chicken Sausage', unit: 'cup(s)', amount: 2},
+  {name: 'Olive Oil', unit: 'To Taste', amount: nil},
+  {name: 'Creole Seasoning', unit: 'tbsp', amount: 1.25},
+  {name: 'Shrimp', unit: 'lb', amount: 1},
+  {name: 'Paprika', unit: 'tsp', amount: 0.5},
+  {name: 'Tomato', unit: 'cup(s)', amount: 1.5},
+  {name: 'Cooked Rice', unit: 'cup(s)', amount: 4},
+  {name: 'Scallion', unit: 'some', amount: nil}
+]
+
+jambalaya = Recipe.create(name: 'Sheet Pan Jambalaya', instructions: 'https://tasty.co/recipe/sheet-pan-jambalaya', meal_id: 3)
+add_ingredients_to_recipe(jambalaya_ingredients, jambalaya)
+
+#creamy chicken penne
+chicken_penne_ingredients = [
+  {name: 'Bacon', unit: 'slice(s)', amount: 4},
+  {name: 'Chicken Breasts', unit: nil, amount: 3},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Italian Seasoning', unit: 'tsp', amount: 2},
+  {name: 'Paprika', unit: 'tsp', amount: 1},
+  {name: 'Garlic', unit: 'clove(s)', amount: 2},
+  {name: 'Spinach', unit: 'cup(s)', amount: 2},
+  {name: 'Diced Tomatoes', unit: nil, amount: 4},
+  {name: 'Cream', unit: 'cup(s)', amount: 1.5},
+  {name: 'Shredded Parmesan', unit: 'cup(s)', amount: 1},
+  {name: 'Red Pepper Flakes', unit: 'tsp', amount: 0.5},
+  {name: 'Penne', unit: 'oz', amount: 10},
+  {name: 'Chopped Parsley', unit: 'tbsp', amount: 3}
+]
+
+chicken_penne = Recipe.create(name: 'Creamy Chicken Penne Pasta', instructions: 'https://tasty.co/recipe/creamy-chicken-penne-pasta', meal_id: 3)
+add_ingredients_to_recipe(chicken_penne_ingredients, chicken_penne)
+
+
 
 
 
