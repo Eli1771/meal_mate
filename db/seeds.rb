@@ -272,8 +272,79 @@ sc_stuffed_pepper_ingredients = [
   {name: 'Chicken Stock', unit: 'cup(s)', amount: 0.5}
 ]
 
-sc_stuffed_peppers = recipe.create(name: 'Slow Cooker Stuffed Peppers', instructions: 'https://tasty.co/recipe/slow-cooker-stuffed-peppers', meal_id: 3)
+sc_stuffed_peppers = Recipe.create(name: 'Slow Cooker Stuffed Peppers', instructions: 'https://tasty.co/recipe/slow-cooker-stuffed-peppers', meal_id: 3)
 add_ingredients_to_recipe(sc_stuffed_pepper_ingredients, sc_stuffed_peppers)
+
+#creamy tuscan chicken
+tuscan_chicken_ingredients = [
+  {name: 'Chicken Thighs', unit: nil, amount: 4},
+  {name: 'Salt', unit: 'tsp', amount: 2},
+  {name: 'Pepper', unit: 'tsp', amount: 1},
+  {name: 'Oil', unit: 'tbsp', amount: 1},
+  {name: 'Garlic', unit: 'clove(s)', amount: 3},
+  {name: 'Onion', unit: nil, amount: 0.5},
+  {name: 'Tomato', unit: nil, amount: 1},
+  {name: 'Spinach', unit: 'cup(s)', amount: 2},
+  {name: 'Heavy Cream', unit: 'cup(s)', amount: 2},
+  {name: 'Salt', unit: 'tsp', amount: 1},
+  {name: 'Pepper', unit: 'tsp', amount: 1},
+  {name: 'Grated Parmesan', unit: 'cup(s)', amount: 0.5},
+  {name: 'Parsley', unit: 'tbsp', amount: 2}
+]
+
+tuscan_chicken = Recipe.create(name: 'Creamy Tuscan Chicken', instructions: 'https://tasty.co/recipe/creamy-tuscan-chicken', meal_id: 3)
+add_ingredients_to_recipe(tuscan_chicken_ingredients, tuscan_chicken)
+
+#chili cheese dong boats
+chili_dog_ingredients = [
+  {name: 'Hot Dog Buns', unit: nil, amount: 8},
+  {name: 'Butter', unit: 'tbsp', amount: 4},
+  {name: 'Garlic', unit: 'clove(s)', amount: 2},
+  {name: 'Parsley', unit: 'tbsp', amount: 2},
+  {name: 'Cheddar Cheese', unit: 'slice(s)', amount: 8},
+  {name: 'Chili', unit: 'oz', amount: 15},
+  {name: 'Hot Dogs', unit: nil, amount: 8}
+]
+
+chili_dog = Recipe.create(name: 'Chili Cheese Dog Boats', instructions: 'https://tasty.co/recipe/chili-cheese-dog-boats', meal_id: 3)
+add_ingredients_to_recipe(chili_dog_ingredients, chili_dog)
+
+#salt and binegar crisp battered fish
+snv_fish_ingredients = [
+  {name: 'Fish', unit: nil, amount: 2},
+  {name: 'Salt and Vinegar Chips', unit: 'cup(s)', amount: 4.5},
+  {name: 'Flour', unit: 'cup(s)', amount: 0.75},
+  {name: 'Baking Soda', unit: 'tsp', amount: 2},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Beer', unit: 'cup(s)', amount: 1}
+]
+
+snv_fish = Recipe.create(name: 'Salt and Vinegar Crisp Battered Fish', instructions: 'https://tasty.co/recipe/salt-and-vinegar-crisp-battered-fish', meal_id: 2)
+add_ingredients_to_recipe(snv_fish_ingredients, snv_fish)
+
+#ratatouille
+ratatouille_ingredients = [
+  {name: 'Eggplants', unit: nil, amount: 2},
+  {name: 'Roma Tomatoes', unit: nil, amount: 6},
+  {name: 'Yellow Squashes', unit: nil, amount: 2},
+  {name: 'Zucchinis', unit: nil, amount: 2},
+  {name: 'Olive Oil', unit: 'tbsp', amount: 2},
+  {name: 'Onion', unit: nil, amount: 1},
+  {name: 'Garlic', unit: 'clove(s)', amount: 4},
+  {name: 'Red Bell Pepper', unit: nil, amount: 1},
+  {name: 'Yellow Bell Pepper', unit: nil, amount: 1},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Crushed Tomatoes', unit: 'oz', amount: 28},
+  {name: 'Basil', unit: 'tbsp', amount: 4},
+  {name: 'Parsley', unit: 'tbsp', amount: 2},
+  {name: 'Thyme', unit: 'tsp', amount: 2},
+  {name: 'Olive Oil', unit: 'tbsp', amount: 4}
+]
+
+ratatouille = Recipe.create(name: 'Ratatouille', instructions: 'https://tasty.co/recipe/ratatouille', meal_id: 3)
+add_ingredients_to_recipe(ratatouille_ingredients, ratatouille)
+
 
 
 

@@ -25,6 +25,8 @@ Tweak oven button to
   change text back to create your plan when discarding plan
   delete the whole plan in controller when discarding
 
+Correct ingredient string helper to reformat instances w/o amounts
+
 Fix issue with generator
   consistently not making first day and
   offsetting each day by one
