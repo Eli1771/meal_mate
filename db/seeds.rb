@@ -589,11 +589,35 @@ bbq_skewers_ingredients = [
 bbq_skewers = Recipe.create(name: 'BBQ Chicken Bacon Skewers', instructions: 'https://tasty.co/recipe/bbq-chicken-bacon-skewers', meal_id: 2)
 add_ingredients_to_recipe(bbq_skewers_ingredients, bbq_skewers)
 
+#veggie fried rice
+veggie_rice_ingredients = [
+  {name: 'Brown Rice', unit: 'cup(s)', amount: 2},
+  {name: 'Vegetable Broth', unit: 'cup(s)', amount: 2},
+  {name: 'Carrots', unit: nil, amount: 2},
+  {name: 'Oil', unit: 'tbsp', amount: 1},
+  {name: 'White Onion', unit: nil, amount: 0.5},
+  {name: 'Garlic', unit: 'clove(s)', amount: 2},
+  {name: 'Frozen Peas', unit: 'cup(s)', amount: 0.5},
+  {name: 'Salt', unit: 'To Taste', amount: nil},
+  {name: 'Pepper', unit: 'To Taste', amount: nil},
+  {name: 'Eggs', unit: nil, amount: 2},
+  {name: 'Scallion', unit: 'some', amount: nil}
+]
 
+veggie_rice = Recipe.create(name: 'Veggie Fried Rice', instructions: 'https://tasty.co/recipe/healthier-veggie-fried-rice', meal_id: 2)
+add_ingredients_to_recipe(veggie_rice_ingredients, veggie_rice)
 
+#pizza braid
+pizza_braid_ingredients = [
+  {name: 'Puff Pastry', unit: nil, amount: 1},
+  {name: 'Mozzarella', unit: 'slice(s)', amount: 4},
+  {name: 'Pepperoni', unit: 'slice(s)', amount: 12},
+  {name: 'Butter', unit: 'tbsp', amount: 2},
+  {name: 'Garlic', unit: 'clove(s)', amount: 1},
+  {name: 'Parsley', unit: 'tbsp', amount: 1},
+  {name: 'Parmesan', unit: 'tbsp', amount: 1},
+  {name: 'Marinara Sauce', unit: 'For Dipping', amount: nil}
+]
 
-
-
-
-
-# {name: '', unit: '', amount: 1},
+pizza_braid = Recipe.create(name: 'Pizza Braid', instructions: 'https://tasty.co/recipe/pizza-braid', meal_id: 2)
+add_ingredients_to_recipe(pizza_braid_ingredients, pizza_braid)
