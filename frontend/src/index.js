@@ -213,21 +213,24 @@ function openOven() {
 }
 
 function closeOven() {
-  alert('Discard your current plan?');
-  //hide 'opened' elements
-  let opened = document.querySelectorAll('.open-oven');
-  for (let j = 0; j < opened.length; j++) {
-    opened[j].classList.add('hidden');
-  }
-  document.querySelector('#oven-door').classList.remove('opened');
-  //reveal 'closed' elements
-  let closed = document.querySelectorAll('.closed-oven');
-  for (let i = 0; i < closed.length; i++) {
-    closed[i].classList.remove('hidden');
-  }
+  if (confirm('Discard your current plan?')) {
+    let button = document.querySelector('#oven button#generate-plan');
+    button.innerHTML = 'Create Your Plan!';
+    //hide 'opened' elements
+    let opened = document.querySelectorAll('.open-oven');
+    for (let j = 0; j < opened.length; j++) {
+      opened[j].classList.add('hidden');
+    }
+    document.querySelector('#oven-door').classList.remove('opened');
+    //reveal 'closed' elements
+    let closed = document.querySelectorAll('.closed-oven');
+    for (let i = 0; i < closed.length; i++) {
+      closed[i].classList.remove('hidden');
+    }
 
-  document.querySelector('#oven-meals').checked = false;
-  document.querySelector('#oven-shopping-list').checked = false;
+    document.querySelector('#oven-meals').checked = false;
+    document.querySelector('#oven-shopping-list').checked = false;
+  }
 }
 
 // function displayPlanType() {
