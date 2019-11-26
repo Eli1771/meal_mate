@@ -19,8 +19,6 @@ Need start date for week plans so there's not a ton of overlapping nonsense
 
 FINAL TASKS
 
-Seed db. I'm thinking at least 10 of each w/ extra lu/di
-
 Tweak oven button to
   change text back to create your plan when discarding plan
   delete the whole plan in controller when discarding

@@ -84,6 +84,18 @@ input {
   border-top: 2px solid #333;
 }
 
+div#meal-plan-placeholder {
+  margin: 2vh;
+  margin-top: 18vh;
+  padding: 1vh;
+  font-size: 3vh;
+  font-weight: bolder;
+  background: #2b4c39;
+  border-radius: 1.5vh;
+  color: #577b66;
+  text-align: center;
+}
+
 div#all-meals {
   background: #577b67;
   height: 55vh;

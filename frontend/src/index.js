@@ -69,58 +69,66 @@ function fetchDayPlan() {
 }
 
 function renderDayPlan(dp) {
+  console.log(!!dp);
   const container = document.querySelector('div#all-meals');
-  const recipes = dp.recipes;
-  //for each recipe, create all elements
-  for (let i = 0; i < recipes.length; i++) {
-    let recipe = recipes[i];
-    let ingredients = recipe.recipe_ingredients;
-    let ratingTitles = ['Cost', 'Complexity', 'Nutrition', 'Taste'];
-    //1. create a header (outside of container) with meal name
-    container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
-    //2. make the container for all recipe elements
-    let mealContainer = document.createElement('div');
-    //3. all the header with title and link to instructions
-    mealContainer.classList.add('single-meal');
-    let name = recipe.name;
-    let link = `<a href=${recipe.instructions} target="_blank">View Full Recipe</a>`;
-    let recipeHeader = `<h4>${name} - ${link}</h4>`;
-    mealContainer.innerHTML += recipeHeader;
-    //4. create and populate ingredients list
-    mealContainer.innerHTML += '<h5>Ingredients: </h5>';
-    let ingredientsList = document.createElement('ul');
-    ingredientsList.classList.add('ingredients-list');
-    for (let j = 0; j < ingredients.length; j++) {
-      let ing = ingredients[j];
-      let li = document.createElement('li');
-      //li.innerText = makeIngredientString({amount: ing.amount, unit: ing.unit, name: ing.ingredient.name});
-      ing.unit ?
-        li.innerText = `${ing.amount} ${ing.unit} ${ing.ingredient.name}` :
-        li.innerText = `${ing.amount} ${ing.ingredient.name}`;
-      ingredientsList.appendChild(li);
+  if (dp) {
+    //clear container of all content
+    container.innerHTML = '';
+    const recipes = dp.recipes;
+    //for each recipe, create all elements
+    for (let i = 0; i < recipes.length; i++) {
+      let recipe = recipes[i];
+      let ingredients = recipe.recipe_ingredients;
+      let ratingTitles = ['Cost', 'Complexity', 'Nutrition', 'Taste'];
+      //1. create a header (outside of container) with meal name
+      container.innerHTML += `<h5 class="meal-name">${recipe.meal.name.toUpperCase()}</h5>`;
+      //2. make the container for all recipe elements
+      let mealContainer = document.createElement('div');
+      //3. all the header with title and link to instructions
+      mealContainer.classList.add('single-meal');
+      let name = recipe.name;
+      let link = `<a href=${recipe.instructions} target="_blank">View Full Recipe</a>`;
+      let recipeHeader = `<h4>${name} - ${link}</h4>`;
+      mealContainer.innerHTML += recipeHeader;
+      //4. create and populate ingredients list
+      mealContainer.innerHTML += '<h5>Ingredients: </h5>';
+      let ingredientsList = document.createElement('ul');
+      ingredientsList.classList.add('ingredients-list');
+      for (let j = 0; j < ingredients.length; j++) {
+        let ing = ingredients[j];
+        let li = document.createElement('li');
+        //li.innerText = makeIngredientString({amount: ing.amount, unit: ing.unit, name: ing.ingredient.name});
+        ing.unit ?
+          li.innerText = `${ing.amount} ${ing.unit} ${ing.ingredient.name}` :
+          li.innerText = `${ing.amount} ${ing.ingredient.name}`;
+        ingredientsList.appendChild(li);
+      }
+      mealContainer.appendChild(ingredientsList);
+      //5. create ratings container
+      // let ratingsContainer = document.createElement('div');
+      // ratingsContainer.classList.add('ratings-container');
+      // mealContainer.appendChild(ratingsContainer);
+      //6. create ratings zones (no stars)
+      // for (let k = 0; k < ratingTitles.length; k++) {
+        // let ratingZone = document.createElement('div');
+        // ratingZone.classList.add('rating');
+        // ratingsContainer.appendChild(ratingZone);
+        // let ratingHeader = document.createElement('p');
+        // ratingHeader.innerText = ratingTitles[k];
+        // ratingZone.appendChild(ratingHeader);
+        // let stars = document.createElement('div');
+        // stars.classList.add('stars');
+        // ratingZone.appendChild(stars);
+      // }
+      //7. add fully populated meal container to day plan container
+      container.appendChild(mealContainer);
     }
-    mealContainer.appendChild(ingredientsList);
-    //5. create ratings container
-    // let ratingsContainer = document.createElement('div');
-    // ratingsContainer.classList.add('ratings-container');
-    // mealContainer.appendChild(ratingsContainer);
-    //6. create ratings zones (no stars)
-    // for (let k = 0; k < ratingTitles.length; k++) {
-      // let ratingZone = document.createElement('div');
-      // ratingZone.classList.add('rating');
-      // ratingsContainer.appendChild(ratingZone);
-      // let ratingHeader = document.createElement('p');
-      // ratingHeader.innerText = ratingTitles[k];
-      // ratingZone.appendChild(ratingHeader);
-      // let stars = document.createElement('div');
-      // stars.classList.add('stars');
-      // ratingZone.appendChild(stars);
-    // }
-    //7. add fully populated meal container to day plan container
-    container.appendChild(mealContainer);
+    //generate all stars at once
+    // generateStars();
+  } else {
+    container.innerHTML =
+      '<p>No plan found for today.</p><p>Get started on your plan for next week!</p>';
   }
-  //generate all stars at once
-  // generateStars();
 }
 
 // function generateStars() {
