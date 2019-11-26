@@ -503,8 +503,8 @@ function slugDate(s) {
 function makeIngredientString(ingObj) {
   const keysInOrder = ['amount', 'unit', 'name'];
   let r = '';
-  if (ingObj.unit.toLowerCase() === 'to taste') {
-    r = `${ingObj.name} - ${ingObj.amount}`;
+  if (!ingObj.amount) {
+    r = `${ingObj.name} - ${ingObj.unit}`;
   } else {
     for (let i = 0; i < Object.keys(ingObj).length; i++) {
       if (ingObj[keysInOrder[i]]) {

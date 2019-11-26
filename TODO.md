@@ -25,8 +25,6 @@ Tweak oven button to
 
 Correct ingredient string helper to reformat instances w/o amounts
 
-Create defaults for lack of current plans
-
 Fix issue with generator
   consistently not making first day and
   offsetting each day by one
