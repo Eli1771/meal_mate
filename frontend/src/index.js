@@ -69,7 +69,6 @@ function fetchDayPlan() {
 }
 
 function renderDayPlan(dp) {
-  console.log(!!dp);
   const container = document.querySelector('div#all-meals');
   if (dp) {
     //clear container of all content
@@ -173,7 +172,7 @@ function loadEventListeners() {
   generatePlanButton.addEventListener('click', generatePlan);
 
   let startOverButton = document.querySelector('#oven button#oven-door-opened');
-  startOverButton.addEventListener('click', closeOven);
+  startOverButton.addEventListener('click', discardPlans);
 
   let selectAllMealsButton = document.querySelector('#select-all-meals');
   selectAllMealsButton.addEventListener('click', selectAllMeals);
@@ -197,6 +196,8 @@ function loadEventListeners() {
 
 
 function openOven() {
+  let button = document.querySelector('#oven button#oven-door-opened');
+  button.innerHTML = 'Start Over?';
   //hide 'closed' elements
   let closed = document.querySelectorAll('.closed-oven');
   for (let i = 0; i < closed.length; i++) {
@@ -212,25 +213,24 @@ function openOven() {
   document.querySelector('#oven-meals').checked = true;
 }
 
-function closeOven() {
-  if (confirm('Discard your current plan?')) {
-    let button = document.querySelector('#oven button#generate-plan');
-    button.innerHTML = 'Create Your Plan!';
-    //hide 'opened' elements
-    let opened = document.querySelectorAll('.open-oven');
-    for (let j = 0; j < opened.length; j++) {
-      opened[j].classList.add('hidden');
-    }
-    document.querySelector('#oven-door').classList.remove('opened');
-    //reveal 'closed' elements
-    let closed = document.querySelectorAll('.closed-oven');
-    for (let i = 0; i < closed.length; i++) {
-      closed[i].classList.remove('hidden');
-    }
-
-    document.querySelector('#oven-meals').checked = false;
-    document.querySelector('#oven-shopping-list').checked = false;
+async function closeOven() {
+  //first delete all the day plans you've made
+  let button = document.querySelector('#oven button#generate-plan');
+  button.innerHTML = 'Create Your Plan!';
+  //hide 'opened' elements
+  let opened = document.querySelectorAll('.open-oven');
+  for (let j = 0; j < opened.length; j++) {
+    opened[j].classList.add('hidden');
   }
+  document.querySelector('#oven-door').classList.remove('opened');
+  //reveal 'closed' elements
+  let closed = document.querySelectorAll('.closed-oven');
+  for (let i = 0; i < closed.length; i++) {
+    closed[i].classList.remove('hidden');
+  }
+
+  document.querySelector('#oven-meals').checked = false;
+  document.querySelector('#oven-shopping-list').checked = false;
 }
 
 // function displayPlanType() {
@@ -293,8 +293,6 @@ function makeTemporaryMeal() {
 
 function mameTemporaryDp(wpData) {
   let wpId = wpData.id
-  console.log('temp plan id: ');
-  console.log(wpId);
 
   const d = new Date();
   const day = d.getDay();
@@ -349,6 +347,7 @@ async function generatePlan() {
     let offset = 7 - currentWeekday;
     //only to plug into the week_plan create method <- needs an async/await?
     let startDate = moment().add(offset, 'days').format('MMM DD');
+    //find and delete any week plans with the same start date
     let objData = {
       start_date: startDate
     }
@@ -435,6 +434,7 @@ function renderFuturePlan(planData) {
 
 function renderRecipes(planData) {
   const frame = document.querySelector('#oven-meals-content-pane');
+  frame.innerHTML = '';
   const dayPlans = planData.day_plans;
   //now populate frame
   frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
@@ -449,6 +449,7 @@ function renderRecipes(planData) {
 
 function renderShoppingList(ingredients) {
   const frame = document.querySelector('#oven-shopping-list-content-pane');
+  frame.innerHTML = '';
   let listItems = compileShoppingList(ingredients);
   for (let i = 0; i < listItems.length; i++) {
     const listItem = listItems[i];
@@ -465,11 +466,9 @@ function compileShoppingList(ingredients) {
   let collapsed = []
   for (let i = 0; i < ingredients.length; i++) {
     let ingredient = ingredients[i];
-    console.log(ingredient);
     let listed = collapsed.find(n => {
       return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
     });
-    console.log('listed: ' + listed);
     if (listed) {
       listed[1] += ingredient[1]
     } else {
@@ -479,6 +478,42 @@ function compileShoppingList(ingredients) {
   console.log('full ingredients array:');
   console.log(collapsed);
   return collapsed
+}
+
+async function discardPlans() {
+  if (confirm('Discard your current plan?')) {
+    this.innerHTML = 'Resetting...';
+    console.log('Deleting all future plans...');
+
+
+    let d = new Date;
+    let offset = 7 - d.getDay();
+    for (let i = 0; i < 7; i++) {
+      let dateString = moment().add(offset + i, 'days').format('MMM DD');
+      let dateSlug = slugDate(dateString);
+      console.log('date slug: ' + dateSlug);
+      let resp = await fetch(`http://localhost:3000/day_plans/${dateSlug}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }
+      });
+      let json = resp.json();
+      console.log(json);
+    }
+    closeOven();
+
+    // fetch('http://localhost:3000/day_plans/dec_05', {
+    //   method: "DELETE",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Accept": "application/json"
+    //   },
+    // })
+    //   .then(resp => resp.json()).then(json => console.log(json));
+    // closeOven();
+  }
 }
 
 
@@ -503,7 +538,7 @@ function makeConfigObj(objData) {
 }
 
 function slugDate(s) {
-  return s.split(' ').join('_');
+  return s.split(' ').join('_').toLowerCase();
 }
 
 function makeIngredientString(ingObj) {

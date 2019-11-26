@@ -1,0 +1,736 @@
+--- !ruby/object:ActiveRecord::ConnectionAdapters::SchemaCache
+columns:
+  schema_migrations:
+  - &1 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: version
+    table_name: schema_migrations
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  ar_internal_metadata:
+  - &2 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: key
+    table_name: ar_internal_metadata
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &3 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: value
+    table_name: ar_internal_metadata
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &4 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: ar_internal_metadata
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &5 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: ar_internal_metadata
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  ingredients:
+  - &6 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &7 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: name
+    table_name: ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &8 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &9 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  recipe_ingredients:
+  - &10 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &11 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: recipe_id
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &12 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: ingredient_id
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &13 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: unit
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &14 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: amount
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &15 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &16 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: recipe_ingredients
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  day_plans:
+  - &17 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &18 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: day_id
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &19 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: week_plan_id
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &20 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: date
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &21 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &22 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &23 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: slug
+    table_name: day_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  week_plans:
+  - &24 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: week_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &25 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: start_date
+    table_name: week_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &26 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: week_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &27 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: week_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  days:
+  - &28 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: days
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &29 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: name
+    table_name: days
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &30 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: days
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &31 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: days
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  meals:
+  - &32 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: meals
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &33 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: name
+    table_name: meals
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &34 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: meals
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &35 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: meals
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  recipe_plans:
+  - &36 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: recipe_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &37 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: recipe_id
+    table_name: recipe_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &38 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: day_plan_id
+    table_name: recipe_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &39 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: recipe_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &40 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: recipe_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  recipes:
+  - &41 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: id
+    table_name: recipes
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &42 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: meal_id
+    table_name: recipes
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: integer
+      type: :integer
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &43 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: name
+    table_name: recipes
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &44 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: instructions
+    table_name: recipes
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &45 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: created_at
+    table_name: recipes
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  - &46 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: updated_at
+    table_name: recipes
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: datetime
+      type: :datetime
+      limit: 
+      precision: 
+      scale: 
+    'null': false
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+columns_hash:
+  schema_migrations:
+    version: *1
+  ar_internal_metadata:
+    key: *2
+    value: *3
+    created_at: *4
+    updated_at: *5
+  ingredients:
+    id: *6
+    name: *7
+    created_at: *8
+    updated_at: *9
+  recipe_ingredients:
+    id: *10
+    recipe_id: *11
+    ingredient_id: *12
+    unit: *13
+    amount: *14
+    created_at: *15
+    updated_at: *16
+  day_plans:
+    id: *17
+    day_id: *18
+    week_plan_id: *19
+    date: *20
+    created_at: *21
+    updated_at: *22
+    slug: *23
+  week_plans:
+    id: *24
+    start_date: *25
+    created_at: *26
+    updated_at: *27
+  days:
+    id: *28
+    name: *29
+    created_at: *30
+    updated_at: *31
+  meals:
+    id: *32
+    name: *33
+    created_at: *34
+    updated_at: *35
+  recipe_plans:
+    id: *36
+    recipe_id: *37
+    day_plan_id: *38
+    created_at: *39
+    updated_at: *40
+  recipes:
+    id: *41
+    meal_id: *42
+    name: *43
+    instructions: *44
+    created_at: *45
+    updated_at: *46
+primary_keys:
+  schema_migrations: version
+  ar_internal_metadata: key
+  ingredients: id
+  recipe_ingredients: id
+  day_plans: id
+  week_plans: id
+  days: id
+  meals: id
+  recipe_plans: id
+  recipes: id
+data_sources:
+  schema_migrations: true
+  ar_internal_metadata: true
+  ingredients: true
+  recipe_ingredients: true
+  day_plans: true
+  week_plans: true
+  days: true
+  meals: true
+  recipe_plans: true
+  recipes: true
+version: 20191123190450
