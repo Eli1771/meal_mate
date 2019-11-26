@@ -127,7 +127,7 @@ function renderDayPlan(dp) {
     // generateStars();
   } else {
     container.innerHTML =
-      '<p>No plan found for today.</p><p>Get started on your plan for next week!</p>';
+      '<div id="meal-plan-placeholder"><p>No plan found for today.</p><p>Get started on your plan for next week!</p></div>';
   }
 }
 
@@ -334,31 +334,34 @@ function associateTempMeal(dpData) {
 
 
 async function generatePlan() {
-  this.innerText = 'Loading...';
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
+  if (requiredMeals.flat().reduce(noneChecked, true)) {
+    alert('Please select at least one meal to generate.');
+  } else {
+    this.innerText = 'Loading...';
+    //moment methods to get dates for week
+    let d = new Date;
+    let currentWeekday = d.getDay();
+    let offset = 7 - currentWeekday;
+    //only to plug into the week_plan create method <- needs an async/await?
+    let startDate = moment().add(offset, 'days').format('MMM DD');
+    let objData = {
+      start_date: startDate
+    }
+    let configObj = makeConfigObj(objData);
+    let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
+    let json = await resp.json();
+    let weekPlanId = await json.id;
 
-  //moment methods to get dates for week
-  let d = new Date;
-  let currentWeekday = d.getDay();
-  let offset = 7 - currentWeekday;
-  //only to plug into the week_plan create method <- needs an async/await?
-  let startDate = moment().add(offset, 'days').format('MMM DD');
-  let objData = {
-    start_date: startDate
+    // //Now loop through to make day plans and feed into week plan
+    for (let day = 0; day < requiredMeals.length; day++) {
+      let date = moment().add((day + offset), 'days').format('MMM DD');
+      console.log('date of plan: ' + date);
+      await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
+    }
+    fetchFuturePlan(weekPlanId);
   }
-  let configObj = makeConfigObj(objData);
-  let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
-  let json = await resp.json();
-  let weekPlanId = await json.id;
-
-  // //Now loop through to make day plans and feed into week plan
-  for (let day = 0; day < requiredMeals.length; day++) {
-    let date = moment().add((day + offset), 'days').format('MMM DD');
-    console.log('date of plan: ' + date);
-    await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
-  }
-  fetchFuturePlan(weekPlanId);
 }
 
 function getMealDays() {
@@ -514,3 +517,9 @@ function makeIngredientString(ingObj) {
   }
   return r;
 }
+
+//callback fx for reduce. Returns true if none of the mealplans are checked
+//must use true as initial value for second param in reduce fx
+function noneChecked(result, current) {
+  return result && !current;
+};
