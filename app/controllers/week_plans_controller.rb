@@ -9,6 +9,12 @@ class WeekPlansController < ApplicationController
     render json: week_plan
   end
 
+  def destroy
+    week_plan = WeekPlan.find_by(slug: params[:slug])
+    week_plan.delete
+    render json: week_plan
+  end 
+
   private
 
   def week_plan_params
