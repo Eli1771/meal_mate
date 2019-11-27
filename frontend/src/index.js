@@ -498,34 +498,7 @@ async function discardPlans() {
     })
       .then(resp => resp.json()).then(json => console.log(json));
 
-
-    // let d = new Date;
-    // let offset = 7 - d.getDay();
-    // for (let i = 0; i < 7; i++) {
-    //   let dateString = moment().add(offset + i, 'days').format('MMM DD');
-    //   let dateSlug = slugDate(dateString);
-    //   console.log('date slug: ' + dateSlug);
-    //   let resp = await fetch(`http://localhost:3000/day_plans/${dateSlug}`, {
-    //     method: "DELETE",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Accept": "application/json"
-    //     }
-    //   });
-    //   let json = resp.json();
-    //   console.log(json);
-    // }
     closeOven();
-
-    // fetch('http://localhost:3000/day_plans/dec_05', {
-    //   method: "DELETE",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json"
-    //   },
-    // })
-    //   .then(resp => resp.json()).then(json => console.log(json));
-    // closeOven();
   }
 }
 
