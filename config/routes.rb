@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :recipe_plans
   resources :meals
   resources :days
-  resources :week_plans
+  resources :week_plans, param: :slug
   resources :day_plans, param: :slug
   resources :recipe_ingredients
   resources :ingredients

@@ -1,6 +1,6 @@
 class WeekPlansController < ApplicationController
   def show
-    week_plan = WeekPlan.find(params[:id])
+    week_plan = WeekPlan.find_by(slug: params[:slug])
     render json: WeekPlanSerializer.new(week_plan).to_serialized_json
   end
 
@@ -12,6 +12,6 @@ class WeekPlansController < ApplicationController
   private
 
   def week_plan_params
-    params.require(:week_plan).permit(:start_date)
+    params.require(:week_plan).permit(:start_date, :slug)
   end
 end
