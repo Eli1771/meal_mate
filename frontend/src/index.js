@@ -362,7 +362,7 @@ async function generatePlan() {
       console.log('date of plan: ' + date);
       await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
     }
-    fetchFuturePlan(weekPlanId);
+    fetchFuturePlan(slugDate(startDate));
   }
 }
 
@@ -384,7 +384,7 @@ function getMealDays() {
 
 async function generateDayPlan(whichMeals, date, day, weekPlanId) {
   let objData = {
-    day_id: day,
+    day_id: day + 1,
     date: date,
     week_plan_id: weekPlanId
   };
@@ -424,6 +424,7 @@ function fetchFuturePlan(planId) {
 }
 
 function renderFuturePlan(planData) {
+  console.log(planData);
   openOven();
   renderRecipes(planData);
   //to return a flat array of recipe_ingredients for the plan
@@ -485,23 +486,35 @@ async function discardPlans() {
     this.innerHTML = 'Resetting...';
     console.log('Deleting all future plans...');
 
-
     let d = new Date;
-    let offset = 7 - d.getDay();
-    for (let i = 0; i < 7; i++) {
-      let dateString = moment().add(offset + i, 'days').format('MMM DD');
-      let dateSlug = slugDate(dateString);
-      console.log('date slug: ' + dateSlug);
-      let resp = await fetch(`http://localhost:3000/day_plans/${dateSlug}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        }
-      });
-      let json = resp.json();
-      console.log(json);
-    }
+    let dateString = moment().add(7 - d.getDay(), 'days').format('MMM DD');
+    let dateSlug = slugDate(dateString);
+    fetch(`http://localhost:3000/week_plans/${dateSlug}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      }
+    })
+      .then(resp => resp.json()).then(json => console.log(json));
+
+
+    // let d = new Date;
+    // let offset = 7 - d.getDay();
+    // for (let i = 0; i < 7; i++) {
+    //   let dateString = moment().add(offset + i, 'days').format('MMM DD');
+    //   let dateSlug = slugDate(dateString);
+    //   console.log('date slug: ' + dateSlug);
+    //   let resp = await fetch(`http://localhost:3000/day_plans/${dateSlug}`, {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Accept": "application/json"
+    //     }
+    //   });
+    //   let json = resp.json();
+    //   console.log(json);
+    // }
     closeOven();
 
     // fetch('http://localhost:3000/day_plans/dec_05', {
