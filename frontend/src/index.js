@@ -385,27 +385,29 @@ function getMealDays() {
 }
 
 async function generateDayPlan(whichMeals, date, day, weekPlanId) {
-  let objData = {
-    day_id: day + 1,
-    date: date,
-    week_plan_id: weekPlanId
-  };
-  let rand3 = function() {
-    return randomInRange(3);
-  }
-  //make the configuration object w/ object data
-  let configObj = makeConfigObj(objData);
-  //actual fetch posts to populate db
-  const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
-  const json = await resp.json();
-  console.log('day plan json:');
-  console.log(json);
-  const dayPlanId = await json.id;
+  if (!whichMeals.reduce(noneChecked, true)) {
+    let objData = {
+      day_id: day + 1,
+      date: date,
+      week_plan_id: weekPlanId
+    };
+    let rand3 = function() {
+      return randomInRange(3);
+    }
+    //make the configuration object w/ object data
+    let configObj = makeConfigObj(objData);
+    //actual fetch posts to populate db
+    const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
+    const json = await resp.json();
+    console.log('day plan json:');
+    console.log(json);
+    const dayPlanId = await json.id;
 
-  //randomly select meals
-  for (let meal = 0; meal < 3; meal++) {
-    if (whichMeals[meal]) {
-      await associateRecipe(rand3(), dayPlanId);
+    //randomly select meals
+    for (let meal = 0; meal < 3; meal++) {
+      if (whichMeals[meal]) {
+        await associateRecipe(rand3(), dayPlanId);
+      }
     }
   }
 }
