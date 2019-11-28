@@ -384,8 +384,22 @@ columns:
     default_function: 
     collation: 
     comment: 
-  days:
   - &28 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+    name: slug
+    table_name: week_plans
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: varchar
+      type: :string
+      limit: 
+      precision: 
+      scale: 
+    'null': true
+    default: 
+    default_function: 
+    collation: 
+    comment: 
+  days:
+  - &29 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: id
     table_name: days
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -399,7 +413,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &29 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &30 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: name
     table_name: days
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -413,7 +427,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &30 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &31 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: created_at
     table_name: days
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -427,7 +441,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &31 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &32 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: updated_at
     table_name: days
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -442,7 +456,7 @@ columns:
     collation: 
     comment: 
   meals:
-  - &32 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &33 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: id
     table_name: meals
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -456,7 +470,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &33 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &34 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: name
     table_name: meals
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -470,7 +484,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &34 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &35 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: created_at
     table_name: meals
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -484,7 +498,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &35 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &36 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: updated_at
     table_name: meals
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -499,7 +513,7 @@ columns:
     collation: 
     comment: 
   recipe_plans:
-  - &36 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &37 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: id
     table_name: recipe_plans
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -513,7 +527,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &37 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &38 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: recipe_id
     table_name: recipe_plans
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -527,7 +541,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &38 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &39 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: day_plan_id
     table_name: recipe_plans
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -541,7 +555,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &39 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &40 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: created_at
     table_name: recipe_plans
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -555,7 +569,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &40 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &41 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: updated_at
     table_name: recipe_plans
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -570,7 +584,7 @@ columns:
     collation: 
     comment: 
   recipes:
-  - &41 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &42 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: id
     table_name: recipes
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -584,7 +598,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &42 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &43 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: meal_id
     table_name: recipes
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -598,7 +612,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &43 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &44 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: name
     table_name: recipes
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -612,7 +626,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &44 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &45 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: instructions
     table_name: recipes
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -626,7 +640,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &45 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &46 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: created_at
     table_name: recipes
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -640,7 +654,7 @@ columns:
     default_function: 
     collation: 
     comment: 
-  - &46 !ruby/object:ActiveRecord::ConnectionAdapters::Column
+  - &47 !ruby/object:ActiveRecord::ConnectionAdapters::Column
     name: updated_at
     table_name: recipes
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -688,29 +702,30 @@ columns_hash:
     start_date: *25
     created_at: *26
     updated_at: *27
+    slug: *28
   days:
-    id: *28
-    name: *29
-    created_at: *30
-    updated_at: *31
+    id: *29
+    name: *30
+    created_at: *31
+    updated_at: *32
   meals:
-    id: *32
-    name: *33
-    created_at: *34
-    updated_at: *35
+    id: *33
+    name: *34
+    created_at: *35
+    updated_at: *36
   recipe_plans:
-    id: *36
-    recipe_id: *37
-    day_plan_id: *38
-    created_at: *39
-    updated_at: *40
+    id: *37
+    recipe_id: *38
+    day_plan_id: *39
+    created_at: *40
+    updated_at: *41
   recipes:
-    id: *41
-    meal_id: *42
-    name: *43
-    instructions: *44
-    created_at: *45
-    updated_at: *46
+    id: *42
+    meal_id: *43
+    name: *44
+    instructions: *45
+    created_at: *46
+    updated_at: *47
 primary_keys:
   schema_migrations: version
   ar_internal_metadata: key
@@ -733,4 +748,4 @@ data_sources:
   meals: true
   recipe_plans: true
   recipes: true
-version: 20191123190450
+version: 20191126213832
