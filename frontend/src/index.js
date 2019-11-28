@@ -196,6 +196,7 @@ function loadEventListeners() {
 
 
 function openOven() {
+  document.querySelector('#oven').classList.remove('meal-plan-loading');
   let button = document.querySelector('#oven button#oven-door-opened');
   button.innerHTML = 'Start Over?';
   //hide 'closed' elements
@@ -340,6 +341,7 @@ async function generatePlan() {
   if (requiredMeals.flat().reduce(noneChecked, true)) {
     alert('Please select at least one meal to generate.');
   } else {
+    document.querySelector('#oven').classList.add('meal-plan-loading');
     this.innerText = 'Loading...';
     //moment methods to get dates for week
     let d = new Date;
