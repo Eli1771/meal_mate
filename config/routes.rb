@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :migrations
   resources :recipe_plans
-  resources :meals
+  resources :meals, only: [:show] do
+    resources :recipes, only: [:index, :show]
+  end
   resources :days
   resources :week_plans, param: :slug
   resources :day_plans, param: :slug

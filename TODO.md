@@ -17,20 +17,12 @@ Narrow routes to eliminate unnecessary code
 There's gotta be some way to DRY up getters/model relationships
 Need start date for week plans so there's not a ton of overlapping nonsense
 
-FINAL TASKS
-
 Tweak oven button to
-  change text back to create your plan when discarding plan
   delete the whole plan in controller when discarding
 
-Shake animation?
+FINAL TASKS
 
 Fix issue with generator
-  alert if plan is made w/o meals selected
-  consistently not making first day and
-  offsetting each day by one
-  **Only generate the days you need?? Might help**
-  only display the days you need
   need scopes to only grab the proper meals when compiling
 
 Delete unnecessary code, including

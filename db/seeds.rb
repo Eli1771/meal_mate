@@ -475,7 +475,7 @@ pesto_pasta_ingredients = [
   {name: 'Mozzarella Ball', unit: 'oz', amount: 8}
 ]
 
-pesto_pasta = Recipe.create(name: 'Creamy Pesto Pasta', instructions: 'https://tasty.co/recipe/creamy-pesto-pasta-bake', meal_id: 2)
+pesto_pasta = Recipe.create(name: 'Creamy Pesto Pasta', instructions: 'https://tasty.co/recipe/creamy-pesto-pasta-bake', meal_id: 1)
 add_ingredients_to_recipe(pesto_pasta_ingredients, pesto_pasta)
 
 #creamy mushroom toasts
@@ -570,7 +570,7 @@ picnic_sandwich_ingredients = [
   {name: 'Green Olives', unit: 'cup(s)', amount: 0.25}
 ]
 
-picnic_sandwich = Recipe.create(name: 'Summer Picnec Sandwich', instructions: 'https://tasty.co/recipe/summer-picnic-sandwich', meal_id: 2)
+picnic_sandwich = Recipe.create(name: 'Summer Picnec Sandwich', instructions: 'https://tasty.co/recipe/summer-picnic-sandwich', meal_id: 1)
 add_ingredients_to_recipe(picnic_sandwich_ingredients, picnic_sandwich)
 
 #bbq chicken bacon skewers
