@@ -391,8 +391,8 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
       date: date,
       week_plan_id: weekPlanId
     };
-    let rand3 = function() {
-      return randomInRange(3);
+    let rand12 = function() {
+      return randomInRange(12);
     }
     //make the configuration object w/ object data
     let configObj = makeConfigObj(objData);
