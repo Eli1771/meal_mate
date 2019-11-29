@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   def index
     # binding.pry
     if params[:meal_id]
-      recipes = Meal.find(params[:meal_id]).recipes
+      recipes = Recipe.meal(params[:meal_id])
     else
       recipes = Recipe.all
     end
@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
 
   def show
     if params[:meal_id]
-      recipes = Meal.find(params[:meal_id]).recipes
+      recipes = Recipe.meal(params[:meal_id])
       recipe = recipes[params[:id].to_i]
     else
       recipe = Recipe.find_by(id: params[:id])

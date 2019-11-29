@@ -5,5 +5,5 @@ class Recipe < ApplicationRecord
   has_many :recipe_plans
   has_many :day_plans, through: :recipe_plans
 
-  scope :meal, -> (id) { where[meal_id: id] }
+  scope :meal, -> (id) { where(meal_id: id) }
 end
