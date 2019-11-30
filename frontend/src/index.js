@@ -301,18 +301,38 @@ function renderRecipes(planData) {
   }
 }
 
+function compileShoppingList(ingredients) {
+  let collapsed = []
+  for (let i = 0; i < ingredients.length; i++) {
+    let ingredient = ingredients[i];
+    let listed = collapsed.find(n => {
+      return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
+    });
+    if (listed) {
+      listed[1] += ingredient[1]
+    } else {
+      collapsed.push(ingredient);
+    }
+  }
+  console.log(collapsed)
+  let ingStrings = collapsed.map(function(ing) {
+    return makeIngredientString({
+      name: ing[0][0],
+      unit: ing[0][1],
+      amount: ing[1]
+    })
+  });
+  console.log(ingStrings);
+  return ingStrings;
+}
+
 function renderShoppingList(ingredients) {
   const frame = document.querySelector('#oven-shopping-list-content-pane');
+  //clear frame content just in case
   frame.innerHTML = '';
   let listItems = compileShoppingList(ingredients);
   for (let i = 0; i < listItems.length; i++) {
-    const listItem = listItems[i];
-    const name = listItem[0][0];
-    const unit = listItem[0][1];
-    const amount = listItem[1];
-    unit ?
-      frame.innerHTML += `<li>${amount} ${unit} ${name}</li>` :
-      frame.innerHTML += `<li>${amount} ${name}</li>`
+    frame.innerHTML += `<li>${listItems[i]}</li>` 
   }
 }
 
@@ -435,8 +455,6 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
     const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
     const json = await resp.json();
     const dayPlanId = await json.id;
-    console.log('and the completed day plan...');
-    console.log(json);
     //randomly select meals
     for (let meal = 0; meal < 3; meal++) {
       if (whichMeals[meal]) {
@@ -476,24 +494,6 @@ async function getRecipeIndex(rIndex, mealId) {
 function fetchFuturePlan(planId) {
   fetch(`${BASE_URL}/week_plans/${planId}`)
     .then(resp => resp.json()).then(json => renderFuturePlan(json));
-}
-
-function compileShoppingList(ingredients) {
-  let collapsed = []
-  for (let i = 0; i < ingredients.length; i++) {
-    let ingredient = ingredients[i];
-    let listed = collapsed.find(n => {
-      return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
-    });
-    if (listed) {
-      listed[1] += ingredient[1]
-    } else {
-      collapsed.push(ingredient);
-    }
-  }
-  console.log('full ingredients array:');
-  console.log(collapsed);
-  return collapsed
 }
 
 // async function discardPlans() {

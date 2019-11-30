@@ -22,8 +22,7 @@ Tweak oven button to
 
 FINAL TASKS
 
-Fix issue with generator
-  dry up global range array if possible
+Linkify recipes in oven
 
 Delete unnecessary code, including
   controller actions
