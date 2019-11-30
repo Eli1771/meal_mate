@@ -1,4 +1,6 @@
 const BASE_URL = "http://localhost:3000";
+//need global array to avoid meal-repeats across methods
+const NON_CHOSEN = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 $(document).ready(function() {
   // makeTemporaryMeal();
@@ -358,11 +360,13 @@ async function generatePlan() {
     let json = await resp.json();
     let weekPlanId = await json.id;
 
+    //messy array to prevent repeats for each meal
+    let alreadyPicked = [[],[],[]];
     // //Now loop through to make day plans and feed into week plan
     for (let day = 0; day < requiredMeals.length; day++) {
       let date = moment().add((day + offset), 'days').format('MMM DD');
       console.log('date of plan: ' + date);
-      await generateDayPlan(requiredMeals[day], date, day, weekPlanId);
+      alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, weekPlanId, alreadyPicked);
     }
     fetchFuturePlan(slugDate(startDate));
   }
@@ -370,7 +374,7 @@ async function generatePlan() {
 
 function getMealDays() {
   //results array represents seven days of 3 meals
-  let r = [[],[],[],[],[],[],[]];
+  let r = [[], [], [], [], [], [], []];
 
   let buttonMap = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
   //for each of the 7 days
@@ -384,7 +388,7 @@ function getMealDays() {
   return r;
 }
 
-async function generateDayPlan(whichMeals, date, day, weekPlanId) {
+async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked) {
   if (!whichMeals.reduce(noneChecked, true)) {
     let objData = {
       day_id: day + 1,
@@ -394,22 +398,34 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId) {
     let rand12 = function() {
       return randomInRange(12);
     }
+    console.log('time to generate some random recipe indexes...')
     //make the configuration object w/ object data
     let configObj = makeConfigObj(objData);
     //actual fetch posts to populate db
     const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
     const json = await resp.json();
-    console.log('day plan json:');
-    console.log(json);
     const dayPlanId = await json.id;
-
+    console.log(alreadyPicked)
     //randomly select meals
     for (let meal = 0; meal < 3; meal++) {
       if (whichMeals[meal]) {
-        await associateRecipe(rand3(), dayPlanId);
+        console.log('the meal index: ' + meal)
+        //randomly select a number 0 - 11 that HASNT been chosen before
+        let rIndex = rand12() - 1
+        console.log('first try:' + rIndex)
+        //to prevent repetition
+        while (alreadyPicked[meal].includes(rIndex)) {
+          rIndex = rand12() - 1
+          console.log('not that one, let\'s try: ' + rIndex)
+        }
+        alreadyPicked[meal].push(rIndex);
+        await associateRecipe(rIndex, dayPlanId, meal + 1);
       }
     }
   }
+  console.log('and the already picked array:');
+  console.log(alreadyPicked)
+  return alreadyPicked
 }
 
 async function associateRecipe(recipeId, dayPlanId) {

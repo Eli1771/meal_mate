@@ -23,7 +23,7 @@ Tweak oven button to
 FINAL TASKS
 
 Fix issue with generator
-  need scopes to only grab the proper meals when compiling
+  dry up global range array if possible
 
 Delete unnecessary code, including
   controller actions
