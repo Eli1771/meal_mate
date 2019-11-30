@@ -340,8 +340,8 @@ input.meal-button-checkbox:checked + label {
   background: #272324;
 }
 
-#oven button#generate-plan:hover,
-#oven button#oven-door-opened:hover {
+#oven button#generate-plan:hover
+/* #oven button#oven-door-opened:hover */ {
   background: #fcd633;
   color: #333;
 }
@@ -354,7 +354,7 @@ input.meal-button-checkbox:checked + label {
   box-shadow: inset 5px -5px 0 0 #6d6d6d;
 }
 
-button#oven-door-opened {
+#oven-door-opened {
   color: white;
   font-size: inherit;
   width: 109%;

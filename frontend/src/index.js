@@ -197,8 +197,8 @@ function loadEventListeners() {
 
 function openOven() {
   document.querySelector('#oven').classList.remove('meal-plan-loading');
-  let button = document.querySelector('#oven button#oven-door-opened');
-  button.innerHTML = 'Start Over?';
+  // let button = document.querySelector('#oven #oven-door-opened');
+  // button.innerHTML = 'Start Over?';
   //hide 'closed' elements
   let closed = document.querySelectorAll('.closed-oven');
   for (let i = 0; i < closed.length; i++) {
@@ -478,14 +478,22 @@ function fetchFuturePlan(planId) {
     .then(resp => resp.json()).then(json => renderFuturePlan(json));
 }
 
-function renderFuturePlan(planData) {
-  console.log(planData);
-  openOven();
-  renderRecipes(planData);
-  //to return a flat array of recipe_ingredients for the plan
-  let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
-  let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
-  renderShoppingList(ingredients);
+function compileShoppingList(ingredients) {
+  let collapsed = []
+  for (let i = 0; i < ingredients.length; i++) {
+    let ingredient = ingredients[i];
+    let listed = collapsed.find(n => {
+      return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
+    });
+    if (listed) {
+      listed[1] += ingredient[1]
+    } else {
+      collapsed.push(ingredient);
+    }
+  }
+  console.log('full ingredients array:');
+  console.log(collapsed);
+  return collapsed
 }
 
 // async function discardPlans() {
