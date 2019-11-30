@@ -398,37 +398,33 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
     let rand12 = function() {
       return randomInRange(12);
     }
-    console.log('time to generate some random recipe indexes...')
     //make the configuration object w/ object data
     let configObj = makeConfigObj(objData);
     //actual fetch posts to populate db
     const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
     const json = await resp.json();
     const dayPlanId = await json.id;
-    console.log(alreadyPicked)
+    console.log('and the completed day plan...');
+    console.log(json);
     //randomly select meals
     for (let meal = 0; meal < 3; meal++) {
       if (whichMeals[meal]) {
-        console.log('the meal index: ' + meal)
         //randomly select a number 0 - 11 that HASNT been chosen before
         let rIndex = rand12() - 1
-        console.log('first try:' + rIndex)
         //to prevent repetition
         while (alreadyPicked[meal].includes(rIndex)) {
           rIndex = rand12() - 1
-          console.log('not that one, let\'s try: ' + rIndex)
         }
         alreadyPicked[meal].push(rIndex);
         await associateRecipe(rIndex, dayPlanId, meal + 1);
       }
     }
   }
-  console.log('and the already picked array:');
-  console.log(alreadyPicked)
   return alreadyPicked
 }
 
-async function associateRecipe(recipeId, dayPlanId) {
+async function associateRecipe(rIndex, dayPlanId, mealId) {
+  let recipeId = await getRecipeIndex(rIndex, mealId);
   let objData = {
     recipe_id: recipeId,
     day_plan_id: dayPlanId
@@ -436,6 +432,14 @@ async function associateRecipe(recipeId, dayPlanId) {
   let configObj = makeConfigObj(objData);
   let resp = await fetch(`${BASE_URL}/recipe_plans`, configObj);
   let json = await resp.json();
+}
+
+async function getRecipeIndex(rIndex, mealId) {
+  let resp = await fetch(`${BASE_URL}/meals/${mealId}/recipes/${rIndex}`);
+  let json = await resp.json();
+  console.log(json)
+  let recipeId = await json.id;
+  return recipeId;
 }
 
 function fetchFuturePlan(planId) {
