@@ -276,6 +276,46 @@ function selectAllOfOneMeal() {
   }
 }
 
+function renderFuturePlan(planData) {
+  console.log(planData);
+  openOven();
+  renderRecipes(planData);
+  //to return a flat array of recipe_ingredients for the plan
+  let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
+  let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
+  renderShoppingList(ingredients);
+}
+
+function renderRecipes(planData) {
+  const frame = document.querySelector('#oven-meals-content-pane');
+  frame.innerHTML = '';
+  const dayPlans = planData.day_plans;
+  //now populate frame
+  frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
+  for (let i = 0; i < dayPlans.length; i++) {
+    frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
+    const recipes = dayPlans[i].recipes;
+    for (let j = 0; j < recipes.length; j++) {
+      frame.innerHTML += `<p>${recipes[j].meal.name} - ${recipes[j].name}</p>`;
+    }
+  }
+}
+
+function renderShoppingList(ingredients) {
+  const frame = document.querySelector('#oven-shopping-list-content-pane');
+  frame.innerHTML = '';
+  let listItems = compileShoppingList(ingredients);
+  for (let i = 0; i < listItems.length; i++) {
+    const listItem = listItems[i];
+    const name = listItem[0][0];
+    const unit = listItem[0][1];
+    const amount = listItem[1];
+    unit ?
+      frame.innerHTML += `<li>${amount} ${unit} ${name}</li>` :
+      frame.innerHTML += `<li>${amount} ${name}</li>`
+  }
+}
+
 
 
 
@@ -446,54 +486,6 @@ function renderFuturePlan(planData) {
   let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
   let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
   renderShoppingList(ingredients);
-}
-
-function renderRecipes(planData) {
-  const frame = document.querySelector('#oven-meals-content-pane');
-  frame.innerHTML = '';
-  const dayPlans = planData.day_plans;
-  //now populate frame
-  frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
-  for (let i = 0; i < dayPlans.length; i++) {
-    frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
-    const recipes = dayPlans[i].recipes;
-    for (let j = 0; j < recipes.length; j++) {
-      frame.innerHTML += `<p>${recipes[j].meal.name} - ${recipes[j].name}</p>`;
-    }
-  }
-}
-
-function renderShoppingList(ingredients) {
-  const frame = document.querySelector('#oven-shopping-list-content-pane');
-  frame.innerHTML = '';
-  let listItems = compileShoppingList(ingredients);
-  for (let i = 0; i < listItems.length; i++) {
-    const listItem = listItems[i];
-    const name = listItem[0][0];
-    const unit = listItem[0][1];
-    const amount = listItem[1];
-    unit ?
-      frame.innerHTML += `<li>${amount} ${unit} ${name}</li>` :
-      frame.innerHTML += `<li>${amount} ${name}</li>`
-  }
-}
-
-function compileShoppingList(ingredients) {
-  let collapsed = []
-  for (let i = 0; i < ingredients.length; i++) {
-    let ingredient = ingredients[i];
-    let listed = collapsed.find(n => {
-      return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
-    });
-    if (listed) {
-      listed[1] += ingredient[1]
-    } else {
-      collapsed.push(ingredient);
-    }
-  }
-  console.log('full ingredients array:');
-  console.log(collapsed);
-  return collapsed
 }
 
 // async function discardPlans() {
