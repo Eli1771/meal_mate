@@ -1,9 +1,7 @@
 const BASE_URL = "http://localhost:3000";
 //need global array to avoid meal-repeats across methods
-const NON_CHOSEN = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 $(document).ready(function() {
-  // makeTemporaryMeal();
   generatePageElements();
   loadEventListeners();
 });
@@ -173,8 +171,8 @@ function loadEventListeners() {
   let generatePlanButton = document.querySelector('#oven button#generate-plan');
   generatePlanButton.addEventListener('click', generatePlan);
 
-  let startOverButton = document.querySelector('#oven button#oven-door-opened');
-  startOverButton.addEventListener('click', discardPlans);
+  // let startOverButton = document.querySelector('#oven button#oven-door-opened');
+  // startOverButton.addEventListener('click', discardPlans);
 
   let selectAllMealsButton = document.querySelector('#select-all-meals');
   selectAllMealsButton.addEventListener('click', selectAllMeals);
@@ -216,25 +214,25 @@ function openOven() {
   document.querySelector('#oven-meals').checked = true;
 }
 
-async function closeOven() {
-  //first delete all the day plans you've made
-  let button = document.querySelector('#oven button#generate-plan');
-  button.innerHTML = 'Create Your Plan!';
-  //hide 'opened' elements
-  let opened = document.querySelectorAll('.open-oven');
-  for (let j = 0; j < opened.length; j++) {
-    opened[j].classList.add('hidden');
-  }
-  document.querySelector('#oven-door').classList.remove('opened');
-  //reveal 'closed' elements
-  let closed = document.querySelectorAll('.closed-oven');
-  for (let i = 0; i < closed.length; i++) {
-    closed[i].classList.remove('hidden');
-  }
-
-  document.querySelector('#oven-meals').checked = false;
-  document.querySelector('#oven-shopping-list').checked = false;
-}
+// async function closeOven() {
+//   //first delete all the day plans you've made
+//   let button = document.querySelector('#oven button#generate-plan');
+//   button.innerHTML = 'Create Your Plan!';
+//   //hide 'opened' elements
+//   let opened = document.querySelectorAll('.open-oven');
+//   for (let j = 0; j < opened.length; j++) {
+//     opened[j].classList.add('hidden');
+//   }
+//   document.querySelector('#oven-door').classList.remove('opened');
+//   //reveal 'closed' elements
+//   let closed = document.querySelectorAll('.closed-oven');
+//   for (let i = 0; i < closed.length; i++) {
+//     closed[i].classList.remove('hidden');
+//   }
+//
+//   document.querySelector('#oven-meals').checked = false;
+//   document.querySelector('#oven-shopping-list').checked = false;
+// }
 
 // function displayPlanType() {
   // let key = this.htmlFor;
@@ -285,53 +283,46 @@ function selectAllOfOneMeal() {
 
 //     ========TEMPORARY METHOD TO TEST DAY PLAN RENDERING==============
 
-function makeTemporaryMeal() {
-  let objData = {
-    start_date: 'Fake Date'
-  }
-  let configObj = makeConfigObj(objData);
-  fetch(`${BASE_URL}/week_plans`, configObj)
-    .then(resp => resp.json()).then(json => mameTemporaryDp(json));
-}
-
-function mameTemporaryDp(wpData) {
-  let wpId = wpData.id
-
-  const d = new Date();
-  const day = d.getDay();
-  const date = moment().format('MMM DD');
-
-  let objData = {
-    day_id: day,
-    date: date,
-    week_plan_id: wpId
-  };
-  //make the configuration object w/ object data
-  let configObj = makeConfigObj(objData);
-  //actual fetch posts to populate db
-  fetch(`${BASE_URL}/day_plans`, configObj)
-    .then(resp => resp.json()).then(json => associateTempMeal(json));
-}
-
-function associateTempMeal(dpData) {
-  let rand3 = function() {
-    return randomInRange(3);
-  }
-  let objData = {
-    recipe_id: rand3(),
-    day_plan_id: dpData.id
-  }
-  let configObj = makeConfigObj(objData);
-  fetch(`${BASE_URL}/recipe_plans`, configObj)
-    .then(resp => resp.json()).then(json => console.log(json));
-}
-
-
-
-
-
-
-
+// function makeTemporaryMeal() {
+//   let objData = {
+//     start_date: 'Fake Date'
+//   }
+//   let configObj = makeConfigObj(objData);
+//   fetch(`${BASE_URL}/week_plans`, configObj)
+//     .then(resp => resp.json()).then(json => mameTemporaryDp(json));
+// }
+//
+// function mameTemporaryDp(wpData) {
+//   let wpId = wpData.id
+//
+//   const d = new Date();
+//   const day = d.getDay();
+//   const date = moment().format('MMM DD');
+//
+//   let objData = {
+//     day_id: day,
+//     date: date,
+//     week_plan_id: wpId
+//   };
+//   //make the configuration object w/ object data
+//   let configObj = makeConfigObj(objData);
+//   //actual fetch posts to populate db
+//   fetch(`${BASE_URL}/day_plans`, configObj)
+//     .then(resp => resp.json()).then(json => associateTempMeal(json));
+// }
+//
+// function associateTempMeal(dpData) {
+//   let rand3 = function() {
+//     return randomInRange(3);
+//   }
+//   let objData = {
+//     recipe_id: rand3(),
+//     day_plan_id: dpData.id
+//   }
+//   let configObj = makeConfigObj(objData);
+//   fetch(`${BASE_URL}/recipe_plans`, configObj)
+//     .then(resp => resp.json()).then(json => console.log(json));
+// }
 
 
 //                    ================================
@@ -505,26 +496,26 @@ function compileShoppingList(ingredients) {
   return collapsed
 }
 
-async function discardPlans() {
-  if (confirm('Discard your current plan?')) {
-    this.innerHTML = 'Resetting...';
-    console.log('Deleting all future plans...');
-
-    let d = new Date;
-    let dateString = moment().add(7 - d.getDay(), 'days').format('MMM DD');
-    let dateSlug = slugDate(dateString);
-    fetch(`http://localhost:3000/week_plans/${dateSlug}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-    })
-      .then(resp => resp.json()).then(json => console.log(json));
-
-    closeOven();
-  }
-}
+// async function discardPlans() {
+//   if (confirm('Discard your current plan?')) {
+//     this.innerHTML = 'Resetting...';
+//     console.log('Deleting all future plans...');
+//
+//     let d = new Date;
+//     let dateString = moment().add(7 - d.getDay(), 'days').format('MMM DD');
+//     let dateSlug = slugDate(dateString);
+//     fetch(`http://localhost:3000/week_plans/${dateSlug}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Accept": "application/json"
+//       }
+//     })
+//       .then(resp => resp.json()).then(json => console.log(json));
+//
+//     closeOven();
+//   }
+// }
 
 
 
