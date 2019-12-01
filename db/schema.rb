@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_213832) do
     t.integer "recipe_id"
     t.integer "ingredient_id"
     t.string "unit"
-    t.integer "amount"
+    t.string "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"

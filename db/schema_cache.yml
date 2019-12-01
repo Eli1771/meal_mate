@@ -190,8 +190,8 @@ columns:
     name: amount
     table_name: recipe_ingredients
     sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
-      sql_type: integer
-      type: :integer
+      sql_type: float
+      type: :float
       limit: 
       precision: 
       scale: 
