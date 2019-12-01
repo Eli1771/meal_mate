@@ -306,10 +306,11 @@ function compileShoppingList(ingredients) {
   for (let i = 0; i < ingredients.length; i++) {
     let ingredient = ingredients[i];
     let listed = collapsed.find(n => {
+      //checks for listings with the same ingredient AND unit
       return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
     });
     if (listed) {
-      listed[1] += ingredient[1]
+      listed[1] += parseInt(ingredient[1]);
     } else {
       collapsed.push(ingredient);
     }
@@ -332,7 +333,7 @@ function renderShoppingList(ingredients) {
   frame.innerHTML = '';
   let listItems = compileShoppingList(ingredients);
   for (let i = 0; i < listItems.length; i++) {
-    frame.innerHTML += `<li>${listItems[i]}</li>` 
+    frame.innerHTML += `<li>${listItems[i]}</li>`
   }
 }
 
