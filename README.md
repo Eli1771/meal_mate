@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+WELCOME TO MEAL MATE
 
-Things you may want to cover:
+MealMate is a single page application to generate recipe-based meal plan for the coming week in just a few clicks. Runs with a Ruby on Rails based server on SQLite3 with a JS frontend
 
-* Ruby version
+- Currently running Rails version 6.0.1
 
-* System dependencies
+- Clone directory onto local machine. Install all dependancies in terminal with $ bundle install. Currently only configured for Chrome
 
-* Configuration
+- Construct database with $ rails db:migrate. Seed database with recipe libraries with $ rails db:seed
 
-* Database creation
+- Initialize server with $ rails s. Keep in mind that generated meal plans persist through multiple sessions
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Debug in-console by exiting the server with control-C and running $ rails c
