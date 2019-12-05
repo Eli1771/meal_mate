@@ -284,42 +284,44 @@ function selectAllOfOneMeal() {
 //                        STARTING CLASSES
 
 class WeekPlan {
-  constructor(startDate) {
+  constructor(startDate, id=null) {
     this.startDate = startDate;
   }
 
-  static saveToDb(routeName, attrHash) {
-    async function a() {
-      const configObj = makeConfigObj(objData);
-      const resp = await fetch(`${BASE_URL}/${attrHash}`, configObj);
-      const json = await resp.json();
-      return json
-    }
-  }
-
-  static makeConfigObj(objData) {
-    return {
+  get configObj() {
+    const config = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(objData)
+      body: JSON.stringify(this.attrHash)
     };
+    return config;
   }
-
   get attrHash() {
     const hash = {
       start_date: this.startDate
     }
     return hash;
   }
+  set id(id) {
+    this.id = id;
+  }
 
+  saveToDb(routeName) {
+    const route = `${BASE_URL}/${routeName}`;
+    console.log(route);
+    const configObj = makeConfigObj(this.attrHash);
+    console.log(configObj);
+    fetch(route, configObj)
+      .then(resp => resp.json()).then(json => this.id(json.id));
+  }
 }
 
 
 
-class DayPlan extends Plan {
+class DayPlan extends WeekPlan {
   constructor(day, date, weekPlanId) {
     this.day = day;
     this.date = date;
