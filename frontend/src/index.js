@@ -278,20 +278,46 @@ function selectAllOfOneMeal() {
   }
 }
 
-class Plan {
-  static saveToDb {
 
-  }
-}
 
-class WeekPlan extends Plan{
+
+//                        STARTING CLASSES
+
+class WeekPlan {
   constructor(startDate) {
     this.startDate = startDate;
   }
 
+  static saveToDb(routeName, attrHash) {
+    async function a() {
+      const configObj = makeConfigObj(objData);
+      const resp = await fetch(`${BASE_URL}/${attrHash}`, configObj);
+      const json = await resp.json();
+      return json
+    }
+  }
 
+  static makeConfigObj(objData) {
+    return {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(objData)
+    };
+  }
+
+  get attrHash() {
+    const hash = {
+      start_date: this.startDate
+    }
+    return hash;
+  }
 
 }
+
+
 
 class DayPlan extends Plan {
   constructor(day, date, weekPlanId) {
@@ -299,9 +325,21 @@ class DayPlan extends Plan {
     this.date = date;
     this.weekPlanId = weekPlanId;
   }
+
+  get attrHash() {
+    const hash = {
+      day: this.day,
+      date: this.date,
+      week_plan_id: this.weekPlanId
+    }
+    return hash;
+  }
 }
 
 
+
+
+//                         CLASSES
 
 async function generatePlan() {
   //first grab buttons from array of days
@@ -561,6 +599,10 @@ function randomInRange(n) {
   return Math.ceil(Math.random() * n);
 }
 
+function slugDate(s) {
+  return s.split(' ').join('_').toLowerCase();
+}
+
 function makeConfigObj(objData) {
   return {
     method: "POST",
@@ -570,10 +612,6 @@ function makeConfigObj(objData) {
     },
     body: JSON.stringify(objData)
   };
-}
-
-function slugDate(s) {
-  return s.split(' ').join('_').toLowerCase();
 }
 
 function makeIngredientString(ingObj) {
