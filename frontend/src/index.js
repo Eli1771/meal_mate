@@ -14,12 +14,12 @@ $(document).ready(function() {
 
 function generatePageElements() {
   generateMealButtons();
-  loadCurrentMealPlan();
+  loadCurrentWeekBanner();
   loadNextWeekBanner();
   fetchDayPlan();
 }
 
-function loadCurrentMealPlan() {
+function loadCurrentWeekBanner() {
   //Loads dates for current week
   let d = new Date;
   let currentWeekday = d.getDay();
@@ -278,6 +278,66 @@ function selectAllOfOneMeal() {
   }
 }
 
+class Plan {
+  static saveToDb {
+
+  }
+}
+
+class WeekPlan extends Plan{
+  constructor(startDate) {
+    this.startDate = startDate;
+  }
+
+
+
+}
+
+class DayPlan extends Plan {
+  constructor(day, date, weekPlanId) {
+    this.day = day;
+    this.date = date;
+    this.weekPlanId = weekPlanId;
+  }
+}
+
+
+
+async function generatePlan() {
+  //first grab buttons from array of days
+  let requiredMeals = getMealDays();
+  if (requiredMeals.flat().reduce(noneChecked, true)) {
+    alert('Please select at least one meal to generate.');
+  } else {
+    document.querySelector('#oven').classList.add('meal-plan-loading');
+    this.innerText = 'Loading...';
+    //moment methods to get dates for week
+    let d = new Date;
+    let currentWeekday = d.getDay();
+    let offset = 7 - currentWeekday;
+    //only to plug into the week_plan create method <- needs an async/await?
+    let startDate = moment().add(offset, 'days').format('MMM DD');
+    //find and delete any week plans with the same start date
+    let objData = {
+      start_date: startDate
+    }
+    let configObj = makeConfigObj(objData);
+    let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
+    let json = await resp.json();
+    let weekPlanId = await json.id;
+
+    //messy array to prevent repeats for each meal
+    let alreadyPicked = [[],[],[]];
+    // //Now loop through to make day plans and feed into week plan
+    for (let day = 0; day < requiredMeals.length; day++) {
+      let date = moment().add((day + offset), 'days').format('MMM DD');
+      console.log('date of plan: ' + date);
+      alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, weekPlanId, alreadyPicked);
+    }
+    fetchFuturePlan(slugDate(startDate));
+  }
+}
+
 function renderFuturePlan(planData) {
   console.log(planData);
   openOven();
@@ -342,6 +402,14 @@ function renderShoppingList(ingredients) {
   }
 }
 
+function fetchFuturePlan(planId) {
+  fetch(`${BASE_URL}/week_plans/${planId}`)
+    .then(resp => resp.json()).then(json => renderFuturePlan(json));
+}
+
+
+
+
 
 
 
@@ -393,41 +461,6 @@ function renderShoppingList(ingredients) {
 
 //                    ================================
 
-
-async function generatePlan() {
-  //first grab buttons from array of days
-  let requiredMeals = getMealDays();
-  if (requiredMeals.flat().reduce(noneChecked, true)) {
-    alert('Please select at least one meal to generate.');
-  } else {
-    document.querySelector('#oven').classList.add('meal-plan-loading');
-    this.innerText = 'Loading...';
-    //moment methods to get dates for week
-    let d = new Date;
-    let currentWeekday = d.getDay();
-    let offset = 7 - currentWeekday;
-    //only to plug into the week_plan create method <- needs an async/await?
-    let startDate = moment().add(offset, 'days').format('MMM DD');
-    //find and delete any week plans with the same start date
-    let objData = {
-      start_date: startDate
-    }
-    let configObj = makeConfigObj(objData);
-    let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
-    let json = await resp.json();
-    let weekPlanId = await json.id;
-
-    //messy array to prevent repeats for each meal
-    let alreadyPicked = [[],[],[]];
-    // //Now loop through to make day plans and feed into week plan
-    for (let day = 0; day < requiredMeals.length; day++) {
-      let date = moment().add((day + offset), 'days').format('MMM DD');
-      console.log('date of plan: ' + date);
-      alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, weekPlanId, alreadyPicked);
-    }
-    fetchFuturePlan(slugDate(startDate));
-  }
-}
 
 function getMealDays() {
   //results array represents seven days of 3 meals
@@ -495,11 +528,6 @@ async function getRecipeIndex(rIndex, mealId) {
   console.log(json)
   let recipeId = await json.id;
   return recipeId;
-}
-
-function fetchFuturePlan(planId) {
-  fetch(`${BASE_URL}/week_plans/${planId}`)
-    .then(resp => resp.json()).then(json => renderFuturePlan(json));
 }
 
 // async function discardPlans() {
