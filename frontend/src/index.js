@@ -283,8 +283,10 @@ function selectAllOfOneMeal() {
 
 //                        STARTING CLASSES
 
+//                 -----------Week Plan----------
+
 class WeekPlan {
-  constructor(startDate, id) {
+  constructor(startDate, weekPlanId) {
     this.startDate = startDate;
     this.routeName = 'week_plans';
   }
@@ -309,7 +311,7 @@ class WeekPlan {
 
   saveToDb() {
     let assignId = function(id) {
-      this.id = id;
+      this.weekPlanId = id;
     }.bind(this);
     const route = `${BASE_URL}/${this.routeName}`;
     const configObj = this.configObj
@@ -320,12 +322,15 @@ class WeekPlan {
 }
 
 
+//                  ----------Day Plan---------
+
+
 
 class DayPlan extends WeekPlan {
-  constructor(day, date, weekPlanId) {
+  constructor(startDate, weekPlanId, day, date) {
+    super(startDate, weekPlanId)
     this.day = day;
     this.date = date;
-    this.weekPlanId = weekPlanId;
   }
 
   get attrHash() {
