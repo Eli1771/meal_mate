@@ -284,8 +284,9 @@ function selectAllOfOneMeal() {
 //                        STARTING CLASSES
 
 class WeekPlan {
-  constructor(startDate, id=null) {
+  constructor(startDate, id) {
     this.startDate = startDate;
+    this.routeName = 'week_plans';
   }
 
   get configObj() {
@@ -305,17 +306,16 @@ class WeekPlan {
     }
     return hash;
   }
-  set id(id) {
-    this.id = id;
-  }
 
-  saveToDb(routeName) {
-    const route = `${BASE_URL}/${routeName}`;
-    console.log(route);
-    const configObj = makeConfigObj(this.attrHash);
-    console.log(configObj);
+  saveToDb() {
+    let assignId = function(id) {
+      this.id = id;
+    }.bind(this);
+    const route = `${BASE_URL}/${this.routeName}`;
+    const configObj = this.configObj
     fetch(route, configObj)
-      .then(resp => resp.json()).then(json => this.id(json.id));
+      .then(resp => resp.json())
+      .then(json => assignId(json.id));
   }
 }
 
