@@ -318,7 +318,6 @@ class Plan {
 class WeekPlan extends Plan{
   constructor(startDate, weekPlanId) {
     super(startDate);
-    this.routeName = 'week_plans';
   }
 
   get attrHash() {
@@ -326,6 +325,10 @@ class WeekPlan extends Plan{
       start_date: this.startDate
     }
     return hash;
+  }
+
+  get dayPlanAttributes() {
+    return [this.startDate, this.weekPlanId];
   }
 
   // configJson() {
@@ -343,10 +346,9 @@ class WeekPlan extends Plan{
 
 
 
-class DayPlan extends Plan {
-  constructor(startDate, weekPlanId, day, date) {
-    super(startDate);
-    this.weekPlanId = weekPlanId;
+class DayPlan extends WeekPlan {
+  constructor(startDate, weekPlanId, day, date, dayPlanId) {
+    super(startDate, weekPlanId);
     this.day = day;
     this.date = date;
   }
@@ -359,9 +361,21 @@ class DayPlan extends Plan {
     }
     return hash;
   }
+
+  get mealPlanAttributes() {
+    return [this.date, this.dayPlanId];
+  }
 }
 
 
+//                   ---------Meal Plan----------
+
+class MealPlan extends Plan {
+  constructor(date, dayPlanId, recipeId) {
+    super(date, dayPlanId);
+    this.recipeId = recipeId;
+  }
+}
 
 
 //                         CLASSES
@@ -383,24 +397,13 @@ async function generatePlan() {
     //find and delete any week plans with the same start date
 
     let wp = new WeekPlan(startDate);
-    // wp.saveToDb();
-    // let weekPlanId = await wp.weekPlanId;
-    // console.log('week plan id: ');
-    // console.log(wp);
 
-
-
-
-
-    // let objData = {
-    //   start_date: startDate
-    // }
     let configObj = wp.configObj;
-    console.log('config object: ');
-    console.log(configObj);
+
     let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
     let json = await resp.json();
     wp.weekPlanId = await json.id;
+    console.log('week plan id: ' + wp.weekPlanId);
     // let weekPlanId = await json.id;
 
     //messy array to prevent repeats for each meal
