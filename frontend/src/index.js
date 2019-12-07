@@ -283,12 +283,10 @@ function selectAllOfOneMeal() {
 
 //                        STARTING CLASSES
 
-//                 -----------Week Plan----------
-
-class WeekPlan {
-  constructor(startDate, weekPlanId) {
+//                     SUPERCLASS FOR ALL PLANS
+class Plan {
+  constructor(startDate) {
     this.startDate = startDate;
-    this.routeName = 'week_plans';
   }
 
   get configObj() {
@@ -302,12 +300,6 @@ class WeekPlan {
     };
     return config;
   }
-  get attrHash() {
-    const hash = {
-      start_date: this.startDate
-    }
-    return hash;
-  }
 
   saveToDb() {
     let assignId = function(id) {
@@ -315,9 +307,32 @@ class WeekPlan {
     }.bind(this);
     const route = `${BASE_URL}/${this.routeName}`;
     const configObj = this.configObj
-    fetch(route, configObj)
-      .then(resp => resp.json())
-      .then(json => assignId(json.id));
+    this.dataPromise = fetch(route, configObj)
+      .then(resp => resp.json());
+    this.configJson();
+  }
+}
+
+//                 -----------Week Plan----------
+
+class WeekPlan extends Plan{
+  constructor(startDate, weekPlanId) {
+    super(startDate);
+    this.routeName = 'week_plans';
+  }
+
+  get attrHash() {
+    const hash = {
+      start_date: this.startDate
+    }
+    return hash;
+  }
+
+  configJson() {
+    let assignId = function(id) {
+      this.weekPlanId = id;
+    }.bind(this);
+    this.dataPromise.then(json => assignId(json.id));
   }
 }
 
@@ -326,9 +341,10 @@ class WeekPlan {
 
 
 
-class DayPlan extends WeekPlan {
+class DayPlan extends Plan {
   constructor(startDate, weekPlanId, day, date) {
-    super(startDate, weekPlanId)
+    super(startDate);
+    this.weekPlanId = weekPlanId;
     this.day = day;
     this.date = date;
   }
