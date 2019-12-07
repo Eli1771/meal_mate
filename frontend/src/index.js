@@ -300,17 +300,17 @@ class Plan {
     };
     return config;
   }
-
-  saveToDb() {
-    let assignId = function(id) {
-      this.weekPlanId = id;
-    }.bind(this);
-    const route = `${BASE_URL}/${this.routeName}`;
-    const configObj = this.configObj
-    this.dataPromise = fetch(route, configObj)
-      .then(resp => resp.json());
-    this.configJson();
-  }
+  //
+  // saveToDb() {
+  //   let assignId = function(id) {
+  //     this.weekPlanId = id;
+  //   }.bind(this);
+  //   const route = `${BASE_URL}/${this.routeName}`;
+  //   const configObj = this.configObj
+  //   this.dataPromise = fetch(route, configObj)
+  //     .then(resp => resp.json());
+  //   this.configJson();
+  // }
 }
 
 //                 -----------Week Plan----------
@@ -328,12 +328,14 @@ class WeekPlan extends Plan{
     return hash;
   }
 
-  configJson() {
-    let assignId = function(id) {
-      this.weekPlanId = id;
-    }.bind(this);
-    this.dataPromise.then(json => assignId(json.id));
-  }
+  // configJson() {
+  //   let assignId = async function(data) {
+  //     this.weekPlanId = await data.id;
+  //     console.log('id: ' + data.id);
+  //     console.log(data.start_date);
+  //   }.bind(this);
+  //   this.dataPromise.then(json => assignId(json));
+  // }
 }
 
 
@@ -379,13 +381,27 @@ async function generatePlan() {
     //only to plug into the week_plan create method <- needs an async/await?
     let startDate = moment().add(offset, 'days').format('MMM DD');
     //find and delete any week plans with the same start date
-    let objData = {
-      start_date: startDate
-    }
-    let configObj = makeConfigObj(objData);
+
+    let wp = new WeekPlan(startDate);
+    // wp.saveToDb();
+    // let weekPlanId = await wp.weekPlanId;
+    // console.log('week plan id: ');
+    // console.log(wp);
+
+
+
+
+
+    // let objData = {
+    //   start_date: startDate
+    // }
+    let configObj = wp.configObj;
+    console.log('config object: ');
+    console.log(configObj);
     let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
     let json = await resp.json();
-    let weekPlanId = await json.id;
+    wp.weekPlanId = await json.id;
+    // let weekPlanId = await json.id;
 
     //messy array to prevent repeats for each meal
     let alreadyPicked = [[],[],[]];
@@ -393,7 +409,7 @@ async function generatePlan() {
     for (let day = 0; day < requiredMeals.length; day++) {
       let date = moment().add((day + offset), 'days').format('MMM DD');
       console.log('date of plan: ' + date);
-      alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, weekPlanId, alreadyPicked);
+      alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, wp.weekPlanId, alreadyPicked);
     }
     fetchFuturePlan(slugDate(startDate));
   }
