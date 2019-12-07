@@ -318,6 +318,7 @@ class Plan {
 class WeekPlan extends Plan{
   constructor(startDate, weekPlanId) {
     super(startDate);
+    this.weekPlanId = weekPlanId;
   }
 
   get attrHash() {
@@ -346,16 +347,17 @@ class WeekPlan extends Plan{
 
 
 
-class DayPlan extends WeekPlan {
-  constructor(startDate, weekPlanId, day, date, dayPlanId) {
-    super(startDate, weekPlanId);
+class DayPlan extends Plan {
+  constructor(weekPlanId, day, date, dayPlanId) {
+    super(weekPlanId);
     this.day = day;
     this.date = date;
+    this.weekPlanId = weekPlanId;
   }
 
   get attrHash() {
     const hash = {
-      day: this.day,
+      day_id: this.day,
       date: this.date,
       week_plan_id: this.weekPlanId
     }
@@ -370,7 +372,7 @@ class DayPlan extends WeekPlan {
 
 //                   ---------Meal Plan----------
 
-class MealPlan extends Plan {
+class MealPlan extends DayPlan {
   constructor(date, dayPlanId, recipeId) {
     super(date, dayPlanId);
     this.recipeId = recipeId;
@@ -397,14 +399,12 @@ async function generatePlan() {
     //find and delete any week plans with the same start date
 
     let wp = new WeekPlan(startDate);
-
     let configObj = wp.configObj;
 
     let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
     let json = await resp.json();
     wp.weekPlanId = await json.id;
-    console.log('week plan id: ' + wp.weekPlanId);
-    // let weekPlanId = await json.id;
+    console.log(wp.weekPlanId);
 
     //messy array to prevent repeats for each meal
     let alreadyPicked = [[],[],[]];
@@ -560,20 +560,21 @@ function getMealDays() {
 
 async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked) {
   if (!whichMeals.reduce(noneChecked, true)) {
-    let objData = {
-      day_id: day + 1,
-      date: date,
-      week_plan_id: weekPlanId
-    };
+    let dp = new DayPlan(weekPlanId, (day + 1), date);
+    console.log('made a dp. wp id: ' + dp.weekPlanId);
+    let configObj = dp.configObj
+    console.log(configObj);
+
     let rand12 = function() {
       return randomInRange(12);
     }
     //make the configuration object w/ object data
-    let configObj = makeConfigObj(objData);
     //actual fetch posts to populate db
     const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
     const json = await resp.json();
-    const dayPlanId = await json.id;
+    dp.dayPlanId = await json.id;
+
+    // const dayPlanId = await json.id;
     //randomly select meals
     for (let meal = 0; meal < 3; meal++) {
       if (whichMeals[meal]) {
@@ -584,7 +585,7 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
           rIndex = rand12() - 1
         }
         alreadyPicked[meal].push(rIndex);
-        await associateRecipe(rIndex, dayPlanId, meal + 1);
+        await associateRecipe(rIndex, dp.dayPlanId, meal + 1);
       }
     }
   }
