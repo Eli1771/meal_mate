@@ -377,6 +377,14 @@ class MealPlan extends DayPlan {
     super(date, dayPlanId);
     this.recipeId = recipeId;
   }
+
+  get attrHash() {
+    const hash = {
+      recipe_id: this.recipeId,
+      day_plan_id: this.dayPlanId
+    }
+    return hash;
+  }
 }
 
 
