@@ -2,7 +2,9 @@ const BASE_URL = "http://localhost:3000";
 //need global array to avoid meal-repeats across methods
 
 $(document).ready(function() {
+  console.log('page loaded');
   generatePageElements();
+  console.log('about to fire load event listeners...');
   loadEventListeners();
 });
 
@@ -170,6 +172,7 @@ function renderDayPlan(dp) {
 
 
 function loadEventListeners() {
+  console.log('loading listeners...');
   let generatePlanButton = document.querySelector('#oven button#generate-plan');
   generatePlanButton.addEventListener('click', generatePlan);
 
@@ -353,6 +356,7 @@ class DayPlan extends Plan {
     this.day = day;
     this.date = date;
     this.weekPlanId = weekPlanId;
+    this.dayPlanId = dayPlanId;
   }
 
   get attrHash() {
@@ -373,8 +377,9 @@ class DayPlan extends Plan {
 //                   ---------Meal Plan----------
 
 class MealPlan extends DayPlan {
-  constructor(date, dayPlanId, recipeId) {
-    super(date, dayPlanId);
+  constructor(dayPlanId, recipeId) {
+    super(dayPlanId);
+    this.dayPlanId = dayPlanId;
     this.recipeId = recipeId;
   }
 
@@ -392,6 +397,7 @@ class MealPlan extends DayPlan {
 
 async function generatePlan() {
   //first grab buttons from array of days
+  console.log('click event fired');
   let requiredMeals = getMealDays();
   if (requiredMeals.flat().reduce(noneChecked, true)) {
     alert('Please select at least one meal to generate.');
@@ -581,7 +587,8 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
     const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
     const json = await resp.json();
     dp.dayPlanId = await json.id;
-
+    console.log('id from json: ' + json.id);
+    console.log('loaded into object? ' + dp.dayPlanId);
     // const dayPlanId = await json.id;
     //randomly select meals
     for (let meal = 0; meal < 3; meal++) {
@@ -602,11 +609,21 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
 
 async function associateRecipe(rIndex, dayPlanId, mealId) {
   let recipeId = await getRecipeIndex(rIndex, mealId);
+  console.log('dp id: ' + dayPlanId);
+  console.log('recipe id: ' + recipeId);
+  let mp = new MealPlan(dayPlanId, recipeId);
+  let configObj = mp.configObj;
   let objData = {
     recipe_id: recipeId,
     day_plan_id: dayPlanId
   }
-  let configObj = makeConfigObj(objData);
+  let oldConfigObj = makeConfigObj(objData);
+  console.log('old')
+  console.log(oldConfigObj)
+  console.log('new')
+  console.log(configObj)
+  console.log('same?')
+  console.log(oldConfigObj == configObj);
   let resp = await fetch(`${BASE_URL}/recipe_plans`, configObj);
   let json = await resp.json();
 }
