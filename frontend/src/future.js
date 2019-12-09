@@ -1,6 +1,6 @@
 // INSERT INTO RENDER DAY PLAN BELOW
-//  ``mealContainer.appendChild(ingredientsList);``
-// To render star containers into day plan field
+// ``mealContainer.appendChild(ingredientsList);``
+//    To render star containers into day plan field
 
 //5. create ratings container
 let ratingsContainer = document.createElement('div');
@@ -19,8 +19,12 @@ for (let k = 0; k < ratingTitles.length; k++) {
   ratingZone.appendChild(stars);
 }
 
+
+
+
 // INSERT ANYWHERE
 // BE SURE TO CALL THIS FUNCTION TOWARDS THE END OF RENDER DAY PLAN
+//    Generates stars
 
 function generateStars() {
   console.log('generating stars...');
@@ -53,4 +57,54 @@ function generateStars() {
       id = mealName;
     }
   }
+}
+
+
+
+
+
+// MULTIPLE TEMPORARY FUNCTIONS. INSERT ANYWHERE. WILL NEED
+// MINOR REFACTORING TO WORK WITH CLASSES
+//    Used to make a plan for the current day. For testing the
+//    render-day-plan functions
+
+function makeTemporaryMeal() {
+  let objData = {
+    start_date: 'Fake Date'
+  }
+  let configObj = makeConfigObj(objData);
+  fetch(`${BASE_URL}/week_plans`, configObj)
+    .then(resp => resp.json()).then(json => mameTemporaryDp(json));
+}
+
+function mameTemporaryDp(wpData) {
+  let wpId = wpData.id
+
+  const d = new Date();
+  const day = d.getDay();
+  const date = moment().format('MMM DD');
+
+  let objData = {
+    day_id: day,
+    date: date,
+    week_plan_id: wpId
+  };
+  //make the configuration object w/ object data
+  let configObj = makeConfigObj(objData);
+  //actual fetch posts to populate db
+  fetch(`${BASE_URL}/day_plans`, configObj)
+    .then(resp => resp.json()).then(json => associateTempMeal(json));
+}
+
+function associateTempMeal(dpData) {
+  let rand3 = function() {
+    return randomInRange(3);
+  }
+  let objData = {
+    recipe_id: rand3(),
+    day_plan_id: dpData.id
+  }
+  let configObj = makeConfigObj(objData);
+  fetch(`${BASE_URL}/recipe_plans`, configObj)
+    .then(resp => resp.json()).then(json => console.log(json));
 }

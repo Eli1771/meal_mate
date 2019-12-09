@@ -347,7 +347,6 @@ class MealPlan extends DayPlan {
 
 async function generatePlan() {
   //first grab buttons from array of days
-  console.log('click event fired');
   let requiredMeals = getMealDays();
   if (requiredMeals.flat().reduce(noneChecked, true)) {
     alert('Please select at least one meal to generate.');
