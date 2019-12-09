@@ -126,9 +126,6 @@ function loadEventListeners() {
   let generatePlanButton = document.querySelector('#oven button#generate-plan');
   generatePlanButton.addEventListener('click', generatePlan);
 
-  // let startOverButton = document.querySelector('#oven button#oven-door-opened');
-  // startOverButton.addEventListener('click', discardPlans);
-
   let selectAllMealsButton = document.querySelector('#select-all-meals');
   selectAllMealsButton.addEventListener('click', selectAllMeals);
 
@@ -136,11 +133,6 @@ function loadEventListeners() {
   for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
     selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
   }
-
-  // let ovenDialButtons = document.querySelectorAll('#oven-dials label');
-  // for (let j = 0; j < ovenDialButtons.length; j++) {
-    // ovenDialButtons[j].addEventListener('click', displayPlanType);
-  // }
 }
 
 

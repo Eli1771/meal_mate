@@ -135,3 +135,17 @@ async function discardPlans() {
     closeOven();
   }
 }
+
+
+
+// INSERT INTO LOAD EVENT LISTENERS ANYWHERE
+//    Adds listener to start-over button on open oven door and
+//    listener to radio buttons to select plan type
+
+let ovenDialButtons = document.querySelectorAll('#oven-dials label');
+for (let j = 0; j < ovenDialButtons.length; j++) {
+  ovenDialButtons[j].addEventListener('click', displayPlanType);
+}
+
+let startOverButton = document.querySelector('#oven button#oven-door-opened');
+startOverButton.addEventListener('click', discardPlans);
