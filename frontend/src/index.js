@@ -253,17 +253,6 @@ class Plan {
     };
     return config;
   }
-  //
-  // saveToDb() {
-  //   let assignId = function(id) {
-  //     this.weekPlanId = id;
-  //   }.bind(this);
-  //   const route = `${BASE_URL}/${this.routeName}`;
-  //   const configObj = this.configObj
-  //   this.dataPromise = fetch(route, configObj)
-  //     .then(resp => resp.json());
-  //   this.configJson();
-  // }
 }
 
 //                 -----------Week Plan----------
@@ -284,15 +273,6 @@ class WeekPlan extends Plan{
   get dayPlanAttributes() {
     return [this.startDate, this.weekPlanId];
   }
-
-  // configJson() {
-  //   let assignId = async function(data) {
-  //     this.weekPlanId = await data.id;
-  //     console.log('id: ' + data.id);
-  //     console.log(data.start_date);
-  //   }.bind(this);
-  //   this.dataPromise.then(json => assignId(json));
-  // }
 }
 
 
@@ -459,51 +439,6 @@ function fetchFuturePlan(planId) {
 
 //                  ---------ALL BACKEND PROCESSES------
 
-//     ========TEMPORARY METHOD TO TEST DAY PLAN RENDERING==============
-
-// function makeTemporaryMeal() {
-//   let objData = {
-//     start_date: 'Fake Date'
-//   }
-//   let configObj = makeConfigObj(objData);
-//   fetch(`${BASE_URL}/week_plans`, configObj)
-//     .then(resp => resp.json()).then(json => mameTemporaryDp(json));
-// }
-//
-// function mameTemporaryDp(wpData) {
-//   let wpId = wpData.id
-//
-//   const d = new Date();
-//   const day = d.getDay();
-//   const date = moment().format('MMM DD');
-//
-//   let objData = {
-//     day_id: day,
-//     date: date,
-//     week_plan_id: wpId
-//   };
-//   //make the configuration object w/ object data
-//   let configObj = makeConfigObj(objData);
-//   //actual fetch posts to populate db
-//   fetch(`${BASE_URL}/day_plans`, configObj)
-//     .then(resp => resp.json()).then(json => associateTempMeal(json));
-// }
-//
-// function associateTempMeal(dpData) {
-//   let rand3 = function() {
-//     return randomInRange(3);
-//   }
-//   let objData = {
-//     recipe_id: rand3(),
-//     day_plan_id: dpData.id
-//   }
-//   let configObj = makeConfigObj(objData);
-//   fetch(`${BASE_URL}/recipe_plans`, configObj)
-//     .then(resp => resp.json()).then(json => console.log(json));
-// }
-
-
-//                    ================================
 
 
 function getMealDays() {
@@ -574,27 +509,6 @@ async function getRecipeIndex(rIndex, mealId) {
   let recipeId = await json.id;
   return recipeId;
 }
-
-// async function discardPlans() {
-//   if (confirm('Discard your current plan?')) {
-//     this.innerHTML = 'Resetting...';
-//     console.log('Deleting all future plans...');
-//
-//     let d = new Date;
-//     let dateString = moment().add(7 - d.getDay(), 'days').format('MMM DD');
-//     let dateSlug = slugDate(dateString);
-//     fetch(`http://localhost:3000/week_plans/${dateSlug}`, {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Accept": "application/json"
-//       }
-//     })
-//       .then(resp => resp.json()).then(json => console.log(json));
-//
-//     closeOven();
-//   }
-// }
 
 
 

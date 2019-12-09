@@ -108,3 +108,30 @@ function associateTempMeal(dpData) {
   fetch(`${BASE_URL}/recipe_plans`, configObj)
     .then(resp => resp.json()).then(json => console.log(json));
 }
+
+
+
+
+// INSERT ANYWHERE. NEEDS REFACTORING
+//    To delete future plans
+
+async function discardPlans() {
+  if (confirm('Discard your current plan?')) {
+    this.innerHTML = 'Resetting...';
+    console.log('Deleting all future plans...');
+
+    let d = new Date;
+    let dateString = moment().add(7 - d.getDay(), 'days').format('MMM DD');
+    let dateSlug = slugDate(dateString);
+    fetch(`http://localhost:3000/week_plans/${dateSlug}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      }
+    })
+      .then(resp => resp.json()).then(json => console.log(json));
+
+    closeOven();
+  }
+}
