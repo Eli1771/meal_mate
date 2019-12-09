@@ -2,9 +2,7 @@ const BASE_URL = "http://localhost:3000";
 //need global array to avoid meal-repeats across methods
 
 $(document).ready(function() {
-  console.log('page loaded');
   generatePageElements();
-  console.log('about to fire load event listeners...');
   loadEventListeners();
 });
 
@@ -172,7 +170,6 @@ function renderDayPlan(dp) {
 
 
 function loadEventListeners() {
-  console.log('loading listeners...');
   let generatePlanButton = document.querySelector('#oven button#generate-plan');
   generatePlanButton.addEventListener('click', generatePlan);
 
@@ -433,6 +430,7 @@ async function generatePlan() {
 }
 
 function renderFuturePlan(planData) {
+  console.log('RENDER FUTURE PLAN');
   console.log(planData);
   openOven();
   renderRecipes(planData);
@@ -613,17 +611,6 @@ async function associateRecipe(rIndex, dayPlanId, mealId) {
   console.log('recipe id: ' + recipeId);
   let mp = new MealPlan(dayPlanId, recipeId);
   let configObj = mp.configObj;
-  let objData = {
-    recipe_id: recipeId,
-    day_plan_id: dayPlanId
-  }
-  let oldConfigObj = makeConfigObj(objData);
-  console.log('old')
-  console.log(oldConfigObj)
-  console.log('new')
-  console.log(configObj)
-  console.log('same?')
-  console.log(oldConfigObj == configObj);
   let resp = await fetch(`${BASE_URL}/recipe_plans`, configObj);
   let json = await resp.json();
 }
