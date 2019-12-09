@@ -149,3 +149,47 @@ for (let j = 0; j < ovenDialButtons.length; j++) {
 
 let startOverButton = document.querySelector('#oven button#oven-door-opened');
 startOverButton.addEventListener('click', discardPlans);
+
+
+
+
+// INSERT ANYWHERE. NEED TO BE ASYNC?
+//    Listener to tweak display and close oven
+
+async function closeOven() {
+  //first delete all the day plans you've made
+  let button = document.querySelector('#oven button#generate-plan');
+  button.innerHTML = 'Create Your Plan!';
+  //hide 'opened' elements
+  let opened = document.querySelectorAll('.open-oven');
+  for (let j = 0; j < opened.length; j++) {
+    opened[j].classList.add('hidden');
+  }
+  document.querySelector('#oven-door').classList.remove('opened');
+  //reveal 'closed' elements
+  let closed = document.querySelectorAll('.closed-oven');
+  for (let i = 0; i < closed.length; i++) {
+    closed[i].classList.remove('hidden');
+  }
+
+  document.querySelector('#oven-meals').checked = false;
+  document.querySelector('#oven-shopping-list').checked = false;
+}
+
+
+
+ // INSERT ANYWHERE
+ //     To display different plan types by radio buttons on oven
+
+ function displayPlanType() {
+   let key = this.htmlFor;
+   let header = document.querySelector('#bottom-right h4');
+   let planNames = {
+     random: 'Surprise Me',
+     cost: 'Wallet-Friendly',
+     complexity: 'Feeling Ambitious',
+     nutrition: 'Healthy Choice',
+     taste: 'All The Hits'
+   }
+   header.innerHTML = `Plan Type: ${planNames[key]}`;
+ }
