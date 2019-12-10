@@ -467,7 +467,16 @@ function openOven() {
 
 function disableMealButtons() {
   console.log('locking meal buttons!');
-  // const buttons = document.querySelectorAll();
+  const buttons = document.querySelector('#meal-buttons-map');
+  buttons.classList.add('deactivated');
+
+  let selectAllMealsButton = document.querySelector('#select-all-meals');
+  selectAllMealsButton.removeEventListener('click', selectAllMeals);
+
+  let selectAllOfOneMealButtons = document.querySelectorAll('.select-all');
+  for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
+    selectAllOfOneMealButtons[i].removeEventListener('click', selectAllOfOneMeal);
+  }
 }
 
 function selectAllMeals() {
