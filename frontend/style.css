@@ -439,7 +439,7 @@ div.open-oven-door-content {
 #oven-door input:checked + div div.open-oven-door-content {
   display: block;
   overflow: scroll;
-  height: 65%;
+  height: 76%;
 }
 
 #oven-meals-content-pane a:hover {
