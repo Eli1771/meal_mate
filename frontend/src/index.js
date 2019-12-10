@@ -54,24 +54,18 @@ function generateMealButtons() {
 
 function loadCurrentWeekBanner() {
   //Loads dates for current week
-  let d = new Date;
-  let currentWeekday = d.getDay();
-  let pastSunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
-  let comingSaturday = moment().add((6 - currentWeekday), 'days').format('MMM Do');
+  let w = new Week(true);
   let week = document.querySelector('#week-label');
-  week.innerHTML = `${pastSunday} - ${comingSaturday}`;
+  week.innerHTML = `${w.sunday} - ${w.saturday}`;
   //first load the date
   let date = document.querySelector('#meal-title');
-  date.innerHTML = `${moment().format('dddd')}, ${moment().format("MMMM Do")}`;
+  date.innerHTML = `${moment().format('dddd')}, ${w.today}`;
 }
 
 function loadNextWeekBanner() {
-  let d = new Date;
-  let currentWeekday = d.getDay();
-  let comingSunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
-  let nextSaturday = moment().add((13 - currentWeekday), 'days').format('MMM Do');
+  let w = new Week(false);
   let week = document.querySelector('#bottom-right .date-banner');
-  week.innerHTML = `${comingSunday} - ${nextSaturday}`;
+  week.innerHTML = `${w.sunday} - ${w.saturday}`;
 }
 
 
