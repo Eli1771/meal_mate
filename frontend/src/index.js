@@ -1,5 +1,5 @@
 const BASE_URL = "http://localhost:3000";
-//need global array to avoid meal-repeats across methods
+
 
 $(document).ready(function() {
   generatePageElements();
@@ -14,7 +14,7 @@ function generatePageElements() {
   loadCurrentWeekBanner();
   loadNextWeekBanner();
   fetchDayPlan();
-  fetchFuturePlan('dec_15');
+  fetchFuturePlan();
 }
 
 function loadEventListeners() {
@@ -188,7 +188,8 @@ class MealPlan extends DayPlan {
 
 // To grab a current plan and render it
 function fetchDayPlan() {
-  const today = slugDate(moment().format('MMM DD')).toLowerCase();
+  let w = new Week(true);
+  const today = w.slug(w.today);
   const url = `${BASE_URL}/day_plans/${today}`;
   fetch(url).then(resp => resp.json()).then(json => renderDayPlan(json));
 }
@@ -258,11 +259,13 @@ async function generatePlan() {
     document.querySelector('#oven').classList.add('meal-plan-loading');
     this.innerText = 'Loading...';
     //moment methods to get dates for week
-    let d = new Date;
-    let currentWeekday = d.getDay();
-    let offset = 7 - currentWeekday;
-    //only to plug into the week_plan create method <- needs an async/await?
-    let startDate = moment().add(offset, 'days').format('MMM DD');
+    let w = new Week(false);
+    let startDate = w.sunday;
+    // let d = new Date;
+    // let currentWeekday = d.getDay();
+    // let offset = 7 - currentWeekday;
+    // //only to plug into the week_plan create method <- needs an async/await?
+    // let startDate = moment().add(offset, 'days').format('MMM DD');
     //find and delete any week plans with the same start date
     let wp = new WeekPlan(startDate);
     let configObj = wp.configObj;
@@ -276,11 +279,12 @@ async function generatePlan() {
 
     //Now loop through to make day plans and feed into week plan
     for (let day = 0; day < requiredMeals.length; day++) {
-      let date = moment().add((day + offset), 'days').format('MMM DD');
+      // let date = moment().add((day + offset), 'days').format('MMM DD');
+      let date = w.formatForSlug(w.dayOfWeek(day));
       console.log('date of plan: ' + date);
       alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, wp.weekPlanId, alreadyPicked);
     }
-    fetchFuturePlan(slugDate(startDate));
+    fetchFuturePlan();
   }
 }
 
@@ -365,7 +369,9 @@ async function getRecipeIndex(rIndex, mealId) {
 //                  ----------Plan Now Fully Generated----------
 
 // Fetches newly created plan
-function fetchFuturePlan(planId) {
+function fetchFuturePlan() {
+  let w = new Week(false);
+  let planId = w.slug(w.sunday);
   console.log(planId);
   fetch(`${BASE_URL}/week_plans/${planId}`)
     .then(resp => resp.json()).then(json => renderFuturePlan(json));
