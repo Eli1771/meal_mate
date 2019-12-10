@@ -14,6 +14,7 @@ function generatePageElements() {
   loadCurrentWeekBanner();
   loadNextWeekBanner();
   fetchDayPlan();
+  fetchFuturePlan('dec_15');
 }
 
 function loadEventListeners() {
@@ -39,6 +40,7 @@ function generateMealButtons() {
   for (let i = 0; i < meals.length; i++) {
 	  let meal =  meals[i];
     buttons.innerHTML += `<button class="select-all">${meal}</button>`;
+
     for (let j = 0; j < days.length; j++) {
       let day = days[j];
       let customId = `checkbox-${i}-${j}`;
@@ -56,7 +58,6 @@ function loadCurrentWeekBanner() {
   let currentWeekday = d.getDay();
   let pastSunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
   let comingSaturday = moment().add((6 - currentWeekday), 'days').format('MMM Do');
-
   let week = document.querySelector('#week-label');
   week.innerHTML = `${pastSunday} - ${comingSaturday}`;
   //first load the date
@@ -69,7 +70,6 @@ function loadNextWeekBanner() {
   let currentWeekday = d.getDay();
   let comingSunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
   let nextSaturday = moment().add((13 - currentWeekday), 'days').format('MMM Do');
-
   let week = document.querySelector('#bottom-right .date-banner');
   week.innerHTML = `${comingSunday} - ${nextSaturday}`;
 }
@@ -155,7 +155,7 @@ class MealPlan extends DayPlan {
 
 //                  ----------Existing Plans------------
 
-// To grab a future plan and render it
+// To grab a current plan and render it
 function fetchDayPlan() {
   const today = slugDate(moment().format('MMM DD')).toLowerCase();
   const url = `${BASE_URL}/day_plans/${today}`;
@@ -164,10 +164,12 @@ function fetchDayPlan() {
 
 function renderDayPlan(dp) {
   const container = document.querySelector('div#all-meals');
+
   if (dp) {
     //clear container of all content
     container.innerHTML = '';
     const recipes = dp.recipes;
+
     //for each recipe, create all elements
     for (let i = 0; i < recipes.length; i++) {
       let recipe = recipes[i];
@@ -187,6 +189,7 @@ function renderDayPlan(dp) {
       mealContainer.innerHTML += '<h5>Ingredients: </h5>';
       let ingredientsList = document.createElement('ul');
       ingredientsList.classList.add('ingredients-list');
+
       for (let j = 0; j < ingredients.length; j++) {
         let ing = ingredients[j];
         console.log(ing);
@@ -199,7 +202,6 @@ function renderDayPlan(dp) {
         ingredientsList.appendChild(li);
       }
       mealContainer.appendChild(ingredientsList);
-
       //7. add fully populated meal container to day plan container
       container.appendChild(mealContainer);
     }
@@ -211,6 +213,15 @@ function renderDayPlan(dp) {
   }
 }
 
+// To grab a future plan and render it
+
+async function fetchWeekPlan() {
+  let d = new Date;
+  let currentWeekday = d.getDay();
+  let comingSunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
+  let futurePlan = await fetch(`${BASE_URL}/week_plans/${next_sunday}`);
+}
+
 //                ----------Create New Plans----------
 
 // To generate the full plan from the oven button
@@ -218,6 +229,7 @@ function renderDayPlan(dp) {
 async function generatePlan() {
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
+
   if (requiredMeals.flat().reduce(noneChecked, true)) {
     alert('Please select at least one meal to generate.');
   } else {
@@ -239,7 +251,8 @@ async function generatePlan() {
     console.log(wp.weekPlanId);
     //messy array to prevent repeats for each meal
     let alreadyPicked = [[],[],[]];
-    // //Now loop through to make day plans and feed into week plan
+
+    //Now loop through to make day plans and feed into week plan
     for (let day = 0; day < requiredMeals.length; day++) {
       let date = moment().add((day + offset), 'days').format('MMM DD');
       console.log('date of plan: ' + date);
@@ -254,10 +267,11 @@ async function generatePlan() {
 function getMealDays() {
   //results array represents seven days of 3 meals
   let r = [[], [], [], [], [], [], []];
-
   let buttonMap = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
+
   //for each of the 7 days
   for (let day = 0; day < 7; day++) {
+
     //for each of the 3 meals
     for (let meal = 0; meal < 3; meal++) {
       let position = day + (meal * 7);
@@ -286,11 +300,13 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
     console.log('id from json: ' + json.id);
     console.log('loaded into object? ' + dp.dayPlanId);
     // const dayPlanId = await json.id;
-    //randomly select meals
+
+    // randomly select meals
     for (let meal = 0; meal < 3; meal++) {
       if (whichMeals[meal]) {
         //randomly select a number 0 - 11 that HASNT been chosen before
         let rIndex = rand12() - 1
+
         //to prevent repetition
         while (alreadyPicked[meal].includes(rIndex)) {
           rIndex = rand12() - 1
@@ -328,6 +344,7 @@ async function getRecipeIndex(rIndex, mealId) {
 
 // Fetches newly created plan
 function fetchFuturePlan(planId) {
+  console.log(planId);
   fetch(`${BASE_URL}/week_plans/${planId}`)
     .then(resp => resp.json()).then(json => renderFuturePlan(json));
 }
@@ -336,12 +353,15 @@ function fetchFuturePlan(planId) {
 function renderFuturePlan(planData) {
   console.log('RENDER FUTURE PLAN');
   console.log(planData);
-  openOven();
-  renderRecipes(planData);
-  //to return a flat array of recipe_ingredients for the plan
-  let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
-  let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
-  renderShoppingList(ingredients);
+  if (planData) {
+    openOven();
+    disableMealButtons();
+    renderRecipes(planData);
+    //to return a flat array of recipe_ingredients for the plan
+    let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
+    let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
+    renderShoppingList(ingredients);
+  }
 }
 
 // Renders meals into first pane
@@ -351,9 +371,11 @@ function renderRecipes(planData) {
   const dayPlans = planData.day_plans;
   //now populate frame
   frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
+
   for (let i = 0; i < dayPlans.length; i++) {
     frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
     const recipes = dayPlans[i].recipes;
+
     for (let j = 0; j < recipes.length; j++) {
       frame.innerHTML +=
         `<p>${recipes[j].meal.name} -
@@ -369,6 +391,7 @@ function renderShoppingList(ingredients) {
   //clear frame content just in case
   frame.innerHTML = '';
   let listItems = compileShoppingList(ingredients);
+
   for (let i = 0; i < listItems.length; i++) {
     frame.innerHTML += `<li>${listItems[i]}</li>`
   }
@@ -377,12 +400,14 @@ function renderShoppingList(ingredients) {
 // 'Condences' shopping list by adding like items together
 function compileShoppingList(ingredients) {
   let collapsed = []
+
   for (let i = 0; i < ingredients.length; i++) {
     let ingredient = ingredients[i];
     let listed = collapsed.find(n => {
       //checks for listings with the same ingredient AND unit
       return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
     });
+
     if (listed) {
       listed[1] += parseInt(ingredient[1]);
     } else {
@@ -405,9 +430,11 @@ function compileShoppingList(ingredients) {
 function makeIngredientString(ingObj) {
   const keysInOrder = ['amount', 'unit', 'name'];
   let r = '';
+
   if (!ingObj.amount) {
     r = `${ingObj.name} - ${ingObj.unit}`;
   } else {
+
     for (let i = 0; i < Object.keys(ingObj).length; i++) {
       if (ingObj[keysInOrder[i]]) {
         r += `${ingObj[keysInOrder[i]]} `;
@@ -435,8 +462,12 @@ function openOven() {
     opened[j].classList.remove('hidden');
   }
   document.querySelector('#oven-door').classList.add('opened');
-
   document.querySelector('#oven-meals').checked = true;
+}
+
+function disableMealButtons() {
+  console.log('locking meal buttons!');
+  // const buttons = document.querySelectorAll();
 }
 
 function selectAllMeals() {
