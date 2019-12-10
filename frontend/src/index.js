@@ -546,21 +546,6 @@ function randomInRange(n) {
   return Math.ceil(Math.random() * n);
 }
 
-function slugDate(s) {
-  return s.split(' ').join('_').toLowerCase();
-}
-
-function makeConfigObj(objData) {
-  return {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(objData)
-  };
-}
-
 //callback fx for reduce. Returns true if none of the mealplans are checked
 //must use true as initial value for second param in reduce fx
 function noneChecked(result, current) {
