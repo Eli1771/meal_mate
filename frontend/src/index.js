@@ -81,13 +81,23 @@ class Week {
   constructor(current) {
     //current: boolean, refers to either current week or next week
     let d = new Date;
-    let currentWeekday = d.getDay();
+    this.currentWeekday = d.getDay();
+    this.dateObj = d;
     this.current = current;
     this.today = moment().format('MMM Do');
     if (current) {
       this.sunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
     } else {
       this.sunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
+    }
+  }
+
+  formatForSlug(s) {
+    const cutSuffix = date.slice(0, date.length - 2);
+    if (cutSuffix.length < 6) {
+      return cutSuffix.split(' ').join(' 0');
+    } else {
+      return cutSuffix
     }
   }
 }
