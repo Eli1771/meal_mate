@@ -84,11 +84,12 @@ class Week {
     this.currentWeekday = d.getDay();
     this.dateObj = d;
     this.current = current;
-    this.today = moment().format('MMM Do');
     if (current) {
-      this.sunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
+      this.sunday = moment().subtract(this.currentWeekday, 'days').format('MMM Do');
+      this.saturday = moment().add((6 - this.currentWeekday), 'days').format('MMM Do');
     } else {
-      this.sunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
+      this.sunday = moment().add(7 - this.currentWeekday, 'days').format('MMM Do');
+      this.saturday = moment().add((13 - this.currentWeekday), 'days').format('MMM Do');
     }
   }
 
