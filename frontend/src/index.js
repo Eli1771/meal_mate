@@ -467,7 +467,7 @@ function openOven() {
 
 function disableMealButtons() {
   console.log('locking meal buttons!');
-  const buttons = document.querySelector('#meal-buttons-map');
+  const buttons = document.querySelector('#top-right');
   buttons.classList.add('deactivated');
 
   let selectAllMealsButton = document.querySelector('#select-all-meals');
@@ -477,6 +477,9 @@ function disableMealButtons() {
   for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
     selectAllOfOneMealButtons[i].removeEventListener('click', selectAllOfOneMeal);
   }
+  let deactivated = document.createElement('h3');
+  deactivated.innerText = 'View Next Week\'s Plan Below';
+  buttons.appendChild(deactivated);
 }
 
 function selectAllMeals() {

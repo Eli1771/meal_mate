@@ -241,6 +241,46 @@ input.meal-button-checkbox:checked + label {
   box-shadow: inset 4px -4px 0 0 #826903;
 }
 
+#top-right.deactivated * {
+  cursor: default;
+  color: #efc8c7;
+}
+
+#top-right.deactivated {
+  background: #dc7973;
+  box-shadow: inset 8px -8px 0px 0px #ad7a77;
+}
+
+#top-right.deactivated .meal-button-checkbox + label,
+#top-right.deactivated .meal-button-checkbok:checked + label {
+  background: #ffea92;
+  box-shadow: inset 7px -7px 0 0 #ccb96b;
+}
+
+#top-right.deactivated #selectAllMeals,
+#top-right.deactivated h5:hover label,
+#top-right.deactivated .select-all,
+#top-right.deactivated .select-all:hover {
+  background: #dc7973;
+}
+
+#top-right.deactivated h3 {
+  background: #ffcfcf;
+  padding: .5em;
+  margin: auto;
+  width: 80%;
+  border: 3px solid #92322c;
+  border-radius: 5vh;
+  color: #92322c;
+  text-align: center;
+  position: relative;
+  display: flex;
+  top: -49%;
+}
+
+
+
+
 #oven {
   height: 32vw;
   width: 27vw;
