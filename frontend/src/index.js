@@ -92,13 +92,24 @@ class Week {
     }
   }
 
+  get today() {
+    return moment().format('MMM Do');
+  }
+  //zero-indexed
+  dayOfWeek(day) {
+    return moment().add(day - this.currentWeekday, 'days').format('MMM Do');
+  }
   formatForSlug(s) {
-    const cutSuffix = date.slice(0, date.length - 2);
+    const cutSuffix = s.slice(0, s.length - 2);
     if (cutSuffix.length < 6) {
       return cutSuffix.split(' ').join(' 0');
     } else {
       return cutSuffix
     }
+  }
+  slug(s) {
+    const formatted = this.formatForSlug(s);
+    return formatted.split(' ').join('_').toLowerCase();
   }
 }
 
