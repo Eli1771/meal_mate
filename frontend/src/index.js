@@ -7,16 +7,47 @@ $(document).ready(function() {
 });
 
 
-
-//                        --------LOAD PAGE ELEMENTS-------
-
-
+//              --------ONLOAD FUNCTIONS---------
 
 function generatePageElements() {
   generateMealButtons();
   loadCurrentWeekBanner();
   loadNextWeekBanner();
   fetchDayPlan();
+}
+
+function loadEventListeners() {
+  let generatePlanButton = document.querySelector('#oven button#generate-plan');
+  generatePlanButton.addEventListener('click', generatePlan);
+
+  let selectAllMealsButton = document.querySelector('#select-all-meals');
+  selectAllMealsButton.addEventListener('click', selectAllMeals);
+
+  let selectAllOfOneMealButtons = document.querySelectorAll('.select-all');
+  for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
+    selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
+  }
+}
+
+//              -----------PAGE LOADERS-----------
+
+function generateMealButtons() {
+  let meals = ['Br', 'Lu', 'Di'];
+  let days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  let buttons = document.querySelector('#meal-buttons-map');
+
+  for (let i = 0; i < meals.length; i++) {
+	  let meal =  meals[i];
+    buttons.innerHTML += `<button class="select-all">${meal}</button>`;
+    for (let j = 0; j < days.length; j++) {
+      let day = days[j];
+      let customId = `checkbox-${i}-${j}`;
+      buttons.innerHTML +=
+        `<input type="checkbox" class="meal-button-checkbox ${meal} ${day}" id="${customId}">
+        <label for="${customId}"></label>`;
+        //above are 2 nested divs to be used to display a retro button with some depth
+    }
+  }
 }
 
 function loadCurrentWeekBanner() {
@@ -43,25 +74,88 @@ function loadNextWeekBanner() {
   week.innerHTML = `${comingSunday} - ${nextSaturday}`;
 }
 
-function generateMealButtons() {
-  let meals = ['Br', 'Lu', 'Di'];
-  let days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  let buttons = document.querySelector('#meal-buttons-map');
 
-  for (let i = 0; i < meals.length; i++) {
-	  let meal =  meals[i];
-    buttons.innerHTML += `<button class="select-all">${meal}</button>`;
-    for (let j = 0; j < days.length; j++) {
-      let day = days[j];
-      let customId = `checkbox-${i}-${j}`;
-      buttons.innerHTML +=
-        `<input type="checkbox" class="meal-button-checkbox ${meal} ${day}" id="${customId}">
-        <label for="${customId}"></label>`;
-        //above are 2 nested divs to be used to display a retro button with some depth
-    }
+//                --------MAIN CLASSES--------
+
+class Plan {
+  constructor(startDate) {
+    this.startDate = startDate;
+  }
+
+  get configObj() {
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this.attrHash)
+    };
+    return config;
   }
 }
 
+class WeekPlan extends Plan{
+  constructor(startDate, weekPlanId) {
+    super(startDate);
+    this.weekPlanId = weekPlanId;
+  }
+
+  get attrHash() {
+    const hash = {
+      start_date: this.startDate
+    }
+    return hash;
+  }
+  get dayPlanAttributes() {
+    return [this.startDate, this.weekPlanId];
+  }
+}
+
+class DayPlan extends Plan {
+  constructor(weekPlanId, day, date, dayPlanId) {
+    super(weekPlanId);
+    this.day = day;
+    this.date = date;
+    this.weekPlanId = weekPlanId;
+    this.dayPlanId = dayPlanId;
+  }
+
+  get attrHash() {
+    const hash = {
+      day_id: this.day,
+      date: this.date,
+      week_plan_id: this.weekPlanId
+    }
+    return hash;
+  }
+  get mealPlanAttributes() {
+    return [this.date, this.dayPlanId];
+  }
+}
+
+class MealPlan extends DayPlan {
+  constructor(dayPlanId, recipeId) {
+    super(dayPlanId);
+    this.dayPlanId = dayPlanId;
+    this.recipeId = recipeId;
+  }
+
+  get attrHash() {
+    const hash = {
+      recipe_id: this.recipeId,
+      day_plan_id: this.dayPlanId
+    }
+    return hash;
+  }
+}
+
+
+//                 ---------DATABASE FUNCTIONS---------
+
+//                  ----------Existing Plans------------
+
+// To grab a future plan and render it
 function fetchDayPlan() {
   const today = slugDate(moment().format('MMM DD')).toLowerCase();
   const url = `${BASE_URL}/day_plans/${today}`;
@@ -117,186 +211,10 @@ function renderDayPlan(dp) {
   }
 }
 
+//                ----------Create New Plans----------
 
-//                        -------LOAD EVENT LISTENERS-------
-
-
-
-function loadEventListeners() {
-  let generatePlanButton = document.querySelector('#oven button#generate-plan');
-  generatePlanButton.addEventListener('click', generatePlan);
-
-  let selectAllMealsButton = document.querySelector('#select-all-meals');
-  selectAllMealsButton.addEventListener('click', selectAllMeals);
-
-  let selectAllOfOneMealButtons = document.querySelectorAll('.select-all');
-  for (let i = 0; i < selectAllOfOneMealButtons.length; i++) {
-    selectAllOfOneMealButtons[i].addEventListener('click', selectAllOfOneMeal);
-  }
-}
-
-
-
-//                        -------ALL FRONTEND PROCESSES---------
-
-
-
-
-function openOven() {
-  document.querySelector('#oven').classList.remove('meal-plan-loading');
-  // let button = document.querySelector('#oven #oven-door-opened');
-  // button.innerHTML = 'Start Over?';
-  //hide 'closed' elements
-  let closed = document.querySelectorAll('.closed-oven');
-  for (let i = 0; i < closed.length; i++) {
-    closed[i].classList.add('hidden');
-  }
-  //reveal 'opened' elements
-  let opened = document.querySelectorAll('.open-oven');
-  for (let j = 0; j < opened.length; j++) {
-    opened[j].classList.remove('hidden');
-  }
-  document.querySelector('#oven-door').classList.add('opened');
-
-  document.querySelector('#oven-meals').checked = true;
-}
-
-// function displayPlanType() {
-  // let key = this.htmlFor;
-  // let header = document.querySelector('#bottom-right h4');
-  // let planNames = {
-    // random: 'Surprise Me',
-    // cost: 'Wallet-Friendly',
-    // complexity: 'Feeling Ambitious',
-    // nutrition: 'Healthy Choice',
-    // taste: 'All The Hits'
-  // }
-  // header.innerHTML = `Plan Type: ${planNames[key]}`;
-// }
-
-function selectAllMeals() {
-  let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
-  let selectAllCheckboxes = document.querySelectorAll('.select-all');
-  let status = this.checked;
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].checked = status;
-  }
-  for (let j = 0; j < selectAllCheckboxes.length; j++) {
-    selectAllCheckboxes[j].checked = status;
-  }
-}
-
-function selectAllOfOneMeal() {
-  let className = this.innerText;
-  let status = false;
-  let buttons = document.querySelectorAll(`div#meal-buttons-map .${className}`);
-  //will check all buttons unless all are already checked
-  for (let i = 0; i < buttons.length; i++) {
-    if (!buttons[i].checked) {
-      status = true;
-      break;
-    }
-  }
-  //change all buttons to the included status
-  for (let j = 0; j < buttons.length; j++) {
-    buttons[j].checked = status;
-  }
-}
-
-
-
-
-//                        STARTING CLASSES
-
-//                     SUPERCLASS FOR ALL PLANS
-class Plan {
-  constructor(startDate) {
-    this.startDate = startDate;
-  }
-
-  get configObj() {
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(this.attrHash)
-    };
-    return config;
-  }
-}
-
-//                 -----------Week Plan----------
-
-class WeekPlan extends Plan{
-  constructor(startDate, weekPlanId) {
-    super(startDate);
-    this.weekPlanId = weekPlanId;
-  }
-
-  get attrHash() {
-    const hash = {
-      start_date: this.startDate
-    }
-    return hash;
-  }
-
-  get dayPlanAttributes() {
-    return [this.startDate, this.weekPlanId];
-  }
-}
-
-
-//                  ----------Day Plan---------
-
-
-
-class DayPlan extends Plan {
-  constructor(weekPlanId, day, date, dayPlanId) {
-    super(weekPlanId);
-    this.day = day;
-    this.date = date;
-    this.weekPlanId = weekPlanId;
-    this.dayPlanId = dayPlanId;
-  }
-
-  get attrHash() {
-    const hash = {
-      day_id: this.day,
-      date: this.date,
-      week_plan_id: this.weekPlanId
-    }
-    return hash;
-  }
-
-  get mealPlanAttributes() {
-    return [this.date, this.dayPlanId];
-  }
-}
-
-
-//                   ---------Meal Plan----------
-
-class MealPlan extends DayPlan {
-  constructor(dayPlanId, recipeId) {
-    super(dayPlanId);
-    this.dayPlanId = dayPlanId;
-    this.recipeId = recipeId;
-  }
-
-  get attrHash() {
-    const hash = {
-      recipe_id: this.recipeId,
-      day_plan_id: this.dayPlanId
-    }
-    return hash;
-  }
-}
-
-
-//                         CLASSES
-
+// To generate the full plan from the oven button
+//    First make the week plan object
 async function generatePlan() {
   //first grab buttons from array of days
   let requiredMeals = getMealDays();
@@ -312,15 +230,13 @@ async function generatePlan() {
     //only to plug into the week_plan create method <- needs an async/await?
     let startDate = moment().add(offset, 'days').format('MMM DD');
     //find and delete any week plans with the same start date
-
     let wp = new WeekPlan(startDate);
     let configObj = wp.configObj;
-
+    //fetch functions
     let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
     let json = await resp.json();
     wp.weekPlanId = await json.id;
     console.log(wp.weekPlanId);
-
     //messy array to prevent repeats for each meal
     let alreadyPicked = [[],[],[]];
     // //Now loop through to make day plans and feed into week plan
@@ -333,86 +249,8 @@ async function generatePlan() {
   }
 }
 
-function renderFuturePlan(planData) {
-  console.log('RENDER FUTURE PLAN');
-  console.log(planData);
-  openOven();
-  renderRecipes(planData);
-  //to return a flat array of recipe_ingredients for the plan
-  let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
-  let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
-  renderShoppingList(ingredients);
-}
-
-function renderRecipes(planData) {
-  const frame = document.querySelector('#oven-meals-content-pane');
-  frame.innerHTML = '';
-  const dayPlans = planData.day_plans;
-  //now populate frame
-  frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
-  for (let i = 0; i < dayPlans.length; i++) {
-    frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
-    const recipes = dayPlans[i].recipes;
-    for (let j = 0; j < recipes.length; j++) {
-      frame.innerHTML +=
-        `<p>${recipes[j].meal.name} -
-        <a target="_blank" href="${recipes[j].instructions}">
-        ${recipes[j].name}</a></p>`;
-    }
-  }
-}
-
-function compileShoppingList(ingredients) {
-  let collapsed = []
-  for (let i = 0; i < ingredients.length; i++) {
-    let ingredient = ingredients[i];
-    let listed = collapsed.find(n => {
-      //checks for listings with the same ingredient AND unit
-      return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
-    });
-    if (listed) {
-      listed[1] += parseInt(ingredient[1]);
-    } else {
-      collapsed.push(ingredient);
-    }
-  }
-  console.log(collapsed)
-  let ingStrings = collapsed.map(function(ing) {
-    return makeIngredientString({
-      name: ing[0][0],
-      unit: ing[0][1],
-      amount: ing[1]
-    })
-  });
-  console.log(ingStrings);
-  return ingStrings;
-}
-
-function renderShoppingList(ingredients) {
-  const frame = document.querySelector('#oven-shopping-list-content-pane');
-  //clear frame content just in case
-  frame.innerHTML = '';
-  let listItems = compileShoppingList(ingredients);
-  for (let i = 0; i < listItems.length; i++) {
-    frame.innerHTML += `<li>${listItems[i]}</li>`
-  }
-}
-
-function fetchFuturePlan(planId) {
-  fetch(`${BASE_URL}/week_plans/${planId}`)
-    .then(resp => resp.json()).then(json => renderFuturePlan(json));
-}
-
-
-
-
-
-
-
-//                  ---------ALL BACKEND PROCESSES------
-
-
-
+// Creates aray representing selected meals for generation
+// based on the meal button map above oven
 function getMealDays() {
   //results array represents seven days of 3 meals
   let r = [[], [], [], [], [], [], []];
@@ -429,6 +267,7 @@ function getMealDays() {
   return r;
 }
 
+//    Then make each day plan object based on selected days
 async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked) {
   if (!whichMeals.reduce(noneChecked, true)) {
     let dp = new DayPlan(weekPlanId, (day + 1), date);
@@ -464,6 +303,7 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
   return alreadyPicked
 }
 
+//    Then make the join object for each day based on selected meals
 async function associateRecipe(rIndex, dayPlanId, mealId) {
   let recipeId = await getRecipeIndex(rIndex, mealId);
   console.log('dp id: ' + dayPlanId);
@@ -474,6 +314,7 @@ async function associateRecipe(rIndex, dayPlanId, mealId) {
   let json = await resp.json();
 }
 
+//    Used to gen the index (for fetching) based on randomized selection
 async function getRecipeIndex(rIndex, mealId) {
   let resp = await fetch(`${BASE_URL}/meals/${mealId}/recipes/${rIndex}`);
   let json = await resp.json();
@@ -483,10 +324,152 @@ async function getRecipeIndex(rIndex, mealId) {
 }
 
 
+//                  ----------Plan Now Fully Generated----------
+
+// Fetches newly created plan
+function fetchFuturePlan(planId) {
+  fetch(`${BASE_URL}/week_plans/${planId}`)
+    .then(resp => resp.json()).then(json => renderFuturePlan(json));
+}
+
+// Calls each function needed to render plan into oven
+function renderFuturePlan(planData) {
+  console.log('RENDER FUTURE PLAN');
+  console.log(planData);
+  openOven();
+  renderRecipes(planData);
+  //to return a flat array of recipe_ingredients for the plan
+  let ingredientObjects = planData.day_plans.map(dp => dp.recipes.map(r => r.recipe_ingredients)).flat(2);
+  let ingredients = ingredientObjects.map(io => [[io.ingredient.name, io.unit], io.amount]);
+  renderShoppingList(ingredients);
+}
+
+// Renders meals into first pane
+function renderRecipes(planData) {
+  const frame = document.querySelector('#oven-meals-content-pane');
+  frame.innerHTML = '';
+  const dayPlans = planData.day_plans;
+  //now populate frame
+  frame.innerHTML += `<h2>Week of ${planData.start_date}</h2>`;
+  for (let i = 0; i < dayPlans.length; i++) {
+    frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
+    const recipes = dayPlans[i].recipes;
+    for (let j = 0; j < recipes.length; j++) {
+      frame.innerHTML +=
+        `<p>${recipes[j].meal.name} -
+        <a target="_blank" href="${recipes[j].instructions}">
+        ${recipes[j].name}</a></p>`;
+    }
+  }
+}
+
+// Renders formatted shopping list items into second pane
+function renderShoppingList(ingredients) {
+  const frame = document.querySelector('#oven-shopping-list-content-pane');
+  //clear frame content just in case
+  frame.innerHTML = '';
+  let listItems = compileShoppingList(ingredients);
+  for (let i = 0; i < listItems.length; i++) {
+    frame.innerHTML += `<li>${listItems[i]}</li>`
+  }
+}
+
+// 'Condences' shopping list by adding like items together
+function compileShoppingList(ingredients) {
+  let collapsed = []
+  for (let i = 0; i < ingredients.length; i++) {
+    let ingredient = ingredients[i];
+    let listed = collapsed.find(n => {
+      //checks for listings with the same ingredient AND unit
+      return n[0][0] == ingredient[0][0] && n[0][1] == ingredient[0][1];
+    });
+    if (listed) {
+      listed[1] += parseInt(ingredient[1]);
+    } else {
+      collapsed.push(ingredient);
+    }
+  }
+  console.log(collapsed)
+  let ingStrings = collapsed.map(function(ing) {
+    return makeIngredientString({
+      name: ing[0][0],
+      unit: ing[0][1],
+      amount: ing[1]
+    })
+  });
+  console.log(ingStrings);
+  return ingStrings;
+}
+
+// Reformats json ingredient items into readable string
+function makeIngredientString(ingObj) {
+  const keysInOrder = ['amount', 'unit', 'name'];
+  let r = '';
+  if (!ingObj.amount) {
+    r = `${ingObj.name} - ${ingObj.unit}`;
+  } else {
+    for (let i = 0; i < Object.keys(ingObj).length; i++) {
+      if (ingObj[keysInOrder[i]]) {
+        r += `${ingObj[keysInOrder[i]]} `;
+      }
+    }
+  }
+  return r;
+}
+
+
+//              ------------FRONTEND FUNCTIONS------------
+
+function openOven() {
+  document.querySelector('#oven').classList.remove('meal-plan-loading');
+  // let button = document.querySelector('#oven #oven-door-opened');
+  // button.innerHTML = 'Start Over?';
+  //hide 'closed' elements
+  let closed = document.querySelectorAll('.closed-oven');
+  for (let i = 0; i < closed.length; i++) {
+    closed[i].classList.add('hidden');
+  }
+  //reveal 'opened' elements
+  let opened = document.querySelectorAll('.open-oven');
+  for (let j = 0; j < opened.length; j++) {
+    opened[j].classList.remove('hidden');
+  }
+  document.querySelector('#oven-door').classList.add('opened');
+
+  document.querySelector('#oven-meals').checked = true;
+}
+
+function selectAllMeals() {
+  let buttons = document.querySelectorAll('#meal-buttons-map input.meal-button-checkbox');
+  let selectAllCheckboxes = document.querySelectorAll('.select-all');
+  let status = this.checked;
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].checked = status;
+  }
+  for (let j = 0; j < selectAllCheckboxes.length; j++) {
+    selectAllCheckboxes[j].checked = status;
+  }
+}
+
+function selectAllOfOneMeal() {
+  let className = this.innerText;
+  let status = false;
+  let buttons = document.querySelectorAll(`div#meal-buttons-map .${className}`);
+  //will check all buttons unless all are already checked
+  for (let i = 0; i < buttons.length; i++) {
+    if (!buttons[i].checked) {
+      status = true;
+      break;
+    }
+  }
+  //change all buttons to the included status
+  for (let j = 0; j < buttons.length; j++) {
+    buttons[j].checked = status;
+  }
+}
+
 
 //                      -----------HELPERS-----------
-
-
 
 function randomInRange(n) {
   return Math.ceil(Math.random() * n);
@@ -505,21 +488,6 @@ function makeConfigObj(objData) {
     },
     body: JSON.stringify(objData)
   };
-}
-
-function makeIngredientString(ingObj) {
-  const keysInOrder = ['amount', 'unit', 'name'];
-  let r = '';
-  if (!ingObj.amount) {
-    r = `${ingObj.name} - ${ingObj.unit}`;
-  } else {
-    for (let i = 0; i < Object.keys(ingObj).length; i++) {
-      if (ingObj[keysInOrder[i]]) {
-        r += `${ingObj[keysInOrder[i]]} `;
-      }
-    }
-  }
-  return r;
 }
 
 //callback fx for reduce. Returns true if none of the mealplans are checked
