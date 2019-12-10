@@ -77,6 +77,21 @@ function loadNextWeekBanner() {
 
 //                --------MAIN CLASSES--------
 
+class Week {
+  constructor(current) {
+    //current: boolean, refers to either current week or next week
+    let d = new Date;
+    let currentWeekday = d.getDay();
+    this.current = current;
+    this.today = moment().format('MMM Do');
+    if (current) {
+      this.sunday = moment().subtract(currentWeekday, 'days').format('MMM Do');
+    } else {
+      this.sunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
+    }
+  }
+}
+
 class Plan {
   constructor(startDate) {
     this.startDate = startDate;
