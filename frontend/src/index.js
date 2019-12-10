@@ -244,15 +244,6 @@ function renderDayPlan(dp) {
   }
 }
 
-// To grab a future plan and render it
-
-async function fetchWeekPlan() {
-  let d = new Date;
-  let currentWeekday = d.getDay();
-  let comingSunday = moment().add(7 - currentWeekday, 'days').format('MMM Do');
-  let futurePlan = await fetch(`${BASE_URL}/week_plans/${next_sunday}`);
-}
-
 //                ----------Create New Plans----------
 
 // To generate the full plan from the oven button
