@@ -268,18 +268,20 @@ input.meal-button-checkbox:checked + label {
   background: #ffcfcf;
   padding: .5em;
   margin: auto;
-  width: 80%;
+  max-width: 80%;
+  width: fit-content;
   border: 3px solid #92322c;
   border-radius: 5vh;
   color: #92322c;
   text-align: center;
   position: relative;
   display: flex;
-  top: -49%;
+  top: -46%;
 }
 
 #oven {
   height: 32vw;
+  max-height: 29vw;
   width: 27vw;
   margin: auto;
   background: #333;
