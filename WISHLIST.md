@@ -2,6 +2,7 @@
 - work with Tasty API
 - export plans and shopping list
 - add custom recipes
+- use fraction.js to make ingredient lists prettier
 
 **current assumptions:**
 - each recipe is only applicable to ONE meal

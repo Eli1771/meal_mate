@@ -95,11 +95,13 @@ function renderDayPlan(dp) {
       ingredientsList.classList.add('ingredients-list');
       for (let j = 0; j < ingredients.length; j++) {
         let ing = ingredients[j];
+        console.log(ing);
         let li = document.createElement('li');
-        //li.innerText = makeIngredientString({amount: ing.amount, unit: ing.unit, name: ing.ingredient.name});
-        ing.unit ?
-          li.innerText = `${ing.amount} ${ing.unit} ${ing.ingredient.name}` :
-          li.innerText = `${ing.amount} ${ing.ingredient.name}`;
+        li.innerText = makeIngredientString({
+          amount: ing.amount,
+          unit: ing.unit,
+          name: ing.ingredient.name
+        });
         ingredientsList.appendChild(li);
       }
       mealContainer.appendChild(ingredientsList);

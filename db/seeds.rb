@@ -29,7 +29,7 @@ nugget_ingredients = [
   {name: 'Chili Powder', unit: 'tsp', amount: 1},
   {name: 'Paprika', unit: 'tsp', amount: 1},
   {name: 'Salt and Pepper', unit: 'tsp', amount: 0.5},
-  {name: 'Oil', unit: nil, amount: nil}
+  {name: 'Oil', unit: 'For Frying', amount: nil}
 ]
 
 nuggets = Recipe.create(name: 'Chiptle Popcorn Chicken', instructions: 'https://tasty.co/recipe/chipotle-popcorn-chicken', meal_id: 2)
