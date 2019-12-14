@@ -23,7 +23,4 @@ Tweak oven button to
 FINAL TASKS
 
 Delete unnecessary code, including
-  controller actions
-  whole controllers
   routes
-  db stuff (bulk)
