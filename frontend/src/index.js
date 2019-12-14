@@ -298,7 +298,10 @@ function renderRecipes(planData) {
     frame.innerHTML += `<h3>${dayPlans[i].day.name}</h3>`;
     const recipes = dayPlans[i].recipes;
     for (let j = 0; j < recipes.length; j++) {
-      frame.innerHTML += `<p>${recipes[j].meal.name} - ${recipes[j].name}</p>`;
+      frame.innerHTML +=
+        `<p>${recipes[j].meal.name} -
+        <a target="_blank" href="${recipes[j].instructions}">
+        ${recipes[j].name}</a></p>`;
     }
   }
 }

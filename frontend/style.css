@@ -402,3 +402,12 @@ div.open-oven-door-content {
   overflow: scroll;
   height: 65%;
 }
+
+#oven-meals-content-pane a:hover {
+    color: #7b7b7b;
+}
+
+#oven-meals-content-pane a {
+    color: #333333;
+    text-decoration: none;
+}
