@@ -22,8 +22,6 @@ Tweak oven button to
 
 FINAL TASKS
 
-Linkify recipes in oven
-
 Delete unnecessary code, including
   controller actions
   whole controllers
