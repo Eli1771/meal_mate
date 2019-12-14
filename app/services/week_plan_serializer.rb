@@ -12,7 +12,7 @@ class WeekPlanSerializer
           :recipe_ingredients => {:include => {
             :ingredient => {:only => [:name]}
           }, :only => [:amount, :unit]}
-        }, :only => [:name, ]},
+        }, :only => [:name, :instructions]},
       }, :only => [:date]}
     }, :except => [:id, :created_at, :updated_at]);
   end
