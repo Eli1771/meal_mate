@@ -232,7 +232,7 @@ white_fish_ingredients = [
   {name: 'Kosher Salt', unit: 'To Taste', amount: nil},
   {name: 'Black Pepper', unit: 'To Taste', amount: nil},
   {name: 'White Fish Fillet ', unit: 'oz', amount: 24},
-  {name: 'Fresh Basil', unit: 'cup(s)', amount: 0.25}
+  {name: 'Basil', unit: 'cup(s)', amount: 0.25}
 ]
 
 white_fish = Recipe.create(name: 'Savoury White Fish', instructions: 'https://tasty.co/recipe/savoury-white-fish-with-simmered-tomatoes', meal_id: 3)
@@ -570,7 +570,7 @@ picnic_sandwich_ingredients = [
   {name: 'Green Olives', unit: 'cup(s)', amount: 0.25}
 ]
 
-picnic_sandwich = Recipe.create(name: 'Summer Picnec Sandwich', instructions: 'https://tasty.co/recipe/summer-picnic-sandwich', meal_id: 1)
+picnic_sandwich = Recipe.create(name: 'Summer Picnic Sandwich', instructions: 'https://tasty.co/recipe/summer-picnic-sandwich', meal_id: 1)
 add_ingredients_to_recipe(picnic_sandwich_ingredients, picnic_sandwich)
 
 #bbq chicken bacon skewers

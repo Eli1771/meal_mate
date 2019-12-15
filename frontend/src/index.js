@@ -419,7 +419,7 @@ function compileShoppingList(ingredients) {
     });
 
     if (listed) {
-      listed[1] += parseInt(ingredient[1]);
+      listed[1] = parseFloat(listed[1]) + parseFloat(ingredient[1]);
     } else {
       collapsed.push(ingredient);
     }
