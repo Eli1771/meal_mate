@@ -228,7 +228,6 @@ function renderDayPlan(dp) {
 
       for (let j = 0; j < ingredients.length; j++) {
         let ing = ingredients[j];
-        console.log(ing);
         let li = document.createElement('li');
         li.innerText = makeIngredientString({
           amount: ing.amount,
@@ -262,30 +261,20 @@ async function generatePlan() {
   } else {
     document.querySelector('#oven').classList.add('meal-plan-loading');
     this.innerText = 'Loading...';
-    //moment methods to get dates for week
     let w = new Week(false);
     let startDate = w.formatForSlug(w.sunday);
-    // let d = new Date;
-    // let currentWeekday = d.getDay();
-    // let offset = 7 - currentWeekday;
-    // //only to plug into the week_plan create method <- needs an async/await?
-    // let startDate = moment().add(offset, 'days').format('MMM DD');
-    //find and delete any week plans with the same start date
     let wp = new WeekPlan(startDate);
     let configObj = wp.configObj;
     //fetch functions
     let resp = await fetch(`${BASE_URL}/week_plans`, configObj);
     let json = await resp.json();
     wp.weekPlanId = await json.id;
-    console.log(wp.weekPlanId);
     //messy array to prevent repeats for each meal
     let alreadyPicked = [[],[],[]];
 
     //Now loop through to make day plans and feed into week plan
     for (let day = 0; day < requiredMeals.length; day++) {
-      // let date = moment().add((day + offset), 'days').format('MMM DD');
       let date = w.formatForSlug(w.dayOfWeek(day));
-      console.log('date of plan: ' + date);
       alreadyPicked = await generateDayPlan(requiredMeals[day], date, day, wp.weekPlanId, alreadyPicked);
     }
     fetchFuturePlan();
@@ -315,9 +304,7 @@ function getMealDays() {
 async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked) {
   if (!whichMeals.reduce(noneChecked, true)) {
     let dp = new DayPlan(weekPlanId, (day + 1), date);
-    console.log('made a dp. wp id: ' + dp.weekPlanId);
     let configObj = dp.configObj
-    console.log(configObj);
 
     let rand12 = function() {
       return randomInRange(12);
@@ -327,9 +314,6 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
     const resp = await fetch(`${BASE_URL}/day_plans`, configObj);
     const json = await resp.json();
     dp.dayPlanId = await json.id;
-    console.log('id from json: ' + json.id);
-    console.log('loaded into object? ' + dp.dayPlanId);
-    // const dayPlanId = await json.id;
 
     // randomly select meals
     for (let meal = 0; meal < 3; meal++) {
@@ -352,8 +336,6 @@ async function generateDayPlan(whichMeals, date, day, weekPlanId, alreadyPicked)
 //    Then make the join object for each day based on selected meals
 async function associateRecipe(rIndex, dayPlanId, mealId) {
   let recipeId = await getRecipeIndex(rIndex, mealId);
-  console.log('dp id: ' + dayPlanId);
-  console.log('recipe id: ' + recipeId);
   let mp = new MealPlan(dayPlanId, recipeId);
   let configObj = mp.configObj;
   let resp = await fetch(`${BASE_URL}/recipe_plans`, configObj);
@@ -364,7 +346,6 @@ async function associateRecipe(rIndex, dayPlanId, mealId) {
 async function getRecipeIndex(rIndex, mealId) {
   let resp = await fetch(`${BASE_URL}/meals/${mealId}/recipes/${rIndex}`);
   let json = await resp.json();
-  console.log(json)
   let recipeId = await json.id;
   return recipeId;
 }
@@ -376,15 +357,12 @@ async function getRecipeIndex(rIndex, mealId) {
 function fetchFuturePlan() {
   let w = new Week(false);
   let planId = w.slug(w.sunday);
-  console.log(planId);
   fetch(`${BASE_URL}/week_plans/${planId}`)
     .then(resp => resp.json()).then(json => renderFuturePlan(json));
 }
 
 // Calls each function needed to render plan into oven
 function renderFuturePlan(planData) {
-  console.log('RENDER FUTURE PLAN');
-  console.log(planData);
   if (planData) {
     openOven();
     disableMealButtons();
@@ -446,7 +424,6 @@ function compileShoppingList(ingredients) {
       collapsed.push(ingredient);
     }
   }
-  console.log(collapsed)
   let ingStrings = collapsed.map(function(ing) {
     return makeIngredientString({
       name: ing[0][0],
@@ -454,7 +431,6 @@ function compileShoppingList(ingredients) {
       amount: ing[1]
     })
   });
-  console.log(ingStrings);
   return ingStrings;
 }
 
@@ -498,7 +474,6 @@ function openOven() {
 }
 
 function disableMealButtons() {
-  console.log('locking meal buttons!');
   const buttons = document.querySelector('#top-right');
   buttons.classList.add('deactivated');
 

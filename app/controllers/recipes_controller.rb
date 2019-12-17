@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
   def index
-    # binding.pry
     if params[:meal_id]
       recipes = Recipe.meal(params[:meal_id])
     else

@@ -10,19 +10,5 @@ Select from top tier (star count) until it's gone, then move down
 
 ^^Where to insert bulk meal logic?
 
-Make load animation on oven due to long ajax calls?
-Replace database.yml timeout cheat with some implimentation of $.when() ajax?
-Make const variables in global scope of static page elements to dry up SELECTORS
-Narrow routes to eliminate unnecessary code
-There's gotta be some way to DRY up getters/model relationships
-Need start date for week plans so there's not a ton of overlapping nonsense
-
 Tweak oven button to
   delete the whole plan in controller when discarding
-
-FINAL TASKS
-
-Delete unnecessary code, including
-  routes
-  old binding.prys
-  old console.logs
