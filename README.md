@@ -13,3 +13,9 @@ MealMate is a single page application to generate recipe-based meal plan for the
 - Initialize server with $ rails s. Keep in mind that generated meal plans persist through multiple sessions
 
 - Debug in-console by exiting the server with control-C and running $ rails c
+  - TO MANUALLY DELETE ALL MEAL PLANS: In the opened Rails console run
+    $ RecipePlan.clearAll
+    $ DayPlan.clearAll
+    $ WeekPlan.clearAll
+
+    (The order matters)
