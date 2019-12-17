@@ -92,7 +92,11 @@ class Week {
   }
   //zero-indexed
   dayOfWeek(day) {
-    return moment().add(day - this.currentWeekday, 'days').format('MMM Do');
+    if (this.current) {
+      return moment().add(day - this.currentWeekday, 'days').format('MMM Do');
+    } else {
+      return moment().add(day + (7 - this.currentWeekday), 'days').format('MMM Do');
+    }
   }
   formatForSlug(s) {
     const cutSuffix = s.slice(0, s.length - 2);
@@ -260,7 +264,7 @@ async function generatePlan() {
     this.innerText = 'Loading...';
     //moment methods to get dates for week
     let w = new Week(false);
-    let startDate = w.sunday;
+    let startDate = w.formatForSlug(w.sunday);
     // let d = new Date;
     // let currentWeekday = d.getDay();
     // let offset = 7 - currentWeekday;
