@@ -1,8 +1,5 @@
-require 'pry'
-
 class DayPlansController < ApplicationController
   def show
-    # binding.pry
     day = DayPlan.find_by(slug: params[:slug])
     render json: DayPlanSerializer.new(day).to_serialized_json
   end
@@ -11,13 +8,11 @@ class DayPlansController < ApplicationController
   end
 
   def create
-    # binding.pry
     day = DayPlan.create(day_plan_params)
     render json: day
   end
 
   def destroy
-    # binding.pry
     day = DayPlan.find_by(slug: params[:slug])
     day.delete
     render json: day

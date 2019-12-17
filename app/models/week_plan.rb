@@ -1,6 +1,5 @@
 class WeekPlan < ApplicationRecord
   has_many :day_plans
-  # has_many :recipes, through: :day_plans
 
   before_save :date_slug
 

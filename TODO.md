@@ -26,5 +26,3 @@ Delete unnecessary code, including
   routes
   old binding.prys
   old console.logs
-
-put how to delete plans into readme

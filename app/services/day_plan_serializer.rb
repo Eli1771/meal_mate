@@ -15,7 +15,3 @@ class DayPlanSerializer
     }, :except => [:id, :day_id, :date, :week_plan_id, :created_at, :updated_at])
   end
 end
-
-# def initialize(sighting_object)
-#   @sighting = sighting_object
-# end
